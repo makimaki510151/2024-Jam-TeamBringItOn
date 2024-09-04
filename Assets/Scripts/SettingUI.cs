@@ -26,6 +26,7 @@ public class SettingUI : MonoBehaviour
                 TitleRoot.Instance.dataScriptableObject.seVolSetting = seSlider.value;
                 break;
             case SceneType.MainGame:
+                MainGameRoot.Instance.dataScriptableObject.seVolSetting = seSlider.value;
                 break;
         }
     }
@@ -40,6 +41,7 @@ public class SettingUI : MonoBehaviour
                     tempFloat /= TitleRoot.Instance.dataScriptableObject.bgmVolSetting;
                     break;
                 case SceneType.MainGame:
+                    tempFloat /= MainGameRoot.Instance.dataScriptableObject.bgmVolSetting;
                     break;
             }
         }
@@ -50,10 +52,17 @@ public class SettingUI : MonoBehaviour
                 tempFloat *= TitleRoot.Instance.dataScriptableObject.bgmVolSetting;
                 break;
             case SceneType.MainGame:
+                MainGameRoot.Instance.dataScriptableObject.bgmVolSetting = bgmSlider.value;
+                tempFloat *= MainGameRoot.Instance.dataScriptableObject.bgmVolSetting;
                 break;
         }
 
         AudioControl.Instance.SetBGMVol(tempFloat);
+    }
+
+    public void ButtonPreview()
+    {
+
     }
 
     public void ButtonReturn()
@@ -65,6 +74,7 @@ public class SettingUI : MonoBehaviour
                 TitleRoot.Instance.SettingClose();
                 break;
             case SceneType.MainGame:
+                MainGameRoot.Instance.SettingClose();
                 break;
         }
     }
