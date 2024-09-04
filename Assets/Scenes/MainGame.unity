@@ -871,10 +871,10 @@ MonoBehaviour:
   invincibleTime: 0.5
   maxSpeed: 5
   speedBuffItemCount: 0
-  normalJumpPower: 5
-  parryJumpPower: 5
+  normalJumpPower: 10
+  parryJumpPower: 10
   character: 1
-  parryTime: 1
+  parryTime: 0.25
   transparent: {r: 1, g: 1, b: 1, a: 0.25}
 --- !u!50 &176195279
 Rigidbody2D:
@@ -3791,10 +3791,10 @@ MonoBehaviour:
   invincibleTime: 0.5
   maxSpeed: 5
   speedBuffItemCount: 0
-  normalJumpPower: 5
-  parryJumpPower: 5
+  normalJumpPower: 10
+  parryJumpPower: 10
   character: 0
-  parryTime: 1
+  parryTime: 0.25
   transparent: {r: 1, g: 1, b: 1, a: 0.25}
 --- !u!50 &1684583502
 Rigidbody2D:
