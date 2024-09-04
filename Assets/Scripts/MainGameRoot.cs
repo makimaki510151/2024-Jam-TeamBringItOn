@@ -56,7 +56,7 @@ public class MainGameRoot : RootParent
     private bool isCoroutines = false;
     private AsyncOperation asyncLoad;
 
-    private Vector3 tempVector3 = Vector3.zero;
+    private Vector3 tempVector3 = new(0,0,0);
 
     public static MainGameRoot Instance;
 
