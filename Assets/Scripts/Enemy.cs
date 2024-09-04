@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject myUI = null;
 
-    private Vector3 tempVector3 = Vector3.zero;
+    private Vector3 tempVector3 = new(0,0,0);
     private GameObject tempObject = null;
 
     private Transform myTransform = null;
