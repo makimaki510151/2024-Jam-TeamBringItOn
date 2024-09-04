@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private float invincibleTimer = 0;
     [SerializeField]
     private float maxSpeed = 20f;
-    
+
     [SerializeField]
     private float speedBuffItemCount = 0;
     [SerializeField]
@@ -37,15 +37,19 @@ public class Player : MonoBehaviour
     private float parryTime = 0.25f;
     private float parryTimer = 0;
 
+    [SerializeField]
+    private Color transparent = new(1, 1, 1, 0.25f);
+
+
     private bool isJump = false;
     private bool isParry = false;
+    private bool isParryHit = false;
     private bool isParryCancel = false;
     private bool isShot = false;
     private bool isGround = false;
     private bool isTransparent = false;
 
-    private Color transparent = new Color(1, 1, 1, 0.25f);
-
+    
     private Vector2 tempVector2 = new(0, 0);
 
     private Rigidbody2D myRigidbody2D = null;
@@ -63,7 +67,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                if (!isParry&&!isParryCancel)
+                if (!isParry && !isParryCancel)
                 {
                     Debug.Log("èÄîı");
                     isParry = true;
@@ -104,7 +108,7 @@ public class Player : MonoBehaviour
         }
 
         tempVector2 = myRigidbody2D.velocity;
-        if(tempVector2.x> maxSpeed)
+        if (tempVector2.x > maxSpeed)
         {
             tempVector2.x = maxSpeed;
             myRigidbody2D.velocity = tempVector2;
@@ -112,17 +116,17 @@ public class Player : MonoBehaviour
         if (isParry)
         {
             parryTimer -= Time.deltaTime;
-            if(parryTimer < 0)
+            if (parryTimer < 0)
             {
                 isParry = false;
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                if (!isGround)
+                if (!isGround && !isParryHit)
                 {
                     isParryCancel = true;
                 }
             }
         }
-        if(invincibleTimer > 0)
+        if (invincibleTimer > 0)
         {
             invincibleTimer -= Time.deltaTime;
             isTransparent = !isTransparent;
@@ -143,22 +147,24 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Ground"))
+        if (collision.CompareTag("Ground"))
         {
             isGround = true;
             isParryCancel = false;
+            isParryHit = false;
         }
         else if (collision.CompareTag("Enemy"))
         {
-            if(isParry)
+            if (isParry)
             {
                 Debug.Log("ÉpÉäÉBÅI");
+                isParryHit = true;
                 collision.GetComponent<Enemy>().StockMove(character);
                 myRigidbody2D.AddForce(myTransform.up * parryJumpPower, ForceMode2D.Impulse);
             }
-            else if(invincibleTimer<=0)
+            else if (invincibleTimer <= 0)
             {
-                myRigidbody2D.AddForce(-myTransform.right * knockbackLeft,ForceMode2D.Impulse);
+                myRigidbody2D.AddForce(-myTransform.right * knockbackLeft, ForceMode2D.Impulse);
                 myRigidbody2D.AddForce(myTransform.up * knockbackUp, ForceMode2D.Impulse);
                 invincibleTimer = invincibleTime;
             }

@@ -26,7 +26,11 @@ public class MainGameRoot : RootParent
     [SerializeField]
     private List<RectTransform> waterStocks = new();
     [SerializeField]
+    private RectTransform waterStockOver = null;
+    [SerializeField]
     private List<RectTransform> fireStocks = new();
+    [SerializeField]
+    private RectTransform fireStockOver = null;
 
     [SerializeField]
     private int waterStockCount = 0;
@@ -163,7 +167,7 @@ public class MainGameRoot : RootParent
                 }
                 else
                 {
-                    return new Vector3(1200, 490, 0);
+                    return waterStockOver.position;
                 }
             case Player.PlayCharacter.Fire:
             default:
@@ -174,7 +178,7 @@ public class MainGameRoot : RootParent
                 }
                 else
                 {
-                    return new Vector3(1200, -50, 0);
+                    return fireStockOver.position;
                 }
         }
     }

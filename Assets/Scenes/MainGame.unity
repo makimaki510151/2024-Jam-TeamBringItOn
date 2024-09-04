@@ -664,6 +664,7 @@ RectTransform:
   - {fileID: 1273916847}
   - {fileID: 136266935}
   - {fileID: 208717822}
+  - {fileID: 1941544970}
   m_Father: {fileID: 805605771}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -865,12 +866,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSpeed: 10
+  knockbackLeft: 10
+  knockbackUp: 5
+  invincibleTime: 0.5
   maxSpeed: 5
   speedBuffItemCount: 0
-  normalJumpPower: 15
+  normalJumpPower: 5
   parryJumpPower: 5
   character: 1
-  parryTime: 0.25
+  parryTime: 1
+  transparent: {r: 1, g: 1, b: 1, a: 0.25}
 --- !u!50 &176195279
 Rigidbody2D:
   serializedVersion: 4
@@ -3781,12 +3786,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSpeed: 10
+  knockbackLeft: 10
+  knockbackUp: 5
+  invincibleTime: 0.5
   maxSpeed: 5
   speedBuffItemCount: 0
-  normalJumpPower: 15
+  normalJumpPower: 5
   parryJumpPower: 5
   character: 0
-  parryTime: 0.25
+  parryTime: 1
+  transparent: {r: 1, g: 1, b: 1, a: 0.25}
 --- !u!50 &1684583502
 Rigidbody2D:
   serializedVersion: 4
@@ -4606,6 +4615,41 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de045db1be6a130429587e5f3c049def, type: 3}
+--- !u!1 &1939926980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1939926981}
+  m_Layer: 0
+  m_Name: over-
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1939926981
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939926980}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1940259474}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 250, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1940259473
 GameObject:
   m_ObjectHideFlags: 0
@@ -4641,6 +4685,7 @@ RectTransform:
   - {fileID: 465435394}
   - {fileID: 1819370052}
   - {fileID: 476323807}
+  - {fileID: 1939926981}
   m_Father: {fileID: 121084440}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -4686,6 +4731,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940259473}
   m_CullTransparentMesh: 1
+--- !u!1 &1941544969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1941544970}
+  m_Layer: 0
+  m_Name: over-
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1941544970
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941544969}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 138354239}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 250, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1989068091
 GameObject:
   m_ObjectHideFlags: 0
@@ -4898,12 +4978,14 @@ MonoBehaviour:
   - {fileID: 1273916847}
   - {fileID: 136266935}
   - {fileID: 208717822}
+  waterStockOver: {fileID: 1941544970}
   fireStocks:
   - {fileID: 346167613}
   - {fileID: 671377678}
   - {fileID: 465435394}
   - {fileID: 1819370052}
   - {fileID: 476323807}
+  fireStockOver: {fileID: 1939926981}
   waterStockCount: 0
   fireStockCount: 0
   canvasObject: {fileID: 152205687}
