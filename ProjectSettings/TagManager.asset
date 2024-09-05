@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Goal
   - Coin
+  - Water
+  - Fire
   layers:
   - Default
   - TransparentFX

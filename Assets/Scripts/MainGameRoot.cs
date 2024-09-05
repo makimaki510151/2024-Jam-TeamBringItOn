@@ -297,7 +297,7 @@ public class MainGameRoot : RootParent
     public void GoalPlayer(Player player)
     {
         // 1Pがゴールしたら、1PゴールUIを表示する
-        if (player.CompareTag("Player"))
+        if (player.CompareTag("Water"))
         {
             goalAnimator.SetBool(isGoalOnePId, true);
             StartCoroutine(OnGoalPlayer());
