@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     private float isGroundTimer = 0.5f;
     private float isGroundTime = 0;
 
+   
     private bool isJump = false;
     private bool isParry = false;
     private bool isParryHit = false;        // パリィが当たったらフラグをオン
