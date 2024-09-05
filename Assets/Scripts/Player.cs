@@ -266,4 +266,8 @@ public class Player : MonoBehaviour
         isParry = true;
         parryTimer = skateboardTime;
     }
+    public void Reverse()
+    {
+
+    }
 }
