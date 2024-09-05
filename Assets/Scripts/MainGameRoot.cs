@@ -50,6 +50,7 @@ public class MainGameRoot : RootParent
     [NonSerialized]
     public Camera fireCamera = null;
 
+    public float PlayTime { get; private set; }
 
     private Vector3 cameraPosWater = Vector2.zero;
     private Vector3 cameraPosFire = Vector2.zero;
@@ -57,6 +58,7 @@ public class MainGameRoot : RootParent
     private AsyncOperation asyncLoad;
 
     private Vector3 tempVector3 = new(0,0,0);
+    private float deltaTime;
 
     public static MainGameRoot Instance;
 
@@ -85,23 +87,29 @@ public class MainGameRoot : RootParent
         }
     }
 
-
-
     public override void Awake()
     {
         base.Awake();
         Instance = this;
     }
+
     private void Start()
     {
         cameraPosWater = (Vector2)cameraWaterTransform.position - playerWaterRigidbody2D.position;
         cameraPosFire = (Vector2)cameraFireTransform.position - playerFireRigidbody2D.position;
         waterCamera = cameraWaterTransform.GetComponent<Camera>();
         fireCamera = cameraFireTransform.GetComponent<Camera>();
+
+        PlayTime = 0;
     }
 
     private void Update()
     {
+        deltaTime = Time.deltaTime;
+
+        // ƒ^ƒCƒ€Œv‘ª
+        PlayTime += deltaTime;
+
         tempVector3 = Vector2.Lerp(cameraWaterTransform.position, playerWaterRigidbody2D.position + (Vector2)cameraPosWater, lerpNum);
         tempVector3.y = 7.75f;
         tempVector3.z = -10;
@@ -111,7 +119,6 @@ public class MainGameRoot : RootParent
         tempVector3.y = -12.25f;
         tempVector3.z = -10;
         cameraFireTransform.position = tempVector3;
-
     }
 
     public void ButtonResume()
