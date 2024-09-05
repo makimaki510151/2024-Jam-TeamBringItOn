@@ -11,6 +11,9 @@ public class TimeUI : MonoBehaviour
     [SerializeField, Tooltip("表示する場所を指定")]
     private Image[] values = null;
 
+    [SerializeField, Tooltip("ゴール時の時間を表示する場所を指定")]
+    private Image[] resultValues = null;
+
     private int time;
     private int timeMin;
 
@@ -38,6 +41,35 @@ public class TimeUI : MonoBehaviour
         for (int index = 4; index < values.Length; index++)
         {
             values[index].sprite = numbers[timeMin % 10];
+            timeMin /= 10;
+        }
+    }
+
+    public void SetResultTime()
+    {
+        time = (int)(MainGameRoot.Instance.PlayTime * 100); // 現在の秒数を取得
+        timeMin = 0;
+
+        while (true)
+        {
+            if (time >= 60 * 100)
+            {
+                timeMin++;
+                time -= 60 * 100;
+            }
+            else
+            {
+                break;
+            }
+        }
+        for (int index = 0; index < 4; index++)
+        {
+            resultValues[index].sprite = numbers[time % 10];
+            time /= 10;
+        }
+        for (int index = 4; index < resultValues.Length; index++)
+        {
+            resultValues[index].sprite = numbers[timeMin % 10];
             timeMin /= 10;
         }
     }

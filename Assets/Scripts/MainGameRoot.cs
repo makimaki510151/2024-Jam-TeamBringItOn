@@ -76,13 +76,13 @@ public class MainGameRoot : RootParent
     [SerializeField, Tooltip("ゴールアニメーター")]
     private Animator goalAnimator = null;
 
-    [SerializeField, Tooltip("ゴール表示アニメーション")]
-    private List<AnimationClip> goalShowAnims = new List<AnimationClip>();
-
     static readonly int isShowId = Animator.StringToHash("isShow");
     static readonly int isGoalOnePId = Animator.StringToHash("isGoalOneP");
 
     private bool isResult = false;  // リザルトが表示されたらフラグをオン
+
+    [SerializeField, Tooltip("タイムUI")]
+    private TimeUI timeUI = null;
 
     private List<StockUI> stockUIsWater = new();
     private List<StockUI> stockUIsFire = new();
@@ -300,29 +300,27 @@ public class MainGameRoot : RootParent
         if (character == Player.PlayCharacter.Water)
         {
             goalAnimator.SetBool(isGoalOnePId, true);
-            StartCoroutine(OnGoalPlayer());
         }
         // 2Pがゴールしたら、2PゴールUIを表示する
         else
         {
             goalAnimator.SetBool(isGoalOnePId, false);
-            StartCoroutine(OnGoalPlayer());
         }
+
+        StartCoroutine(OnGoalPlayer());
     }
 
     IEnumerator OnGoalPlayer()
     {
+        timeUI.SetResultTime();
+
         yield return new WaitForSeconds(goalShowDelay);
 
         goalAnimator.SetTrigger(isShowId);
 
-        for (int i = 0; i < goalShowAnims.Count; i++)
-        {
-            yield return new WaitForSeconds(goalShowAnims[i].length);
-        }
-
         isResult = true;
     }
+
     public void StockEnemyShot(Player.PlayCharacter playCharacter)
     {
         switch (playCharacter)
