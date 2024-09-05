@@ -232,4 +232,9 @@ public class Player : MonoBehaviour
             isGround = false;
         }
     }
+
+    public void BuffUp(int buffPower)
+    {
+        speedBuffItemCount += buffPower;
+    }
 }
