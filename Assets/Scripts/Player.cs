@@ -46,20 +46,25 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("アニメーター")]
     private Animator myAnimator = null;
 
+    [SerializeField]
+    private float skateboardBuffPower = 1.3f;
+    private float skateboardBuffContainer = 1;
+    [SerializeField]
+    private float skateboardTime = 1.0f;
+    private float skateboardTimer = 0;
+
     static readonly int isParryId = Animator.StringToHash("isParry");
 
     private bool isJump = false;
     private bool isParry = false;
     private bool isParryHit = false;        // パリィが当たったらフラグをオン
     private bool isParryCancel = false;     // パリィできないならフラグをオン
-    private bool isShot = false;
     private bool isGround = false;
     private bool isTransparent = false;     // 点滅用
 
     private Vector2 tempVector2 = new(0, 0);
     private Vector2 vector2zero = Vector2.zero;
     private Color colorWhite = Color.white;
-    private Color colorRed = Color.red;
     private float deltaTime;
 
     private Rigidbody2D myRigidbody2D = null;
@@ -112,7 +117,7 @@ public class Player : MonoBehaviour
         deltaTime = Time.deltaTime;
 
         // 移動処理
-        tempVector2 = (myTransform.right * defaultSpeed + (myTransform.right * defaultSpeed * (speedBuffItemCount / 100))) * Time.deltaTime;
+        tempVector2 = (myTransform.right * defaultSpeed + (myTransform.right * defaultSpeed * (speedBuffItemCount / 100)))* skateboardBuffContainer * Time.deltaTime;
         myRigidbody2D.velocity += tempVector2;
 
         // ジャンプフラグがオンなら、ジャンプする
@@ -125,7 +130,7 @@ public class Player : MonoBehaviour
         tempVector2 = myRigidbody2D.velocity;
 
         // 移動速度が最大値を超えないようにする
-        if (tempVector2.x > maxSpeed)
+        if (tempVector2.x > maxSpeed* skateboardBuffContainer)
         {
             tempVector2.x = maxSpeed;
             myRigidbody2D.velocity = tempVector2;
@@ -186,6 +191,16 @@ public class Player : MonoBehaviour
                 mySpriteRenderer.color = colorWhite;
             }
         }
+
+        if(skateboardTimer > 0)
+        {
+            skateboardTimer -= deltaTime;
+            if(skateboardTimer <= 0)
+            {
+                skateboardTimer = 0;
+                skateboardBuffContainer = 1;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -240,5 +255,10 @@ public class Player : MonoBehaviour
     public void BuffUp(int buffPower)
     {
         speedBuffItemCount += buffPower;
+    }
+    public void SkateboardTime()
+    {
+        skateboardTimer = skateboardTime;
+        skateboardBuffContainer = skateboardBuffPower;
     }
 }
