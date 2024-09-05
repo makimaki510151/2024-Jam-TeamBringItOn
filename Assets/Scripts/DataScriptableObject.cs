@@ -11,4 +11,12 @@ public class DataScriptableObject : ScriptableObject
 
     public float bgmVolSetting = 0.5f;
 
+    public enum PlayType
+    {
+        Two,
+        One
+    }
+
+    public PlayType playType = PlayType.Two;
+
 }
