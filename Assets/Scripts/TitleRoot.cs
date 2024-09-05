@@ -48,7 +48,7 @@ public class TitleRoot : RootParent
         if (isCoroutines) return;
         isCoroutines = true;
         dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
-        StartCoroutine(LoadYourAsyncScene("MainGame"));
+        StartCoroutine(LoadYourAsyncScene("ModeSelect"));
     }
 
     public void ButtonGamedEnd()
