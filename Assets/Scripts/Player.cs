@@ -224,10 +224,13 @@ public class Player : MonoBehaviour
                 Debug.Log("パリィ！");
                 isParryHit = true;
                 collision.GetComponent<Enemy>().StockMove(character);
-                tempVector2 = myRigidbody2D.velocity;
-                tempVector2.y = 0;
-                myRigidbody2D.velocity = tempVector2;
-                myRigidbody2D.AddForce(myTransform.up * parryJumpPower, ForceMode2D.Impulse);
+                if(skateboardTimer <= 0)
+                {
+                    tempVector2 = myRigidbody2D.velocity;
+                    tempVector2.y = 0;
+                    myRigidbody2D.velocity = tempVector2;
+                    myRigidbody2D.AddForce(myTransform.up * parryJumpPower, ForceMode2D.Impulse);
+                }
             }
             // 無敵時間でないなら、ノックバック処理を行う
             else if (invincibleTimer <= 0)
@@ -260,5 +263,7 @@ public class Player : MonoBehaviour
     {
         skateboardTimer = skateboardTime;
         skateboardBuffContainer = skateboardBuffPower;
+        isParry = true;
+        parryTimer = skateboardTime;
     }
 }

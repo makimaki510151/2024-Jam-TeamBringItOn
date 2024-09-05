@@ -7,7 +7,7 @@ public class Skateboard : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Player>().SkateboardTime();
-            Destroy(collision.gameObject);
+            Destroy(gameObject);
         }
     }
 }

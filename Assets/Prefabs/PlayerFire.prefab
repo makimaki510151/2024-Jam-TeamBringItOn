@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 8206820067443990338}
   m_Layer: 8
   m_Name: PlayerFire
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -273,6 +273,8 @@ MonoBehaviour:
   transparentColor: {r: 1, g: 1, b: 1, a: 0.25}
   isGroundTimer: 0.5
   myAnimator: {fileID: 8206820067443990338}
+  skateboardBuffPower: 1.9
+  skateboardTime: 3
 --- !u!61 &2655867290183432144
 BoxCollider2D:
   m_ObjectHideFlags: 0
