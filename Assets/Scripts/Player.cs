@@ -219,6 +219,11 @@ public class Player : MonoBehaviour
                 invincibleTimer = invincibleTime;
             }
         }
+        // ÉSÅ[ÉãÇ…ÉqÉbÉg
+        else if (collision.CompareTag("Goal"))
+        {
+            MainGameRoot.Instance.GoalPlayer(this);
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

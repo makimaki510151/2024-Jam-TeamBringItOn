@@ -50,6 +50,20 @@ public class MainGameRoot : RootParent
     [NonSerialized]
     public Camera fireCamera = null;
 
+    [SerializeField, Tooltip("ゴールしてからアニメーションを開始するまでの時間")]
+    private float goalShowDelay = 1.0f;
+
+    [SerializeField, Tooltip("ゴールアニメーター")]
+    private Animator goalAnimator = null;
+
+    [SerializeField, Tooltip("ゴール表示アニメーション")]
+    private List<AnimationClip> goalShowAnims = new List<AnimationClip>();
+
+    static readonly int isShowId = Animator.StringToHash("isShow");
+    static readonly int isGoalOnePId = Animator.StringToHash("isGoalOneP");
+
+    private bool isResult = false;  // リザルトが表示されたらフラグをオン
+
     public float PlayTime { get; private set; }
 
     private Vector3 cameraPosWater = Vector2.zero;
@@ -84,6 +98,15 @@ public class MainGameRoot : RootParent
                 settingUIObject.SetActive(false);
                 SettingClose();
             }
+        }
+    }
+
+    public void OnResult(InputAction.CallbackContext context)
+    {
+        // リザルト中にボタンが押されたら、モードセレクトシーンへ移行する
+        if (context.started && isResult)
+        {
+            ButtonModeSelect();
         }
     }
 
@@ -229,5 +252,35 @@ public class MainGameRoot : RootParent
     public GameObject GetCanvas()
     {
         return canvasObject;
+    }
+
+    public void GoalPlayer(Player player)
+    {
+        // 1Pがゴールしたら、1PゴールUIを表示する
+        if (player.CompareTag("Player"))
+        {
+            goalAnimator.SetBool(isGoalOnePId, true);
+            StartCoroutine(OnGoalPlayer());
+        }
+        // 2Pがゴールしたら、2PゴールUIを表示する
+        else
+        {
+            goalAnimator.SetBool(isGoalOnePId, false);
+            StartCoroutine(OnGoalPlayer());
+        }
+    }
+
+    IEnumerator OnGoalPlayer()
+    {
+        yield return new WaitForSeconds(goalShowDelay);
+
+        goalAnimator.SetTrigger(isShowId);
+
+        for (int i = 0; i < goalShowAnims.Count; i++)
+        {
+            yield return new WaitForSeconds(goalShowAnims[i].length);
+        }
+
+        isResult = true;
     }
 }
