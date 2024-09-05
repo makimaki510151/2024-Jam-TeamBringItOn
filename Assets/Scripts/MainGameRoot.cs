@@ -60,6 +60,16 @@ public class MainGameRoot : RootParent
     [NonSerialized]
     public Camera fireCamera = null;
 
+    [SerializeField]
+    private Transform waterGoalTransform = null;
+    [SerializeField]
+    private Transform fireGoalTransform = null;
+
+    [SerializeField]
+    private RectTransform waterIconRectTransform = null;
+    [SerializeField]
+    private RectTransform fireIconRectTransform = null;
+
     [SerializeField, Tooltip("ゴールしてからアニメーションを開始するまでの時間")]
     private float goalShowDelay = 1.0f;
 
@@ -84,6 +94,10 @@ public class MainGameRoot : RootParent
     private bool isCoroutines = false;
     private AsyncOperation asyncLoad;
 
+    private float waterGoalRange = 1;
+    private float fireGoalRange = 1;
+
+    private float tempFloat = 1;
     private Vector3 tempVector3 = new(0, 0, 0);
     private float deltaTime;
 
@@ -137,6 +151,9 @@ public class MainGameRoot : RootParent
         fireCamera = cameraFireTransform.GetComponent<Camera>();
 
         PlayTime = 0;
+
+        waterGoalRange = waterGoalTransform.position.x;
+        fireGoalRange = fireGoalTransform.position.x;
     }
 
     private void Update()
@@ -155,6 +172,14 @@ public class MainGameRoot : RootParent
         tempVector3.y = -12.25f;
         tempVector3.z = -10;
         cameraFireTransform.position = tempVector3;
+
+        tempFloat = playerWaterRigidbody2D.position.x / waterGoalRange;
+        tempVector3 = new Vector3(1820 * tempFloat+50, 540, 0);
+        waterIconRectTransform.position = tempVector3;
+
+        tempFloat = playerFireRigidbody2D.position.x / fireGoalRange;
+        tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
+        fireIconRectTransform.position = tempVector3;
     }
 
     public void ButtonResume()
