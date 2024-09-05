@@ -241,7 +241,7 @@ public class Player : MonoBehaviour
         // ƒS[ƒ‹‚Éƒqƒbƒg
         else if (collision.CompareTag("Goal"))
         {
-            MainGameRoot.Instance.GoalPlayer(this);
+            MainGameRoot.Instance.GoalPlayer(character);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

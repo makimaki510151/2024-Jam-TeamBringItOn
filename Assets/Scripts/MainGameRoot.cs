@@ -294,10 +294,10 @@ public class MainGameRoot : RootParent
         return canvasObject;
     }
 
-    public void GoalPlayer(Player player)
+    public void GoalPlayer(Player.PlayCharacter character)
     {
         // 1Pがゴールしたら、1PゴールUIを表示する
-        if (player.CompareTag("Water"))
+        if (character == Player.PlayCharacter.Water)
         {
             goalAnimator.SetBool(isGoalOnePId, true);
             StartCoroutine(OnGoalPlayer());
