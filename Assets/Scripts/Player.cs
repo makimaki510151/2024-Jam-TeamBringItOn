@@ -39,13 +39,15 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("無敵中の色")]
     private Color transparentColor = new(1, 1, 1, 0.25f);
 
-    [SerializeField]
+    [SerializeField, Tooltip("接地しているとみなす時間")]
+    private float isGroundTimer = 0.5f;
+    private float isGroundTime = 0;
+
     private bool isJump = false;
     private bool isParry = false;
     private bool isParryHit = false;        // パリィが当たったらフラグをオン
     private bool isParryCancel = false;     // パリィできないならフラグをオン
     private bool isShot = false;
-    [SerializeField]
     private bool isGround = false;
     private bool isTransparent = false;     // 点滅用
 
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
     private Vector2 vector2zero = Vector2.zero;
     private Color colorWhite = Color.white;
     private Color colorRed = Color.red;
+    private float deltaTime;
 
     private Rigidbody2D myRigidbody2D = null;
     private Transform myTransform = null;
@@ -95,10 +98,14 @@ public class Player : MonoBehaviour
         myRigidbody2D = GetComponent<Rigidbody2D>();
         myTransform = transform;
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+
+        isGroundTime = isGroundTimer;
     }
 
     void Update()
     {
+        deltaTime = Time.deltaTime;
+
         // 移動処理
         tempVector2 = (myTransform.right * defaultSpeed + (myTransform.right * defaultSpeed * (speedBuffItemCount / 100))) * Time.deltaTime;
         myRigidbody2D.velocity += tempVector2;
@@ -119,10 +126,25 @@ public class Player : MonoBehaviour
             myRigidbody2D.velocity = tempVector2;
         }
 
+        // 接地していても上昇落下をしていなければ、接地しているか判定する
+        if(!isGround && tempVector2.y < 0.1f && tempVector2.y > -0.1f)
+        {
+            // 指定した時間が経ったら、接地しているとする
+            isGroundTime -= deltaTime;
+            if(isGroundTime <= 0)
+            {
+                isGround = true;
+            }
+        }
+        else
+        {
+            isGroundTime = isGroundTimer;
+        }
+
         // パリィ状態なら、時間を計測する
         if (isParry)
         {
-            parryTimer -= Time.deltaTime;
+            parryTimer -= deltaTime;
 
             // 指定した時間が経ったら、パリィ状態を解除する
             if (parryTimer < 0)
@@ -141,7 +163,7 @@ public class Player : MonoBehaviour
         // 無敵中なら時間を計測する
         if (invincibleTimer > 0)
         {
-            invincibleTimer -= Time.deltaTime;
+            invincibleTimer -= deltaTime;
 
             // 指定した時間が経ったら、カラーを元に戻す
             if (invincibleTimer <= 0)
