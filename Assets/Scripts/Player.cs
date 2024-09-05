@@ -208,7 +208,6 @@ public class Player : MonoBehaviour
         // 地面にヒット
         if (collision.CompareTag("Ground"))
         {
-            Debug.Log("地面");
             isGround = true;
             isParryCancel = false;
             isParryHit = false;
@@ -216,15 +215,12 @@ public class Player : MonoBehaviour
         // 敵にヒット
         else if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("敵");
-
             // パリィ中なら、パリィ処理を行う
             if (isParry)
             {
-                Debug.Log("パリィ！");
                 isParryHit = true;
                 collision.GetComponent<Enemy>().StockMove(character);
-                if(skateboardTimer <= 0)
+                if (skateboardTimer <= 0)
                 {
                     tempVector2 = myRigidbody2D.velocity;
                     tempVector2.y = 0;
@@ -239,6 +235,11 @@ public class Player : MonoBehaviour
                 myRigidbody2D.AddForce(-myTransform.right * knockbackLeft, ForceMode2D.Impulse);
                 myRigidbody2D.AddForce(myTransform.up * knockbackUp, ForceMode2D.Impulse);
                 invincibleTimer = invincibleTime;
+
+                if (collision.GetComponent<Enemy>().AiType == Enemy.EnemyAiType.Octopus)
+                {
+                    collision.GetComponent<Enemy>().HitOctopus(character);
+                }
             }
         }
         // ゴールにヒット

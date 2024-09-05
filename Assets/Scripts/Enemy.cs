@@ -1,17 +1,22 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private GameObject myUI = null;
 
-    enum EnemyAiType
+    public enum EnemyAiType
     {
         Idle,
-        Crab
+        Crab,
+        Octopus,
     }
+    public EnemyAiType AiType { get => aiType; private set => aiType = value; }
+
     [SerializeField]
     private EnemyAiType aiType = EnemyAiType.Idle;
+
     [SerializeField]
     private float crabMoveTime = 1;
     private float crabMoveTimer = 0;
@@ -20,20 +25,22 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int crabCoefficient = 1;
 
-
+    [SerializeField, Tooltip("Water側のタコスミ")]
+    private OctopusInc waterOctopusInc = null;
+    [SerializeField, Tooltip("Fire側のタコスミ")]
+    private OctopusInc fireOctopusInc = null;
 
     private Vector3 tempVector3 = new(0,0,0);
     private GameObject tempObject = null;
+    private float deltaTime;
 
     private Rigidbody2D myRigidbody2D = null;
     private Transform myTransform = null;
 
-
-
     private void Start()
     {
         myTransform = transform;
-        switch (aiType)
+        switch (AiType)
         {
             case EnemyAiType.Idle:
                 break;
@@ -41,27 +48,50 @@ public class Enemy : MonoBehaviour
                 crabMoveTimer = crabMoveTime;
                 myRigidbody2D = GetComponent<Rigidbody2D>();
                 break;
+            case EnemyAiType.Octopus:
+                break;
         }
     }
 
     private void Update()
     {
-        switch (aiType)
+        deltaTime = Time.deltaTime;
+
+        switch (AiType)
         {
             case EnemyAiType.Idle:
                 break;
             case EnemyAiType.Crab:
-                if(crabMoveTimer >0)
-                {
-                    crabMoveTimer -= Time.deltaTime;
-                    myRigidbody2D.velocity = myTransform.right * crabCoefficient * crabSpeed;
-                    if (crabMoveTimer <= 0)
-                    {
-                        crabMoveTimer = crabMoveTime;
-                        crabCoefficient *= -1;
-                    }
-                }
+                UpdateForCrab();
                 break;
+            case EnemyAiType.Octopus:
+                break;
+        }
+    }
+
+    private void UpdateForCrab()
+    {
+        if (crabMoveTimer > 0)
+        {
+            crabMoveTimer -= deltaTime;
+            myRigidbody2D.velocity = myTransform.right * crabCoefficient * crabSpeed;
+            if (crabMoveTimer <= 0)
+            {
+                crabMoveTimer = crabMoveTime;
+                crabCoefficient *= -1;
+            }
+        }
+    }
+
+    public void HitOctopus(Player.PlayCharacter playCharacter)
+    {
+        if(playCharacter == Player.PlayCharacter.Water)
+        {
+            waterOctopusInc.SplashInc();
+        }
+        else
+        {
+            fireOctopusInc.SplashInc();
         }
     }
 
@@ -85,5 +115,4 @@ public class Enemy : MonoBehaviour
                 break;
         }
     }
-
 }
