@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -31,6 +32,15 @@ public class MainGameRoot : RootParent
     private List<RectTransform> fireStocks = new();
     [SerializeField]
     private RectTransform fireStockOver = null;
+
+    [SerializeField]
+    private RectTransform stockShotPosWater = null;
+    [SerializeField]
+    private RectTransform stockShotPosFire = null;
+    [SerializeField]
+    private GameObject stageWaterEnemysObject = null;
+    [SerializeField]
+    private GameObject stageFireEnemysObject = null;
 
     [SerializeField]
     private int waterStockCount = 0;
@@ -64,6 +74,9 @@ public class MainGameRoot : RootParent
 
     private bool isResult = false;  // リザルトが表示されたらフラグをオン
 
+    private List<StockUI> stockUIsWater = new();
+    private List<StockUI> stockUIsFire = new();
+
     public float PlayTime { get; private set; }
 
     private Vector3 cameraPosWater = Vector2.zero;
@@ -71,7 +84,7 @@ public class MainGameRoot : RootParent
     private bool isCoroutines = false;
     private AsyncOperation asyncLoad;
 
-    private Vector3 tempVector3 = new(0,0,0);
+    private Vector3 tempVector3 = new(0, 0, 0);
     private float deltaTime;
 
     public static MainGameRoot Instance;
@@ -185,7 +198,7 @@ public class MainGameRoot : RootParent
         }
     }
 
-    public Vector3 GetStockUIPos(Player.PlayCharacter enemyCharacter)
+    public Vector3 GetStockUIPos(Player.PlayCharacter enemyCharacter, StockUI myStock)
     {
         switch (enemyCharacter)
         {
@@ -193,6 +206,7 @@ public class MainGameRoot : RootParent
                 if (waterStockCount < 5)
                 {
                     waterStockCount++;
+                    stockUIsWater.Add(myStock);
                     return waterStocks[waterStockCount - 1].position;
                 }
                 else
@@ -204,6 +218,7 @@ public class MainGameRoot : RootParent
                 if (fireStockCount < 5)
                 {
                     fireStockCount++;
+                    stockUIsFire.Add(myStock);
                     return fireStocks[fireStockCount - 1].position;
                 }
                 else
@@ -282,5 +297,31 @@ public class MainGameRoot : RootParent
         }
 
         isResult = true;
+    }
+    public void StockEnemyShot(Player.PlayCharacter playCharacter)
+    {
+        switch (playCharacter)
+        {
+            case Player.PlayCharacter.Water:
+                if (waterStockCount > 0)
+                {
+                    waterStockCount--;
+                    tempVector3 = MainGameRoot.Instance.fireCamera.ScreenToWorldPoint(stockShotPosFire.position);
+                    stockUIsWater[waterStockCount].StockShot(tempVector3, stageWaterEnemysObject);
+                    stockUIsWater.Remove(stockUIsWater[waterStockCount]);
+
+                }
+                break;
+            case Player.PlayCharacter.Fire:
+            default:
+                if (fireStockCount > 0)
+                {
+                    fireStockCount--;
+                    tempVector3 = MainGameRoot.Instance.waterCamera.ScreenToWorldPoint(stockShotPosWater.position);
+                    stockUIsFire[fireStockCount].StockShot(tempVector3, stageFireEnemysObject);
+                    stockUIsFire.Remove(stockUIsFire[fireStockCount]);
+                }
+                break;
+        }
     }
 }

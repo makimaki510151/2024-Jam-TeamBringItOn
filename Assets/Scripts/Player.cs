@@ -88,7 +88,7 @@ public class Player : MonoBehaviour
     {
         if (context.started)
         {
-            isShot = true;
+            MainGameRoot.Instance.StockEnemyShot(character);
         }
     }
 

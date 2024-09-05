@@ -11,6 +11,8 @@ public class StockUI : MonoBehaviour
     [SerializeField]
     private float rotateValue = 60;
 
+    [SerializeField]
+    private GameObject myEnemy = null;
 
     [NonSerialized]
     public Player.PlayCharacter character = Player.PlayCharacter.Water;
@@ -22,7 +24,7 @@ public class StockUI : MonoBehaviour
     private bool myDie = false;
     private int myStockCount = 0;
     private float tempFloat = 0f;
-
+    private GameObject tempObject;
 
     void Start()
     {
@@ -30,8 +32,7 @@ public class StockUI : MonoBehaviour
 
         stratPos = myRectTransform.position;
         myDie = MainGameRoot.Instance.GetStockDie(character);
-        targetPos = MainGameRoot.Instance.GetStockUIPos(character);
-        Debug.Log(targetPos);
+        targetPos = MainGameRoot.Instance.GetStockUIPos(character, this);
         myStockCount = MainGameRoot.Instance.GetStockCount(character);
     }
 
@@ -49,5 +50,12 @@ public class StockUI : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void StockShot(Vector3 vector3,GameObject parentObject)
+    {
+        vector3.z = 0;
+        Instantiate(myEnemy, vector3, Quaternion.identity).transform.parent = parentObject.transform;
+        Destroy(gameObject);
     }
 }
