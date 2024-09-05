@@ -43,7 +43,11 @@ public class Player : MonoBehaviour
     private float isGroundTimer = 0.5f;
     private float isGroundTime = 0;
 
-   
+    [SerializeField, Tooltip("アニメーター")]
+    private Animator myAnimator = null;
+
+    static readonly int isParryId = Animator.StringToHash("isParry");
+
     private bool isJump = false;
     private bool isParry = false;
     private bool isParryHit = false;        // パリィが当たったらフラグをオン
@@ -79,7 +83,7 @@ public class Player : MonoBehaviour
                     Debug.Log("準備");
                     isParry = true;
                     parryTimer = parryTime;
-                    mySpriteRenderer.color = colorRed;
+                    myAnimator.SetTrigger(isParryId);
                 }
             }
         }
@@ -151,7 +155,6 @@ public class Player : MonoBehaviour
             if (parryTimer < 0)
             {
                 isParry = false;
-                mySpriteRenderer.color = colorWhite;
 
                 // 接地していなくパリィが当たっていないなら、パリィできないようにする
                 if (!isGround && !isParryHit)
@@ -166,12 +169,6 @@ public class Player : MonoBehaviour
         {
             invincibleTimer -= deltaTime;
 
-            // 指定した時間が経ったら、カラーを元に戻す
-            if (invincibleTimer <= 0)
-            {
-                mySpriteRenderer.color = colorWhite;
-            }
-
             // 点滅処理
             isTransparent = !isTransparent;
             if (isTransparent)
@@ -179,6 +176,12 @@ public class Player : MonoBehaviour
                 mySpriteRenderer.color = transparentColor;
             }
             else
+            {
+                mySpriteRenderer.color = colorWhite;
+            }
+
+            // 指定した時間が経ったら、カラーを元に戻す
+            if (invincibleTimer <= 0)
             {
                 mySpriteRenderer.color = colorWhite;
             }
