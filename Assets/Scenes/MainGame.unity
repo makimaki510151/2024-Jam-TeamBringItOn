@@ -875,7 +875,9 @@ MonoBehaviour:
   parryJumpPower: 10
   character: 1
   parryTime: 0.25
-  transparent: {r: 1, g: 1, b: 1, a: 0.25}
+  transparentColor: {r: 1, g: 1, b: 1, a: 0.25}
+  isJump: 0
+  isGround: 0
 --- !u!50 &176195279
 Rigidbody2D:
   serializedVersion: 4
@@ -3795,7 +3797,9 @@ MonoBehaviour:
   parryJumpPower: 10
   character: 0
   parryTime: 0.25
-  transparent: {r: 1, g: 1, b: 1, a: 0.25}
+  transparentColor: {r: 1, g: 1, b: 1, a: 0.25}
+  isJump: 0
+  isGround: 0
 --- !u!50 &1684583502
 Rigidbody2D:
   serializedVersion: 4
