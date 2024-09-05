@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
     private float skateboardTimer = 0;
 
     static readonly int isParryId = Animator.StringToHash("isParry");
+    static readonly int isDamageId = Animator.StringToHash("isDamage");
 
     private bool isJump = false;
     private bool isParry = false;
@@ -211,6 +212,7 @@ public class Player : MonoBehaviour
             isGround = true;
             isParryCancel = false;
             isParryHit = false;
+            myAnimator.SetBool(isDamageId, false);
         }
         // “G‚Éƒqƒbƒg
         else if (collision.CompareTag("Enemy"))
@@ -235,6 +237,7 @@ public class Player : MonoBehaviour
                 myRigidbody2D.AddForce(-myTransform.right * knockbackLeft, ForceMode2D.Impulse);
                 myRigidbody2D.AddForce(myTransform.up * knockbackUp, ForceMode2D.Impulse);
                 invincibleTimer = invincibleTime;
+                myAnimator.SetBool(isDamageId, true);
 
                 if (collision.GetComponent<Enemy>().AiType == Enemy.EnemyAiType.Octopus)
                 {
