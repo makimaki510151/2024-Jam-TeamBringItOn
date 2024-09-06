@@ -92,6 +92,6 @@ MonoBehaviour:
   rotateValue: 60
   myEnemy: {fileID: 5706692815382498503, guid: 8500e4fc96b5cc540add9647c39dc2c5, type: 3}
   seParryStockVol: 1
-  seParryStockClip: {fileID: 0}
+  seParryStockClip: {fileID: 8300000, guid: 9acf5bb8e0958dd4bbb53e1eaf7d80f7, type: 3}
   seParryLauncherVol: 1
-  seParryLauncherClip: {fileID: 0}
+  seParryLauncherClip: {fileID: 8300000, guid: ec9c0a08b02d0324f9fa3710b04b43d7, type: 3}
