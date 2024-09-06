@@ -80,6 +80,7 @@ public class Player : MonoBehaviour
 
     static readonly int isParryId = Animator.StringToHash("isParry");
     static readonly int isDamageId = Animator.StringToHash("isDamage");
+    static readonly int isSkateId = Animator.StringToHash("isSkate");
 
     private bool isJump = false;
     private bool isParry = false;
@@ -221,6 +222,7 @@ public class Player : MonoBehaviour
             }
         }
 
+        // スケボー処理
         if(skateboardTimer > 0)
         {
             skateboardTimer -= deltaTime;
@@ -228,6 +230,7 @@ public class Player : MonoBehaviour
             {
                 skateboardTimer = 0;
                 skateboardBuffContainer = 1;
+                myAnimator.SetBool(isSkateId, false);
             }
         }
     }
@@ -324,9 +327,6 @@ public class Player : MonoBehaviour
         skateboardBuffContainer = skateboardBuffPower;
         isParry = true;
         parryTimer = skateboardTime;
-    }
-    public void Reverse()
-    {
-
+        myAnimator.SetBool(isSkateId, true);
     }
 }
