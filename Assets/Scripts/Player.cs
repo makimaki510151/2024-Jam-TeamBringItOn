@@ -53,6 +53,23 @@ public class Player : MonoBehaviour
     private float skateboardTime = 1.0f;
     private float skateboardTimer = 0;
 
+    [Header("音関係")]
+    [SerializeField]
+    private float seWaterParryVol = 1.0f;
+    [SerializeField]
+    private AudioClip seWaterParryClip = null;
+
+    [SerializeField]
+    private float seFireParryVol = 1.0f;
+    [SerializeField]
+    private AudioClip seFireParryClip = null;
+
+    [SerializeField]
+    private float seJumpVol = 1.0f;
+    [SerializeField]
+    private AudioClip seJumpClip = null;
+
+
     static readonly int isParryId = Animator.StringToHash("isParry");
     static readonly int isDamageId = Animator.StringToHash("isDamage");
 
@@ -124,6 +141,8 @@ public class Player : MonoBehaviour
         // ジャンプフラグがオンなら、ジャンプする
         if (isJump)
         {
+            AudioControl.Instance.SetSEVol(seJumpVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+            AudioControl.Instance.PlaySE(seJumpClip, myTransform);
             myRigidbody2D.AddForce(myTransform.up * normalJumpPower, ForceMode2D.Impulse);
             isJump = false;
         }
@@ -220,6 +239,18 @@ public class Player : MonoBehaviour
             // パリィ中なら、パリィ処理を行う
             if (isParry)
             {
+                switch (character)
+                {
+                    case PlayCharacter.Water:
+                        AudioControl.Instance.SetSEVol(seWaterParryVol*MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                        AudioControl.Instance.PlaySE(seWaterParryClip,myTransform);
+                        break;
+                    case PlayCharacter.Fire:
+                        AudioControl.Instance.SetSEVol(seFireParryVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                        AudioControl.Instance.PlaySE(seFireParryClip,myTransform);
+                        break;
+                }
+
                 isParryHit = true;
                 collision.GetComponent<Enemy>().StockMove(character);
                 if (skateboardTimer <= 0)

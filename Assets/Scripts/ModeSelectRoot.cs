@@ -40,6 +40,7 @@ public class ModeSelectRoot : RootParent
         if (isCoroutines) return;
         isCoroutines = true;
         dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
+        dataScriptableObject.cameraRotation = 0;
         StartCoroutine(LoadYourAsyncScene("MainGame"));
     }
 
@@ -48,12 +49,22 @@ public class ModeSelectRoot : RootParent
         if (isCoroutines) return;
         isCoroutines = true;
         dataScriptableObject.playType = DataScriptableObject.PlayType.One;
+        dataScriptableObject.cameraRotation = 0;
         StartCoroutine(LoadYourAsyncScene("MainGame"));
     }
 
     public void ButtonManual()
     {
         Debug.Log("ÇﬂÇ…Ç„Å`");
+    }
+
+    public void ButtonOmake()
+    {
+        if (isCoroutines) return;
+        isCoroutines = true;
+        dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
+        dataScriptableObject.cameraRotation = 180;
+        StartCoroutine(LoadYourAsyncScene("MainGame"));
     }
     IEnumerator LoadYourAsyncScene(string name)
     {

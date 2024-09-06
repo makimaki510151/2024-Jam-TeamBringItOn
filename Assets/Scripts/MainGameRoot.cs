@@ -113,7 +113,7 @@ public class MainGameRoot : RootParent
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (context.started&& startTime<=0)
+        if (context.started&& startTime<=0&&!isResult)
         {
             if (!isSetting)
             {
@@ -157,6 +157,8 @@ public class MainGameRoot : RootParent
         cameraPosFire = (Vector2)cameraFireTransform.position - playerFireRigidbody2D.position;
         waterCamera = cameraWaterTransform.GetComponent<Camera>();
         fireCamera = cameraFireTransform.GetComponent<Camera>();
+
+        cameraFireTransform.rotation = Quaternion.Euler(0, 0, dataScriptableObject.cameraRotation);
 
         PlayTime = 0;
 

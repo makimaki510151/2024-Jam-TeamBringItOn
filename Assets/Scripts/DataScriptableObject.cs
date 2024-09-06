@@ -19,4 +19,6 @@ public class DataScriptableObject : ScriptableObject
 
     public PlayType playType = PlayType.Two;
 
+    public float cameraRotation = 0;
+
 }

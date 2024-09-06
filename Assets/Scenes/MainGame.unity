@@ -1145,10 +1145,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1440525294}
-  - {fileID: 196381903}
-  - {fileID: 38567186}
   - {fileID: 1008685287}
   - {fileID: 525952121}
+  - {fileID: 196381903}
+  - {fileID: 38567186}
   m_Father: {fileID: 1989068092}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3743,7 +3743,7 @@ GameObject:
   - component: {fileID: 819649915}
   m_Layer: 0
   m_Name: CameraWater
-  m_TagString: Camera1P
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4777,7 +4777,7 @@ GameObject:
   - component: {fileID: 1176704474}
   m_Layer: 0
   m_Name: CameraFire
-  m_TagString: Camera1P
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

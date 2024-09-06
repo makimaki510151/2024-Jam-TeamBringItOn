@@ -275,6 +275,12 @@ MonoBehaviour:
   myAnimator: {fileID: 8206820067443990338}
   skateboardBuffPower: 1.9
   skateboardTime: 3
+  seWaterParryVol: 1
+  seWaterParryClip: {fileID: 8300000, guid: a77d17f255c5a3d43aa0fb519953c3a1, type: 3}
+  seFireParryVol: 1
+  seFireParryClip: {fileID: 8300000, guid: b824f9dc4a7a5d0449cadc7c2c07b4c2, type: 3}
+  seJumpVol: 1
+  seJumpClip: {fileID: 8300000, guid: 85e0d8e17884d80429032dfe41b7bf72, type: 3}
 --- !u!61 &2655867290183432144
 BoxCollider2D:
   m_ObjectHideFlags: 0
