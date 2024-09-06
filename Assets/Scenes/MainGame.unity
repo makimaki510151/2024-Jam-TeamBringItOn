@@ -16502,7 +16502,7 @@ MonoBehaviour:
   stockShotPosWater: {fileID: 1931078440}
   stockShotPosFire: {fileID: 1445386494}
   stageWaterEnemysObject: {fileID: 623949981}
-  stageFireEnemysObject: {fileID: 0}
+  stageFireEnemysObject: {fileID: 296715292}
   waterStockCount: 0
   fireStockCount: 0
   canvasObject: {fileID: 152205687}
