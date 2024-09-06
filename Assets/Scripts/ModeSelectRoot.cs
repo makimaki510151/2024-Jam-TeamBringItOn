@@ -9,11 +9,22 @@ public class ModeSelectRoot : RootParent
 {
     [SerializeField]
     private EventSystem eventSystem;
+    [Header("‰¹ŠÖŒW")]
+    [SerializeField]
+    private float bgmModeSelectVol = 1.0f;
+    [SerializeField]
+    private AudioClip bgmModeSelectClip = null;
 
     private bool isCoroutines = false;
     private AsyncOperation asyncLoad;
 
     private GameObject selectEndButtonObject;
+
+    private void Start()
+    {
+        AudioControl.Instance.SetBGMVol(bgmModeSelectVol * dataScriptableObject.bgmVolSetting);
+        AudioControl.Instance.PlayBGM(bgmModeSelectClip);
+    }
 
     private void Update()
     {
