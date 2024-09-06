@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     private float invincibleTimer = 0;
     [SerializeField, Tooltip("最大移動速度")]
     private float maxSpeed = 20f;
+    [SerializeField, Tooltip("最大ジャンプ速度")]
+    private float maxJumpSpeed = 20f;
 
     // 取得しているバフアイテムの数
     [SerializeField]
@@ -165,21 +167,26 @@ public class Player : MonoBehaviour
             tempVector2.x = maxSpeed;
             myRigidbody2D.velocity = tempVector2;
         }
+        if(tempVector2.y > maxJumpSpeed)
+        {
+            tempVector2.y = maxJumpSpeed;
+            myRigidbody2D.velocity = tempVector2;
+        }
 
-        // 接地していても上昇落下をしていなければ、接地しているか判定する
-        if(!isGround && tempVector2.y < 0.1f && tempVector2.y > -0.1f)
-        {
-            // 指定した時間が経ったら、接地しているとする
-            isGroundTime -= deltaTime;
-            if(isGroundTime <= 0)
-            {
-                isGround = true;
-            }
-        }
-        else
-        {
-            isGroundTime = isGroundTimer;
-        }
+        //// 接地していても上昇落下をしていなければ、接地しているか判定する
+        //if (!isGround && tempVector2.y < 0.1f && tempVector2.y > -0.1f)
+        //{
+        //    // 指定した時間が経ったら、接地しているとする
+        //    isGroundTime -= deltaTime;
+        //    if(isGroundTime <= 0)
+        //    {
+        //        isGround = true;
+        //    }
+        //}
+        //else
+        //{
+        //    isGroundTime = isGroundTimer;
+        //}
 
         // パリィ状態なら、時間を計測する
         if (isParry)
