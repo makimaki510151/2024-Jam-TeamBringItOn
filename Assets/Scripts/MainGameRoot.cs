@@ -5,9 +5,17 @@ using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainGameRoot : RootParent
 {
+    [SerializeField]
+    private float startTime = 3;
+    [SerializeField, Tooltip("ナンバーUI")]
+    private Sprite[] numbers = new Sprite[10];
+    [SerializeField]
+    private Image startCountImage = null;
+
     [SerializeField]
     private Transform cameraWaterTransform = null;
     [SerializeField]
@@ -105,7 +113,7 @@ public class MainGameRoot : RootParent
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started&& startTime<=0)
         {
             if (!isSetting)
             {
@@ -154,10 +162,24 @@ public class MainGameRoot : RootParent
 
         waterGoalRange = waterGoalTransform.position.x;
         fireGoalRange = fireGoalTransform.position.x;
+
+        Time.timeScale = 0;
     }
 
     private void Update()
     {
+        if (startTime > 0)
+        {
+            startTime -= Time.unscaledDeltaTime;
+            Debug.Log(startTime);
+            startCountImage.sprite = numbers[((int)startTime / 1)+1];
+            if(startTime <= 0)
+            {
+                Time.timeScale = 1;
+                startCountImage.gameObject.SetActive(false);
+            }
+        }
+
         deltaTime = Time.deltaTime;
 
         // タイム計測

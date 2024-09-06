@@ -3170,6 +3170,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1809312753679342244, guid: 8500e4fc96b5cc540add9647c39dc2c5, type: 3}
   m_PrefabInstance: {fileID: 1133027648}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &693853831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 693853832}
+  - component: {fileID: 693853834}
+  - component: {fileID: 693853833}
+  m_Layer: 0
+  m_Name: StartTime
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &693853832
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693853831}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1751999310}
+  m_Father: {fileID: 1440525294}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 500, y: 300}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &693853833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693853831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &693853834
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693853831}
+  m_CullTransparentMesh: 1
 --- !u!4 &706485880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1809312753679342244, guid: 8500e4fc96b5cc540add9647c39dc2c5, type: 3}
@@ -5752,6 +5828,7 @@ RectTransform:
   - {fileID: 121084440}
   - {fileID: 1484808686}
   - {fileID: 580813609}
+  - {fileID: 693853832}
   m_Father: {fileID: 152205688}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6796,6 +6873,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1751999309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1751999310}
+  - component: {fileID: 1751999312}
+  - component: {fileID: 1751999311}
+  m_Layer: 0
+  m_Name: StartCountImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1751999310
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751999309}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 693853832}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 192, y: 256}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1751999311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751999309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1751999312
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751999309}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1757911668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7764,6 +7916,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataScriptableObject: {fileID: 11400000, guid: a0a8b0f5171438b44859bcc7f3720355, type: 2}
+  startTime: 3
+  numbers:
+  - {fileID: 21300000, guid: de97e94f6881914459f32cd48e445aa1, type: 3}
+  - {fileID: 21300000, guid: 4c01b10028798da49b72068384cbf789, type: 3}
+  - {fileID: 21300000, guid: ac4970de51ad1224298ab5e8bec9058c, type: 3}
+  - {fileID: 21300000, guid: 6abfc7bb59cf024409cecb465af3c361, type: 3}
+  - {fileID: 21300000, guid: 0217c3cd1d9f0534fafe37e8ac64669f, type: 3}
+  - {fileID: 21300000, guid: 2b0585a3f1e88f94488aa276b2845c21, type: 3}
+  - {fileID: 21300000, guid: 713a5bc2954635d4ba1268c0819eb87c, type: 3}
+  - {fileID: 21300000, guid: f3f58b9acce59204ab966d6a6ac4c297, type: 3}
+  - {fileID: 21300000, guid: a9ab62efd06311844b83e7d1eb3c6bd3, type: 3}
+  - {fileID: 21300000, guid: 82e34a8f0faf3f54183ffdb57a511296, type: 3}
+  startCountImage: {fileID: 1751999311}
   cameraWaterTransform: {fileID: 819649914}
   cameraFireTransform: {fileID: 1176704473}
   playerWaterRigidbody2D: {fileID: 1684583502}
