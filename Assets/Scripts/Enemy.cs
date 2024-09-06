@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
         Idle,
         Crab,
         Octopus,
+        Amemusi,
+        Bullet,
     }
     public EnemyAiType AiType { get => aiType; private set => aiType = value; }
 
@@ -29,6 +31,17 @@ public class Enemy : MonoBehaviour
     private OctopusInc waterOctopusInc = null;
     [SerializeField, Tooltip("Fire‘¤‚Ìƒ^ƒRƒXƒ~")]
     private OctopusInc fireOctopusInc = null;
+
+    [SerializeField, Tooltip("’e‚Ì”­ŽËŠÔŠu")]
+    private float bulletDelayTime = 0.5f;
+    private float bulletDelayTimer = 0;
+
+    [SerializeField, Tooltip("’e")]
+    private GameObject bulletPrefab = null;
+    private Transform bulletTransform = null;
+
+    [SerializeField, Tooltip("’e‚ÌˆÚ“®‘¬“x")]
+    private float bulletSpeed = 1.0f;
 
     private Vector3 tempVector3 = new(0,0,0);
     private GameObject tempObject = null;
@@ -50,6 +63,12 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyAiType.Octopus:
                 break;
+            case EnemyAiType.Amemusi:
+                bulletDelayTimer = bulletDelayTime;
+                break;
+            case EnemyAiType.Bullet:
+                myRigidbody2D = GetComponent<Rigidbody2D>();
+                break;
         }
     }
 
@@ -65,6 +84,12 @@ public class Enemy : MonoBehaviour
                 UpdateForCrab();
                 break;
             case EnemyAiType.Octopus:
+                break;
+            case EnemyAiType.Amemusi:
+                UpdateForAmemusi();
+                break;
+            case EnemyAiType.Bullet:
+                UpdateForBullet();
                 break;
         }
     }
@@ -93,6 +118,25 @@ public class Enemy : MonoBehaviour
         {
             fireOctopusInc.SplashInc();
         }
+    }
+
+    private void UpdateForAmemusi()
+    {
+        if (bulletDelayTimer > 0)
+        {
+            bulletDelayTimer -= deltaTime;
+            if (bulletDelayTimer <= 0)
+            {
+                bulletTransform = Instantiate(bulletPrefab).transform;
+                bulletTransform.position = transform.position;
+                bulletDelayTimer = bulletDelayTime;
+            }
+        }
+    }
+
+    private void UpdateForBullet()
+    {
+        myRigidbody2D.velocity = -myTransform.right * bulletSpeed;
     }
 
     public void StockMove(Player.PlayCharacter playCharacter)
