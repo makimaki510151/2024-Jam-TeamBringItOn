@@ -261,6 +261,9 @@ public class Player : MonoBehaviour
                     myRigidbody2D.velocity = tempVector2;
                     myRigidbody2D.AddForce(myTransform.up * parryJumpPower, ForceMode2D.Impulse);
                 }
+
+                // エフェクト処理
+                
             }
             // 無敵時間でないなら、ノックバック処理を行う
             else if (invincibleTimer <= 0)
