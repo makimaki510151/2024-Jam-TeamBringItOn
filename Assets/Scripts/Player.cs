@@ -84,6 +84,7 @@ public class Player : MonoBehaviour
     private Vector2 vector2zero = Vector2.zero;
     private Color colorWhite = Color.white;
     private float deltaTime;
+    private Enemy.EnemyAiType aiType;
 
     private Rigidbody2D myRigidbody2D = null;
     private Transform myTransform = null;
@@ -270,9 +271,16 @@ public class Player : MonoBehaviour
                 invincibleTimer = invincibleTime;
                 myAnimator.SetBool(isDamageId, true);
 
-                if (collision.GetComponent<Enemy>().AiType == Enemy.EnemyAiType.Octopus)
+                aiType = collision.GetComponent<Enemy>().AiType;
+                // タコに当たったら、タコスミを発射させる
+                if (aiType == Enemy.EnemyAiType.Octopus)
                 {
                     collision.GetComponent<Enemy>().HitOctopus(character);
+                }
+                // 弾に当たったら、その弾を消す
+                else if(aiType == Enemy.EnemyAiType.Bullet)
+                {
+                    Destroy(collision.gameObject);
                 }
             }
         }
