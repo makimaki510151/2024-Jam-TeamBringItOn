@@ -26,8 +26,13 @@ public class MainGameRoot : RootParent
 
     [SerializeField]
     private GameObject pauseUIObject = null;
+    [SerializeField, Tooltip("最初に選択するボタン")]
+    private Button firstSelectButton = null;
+
     [SerializeField]
     private GameObject settingUIObject = null;
+    [SerializeField, Tooltip("オプションで選択するボタン")]
+    private Button settingSelectButton = null;
 
     [SerializeField]
     private List<RectTransform> waterStocks = new();
@@ -137,6 +142,7 @@ public class MainGameRoot : RootParent
                     Time.timeScale = 0.0f;
                     isPause = true;
                     pauseUIObject.SetActive(true);
+                    firstSelectButton.Select();
                 }
                 else
                 {
@@ -251,11 +257,13 @@ public class MainGameRoot : RootParent
         settingUIObject.SetActive(true);
         pauseUIObject.SetActive(false);
         isSetting = true;
+        settingSelectButton.Select();
     }
     public void SettingClose()
     {
         isSetting = false;
         pauseUIObject.SetActive(true);
+        firstSelectButton.Select();
     }
     public void ButtonTitle()
     {
