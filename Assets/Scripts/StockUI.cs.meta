@@ -3,7 +3,10 @@ guid: b4388d6c76cc4f04a98cce5f347c48b3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - myEnemy: {instanceID: 0}
+  - seParryStockClip: {fileID: 8300000, guid: 9acf5bb8e0958dd4bbb53e1eaf7d80f7, type: 3}
+  - seParryLauncherClip: {fileID: 8300000, guid: ec9c0a08b02d0324f9fa3710b04b43d7, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
