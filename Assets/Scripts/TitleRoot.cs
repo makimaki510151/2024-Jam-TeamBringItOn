@@ -23,6 +23,12 @@ public class TitleRoot : RootParent
     [SerializeField]
     private AudioClip bgmTitleClip = null;
 
+    [SerializeField]
+    private float seDecisionVol = 1.0f;
+    [SerializeField]
+    private AudioClip seDecisionClip = null;
+
+
     private GameObject selectEndButtonObject = null;
 
     public static TitleRoot Instance;
@@ -58,6 +64,10 @@ public class TitleRoot : RootParent
         if (isCoroutines) return;
         isCoroutines = true;
         dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
+
+        AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seDecisionClip);
+
         StartCoroutine(LoadYourAsyncScene("ModeSelect"));
     }
 
@@ -72,6 +82,7 @@ public class TitleRoot : RootParent
         {
             mainButtons[i].interactable = false;
         }
+
         EventSystem.current.SetSelectedGameObject(settingFirstObject);
     }
 

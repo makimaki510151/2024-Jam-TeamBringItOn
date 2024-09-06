@@ -608,6 +608,8 @@ MonoBehaviour:
   eventSystem: {fileID: 159709024}
   bgmModeSelectVol: 1
   bgmModeSelectClip: {fileID: 8300000, guid: 51c7ebf763171e043bbf9bd57ef04904, type: 3}
+  seDecisionVol: 1
+  seDecisionClip: {fileID: 8300000, guid: 44fcf8934c03ec343b42c02c1eb2a246, type: 3}
 --- !u!1 &435634184
 GameObject:
   m_ObjectHideFlags: 0

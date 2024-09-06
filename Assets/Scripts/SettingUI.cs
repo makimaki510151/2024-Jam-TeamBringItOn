@@ -8,6 +8,13 @@ public class SettingUI : MonoBehaviour
     [SerializeField]
     private Slider bgmSlider = null;
 
+    [Header("‰¹ŠÖŒW")]
+    [SerializeField]
+    private float seDecisionVol = 1.0f;
+    [SerializeField]
+    private AudioClip seDecisionClip = null;
+
+
     enum SceneType
     {
         Title,
@@ -62,7 +69,17 @@ public class SettingUI : MonoBehaviour
 
     public void ButtonPreview()
     {
-
+        switch (sceneType)
+        {
+            case SceneType.Title:
+                AudioControl.Instance.SetSEVol(seDecisionVol * TitleRoot.Instance.dataScriptableObject.seVolSetting);
+                AudioControl.Instance.PlaySE(seDecisionClip);
+                break;
+            case SceneType.MainGame:
+                AudioControl.Instance.SetSEVol(seDecisionVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                AudioControl.Instance.PlaySE(seDecisionClip);
+                break;
+        }
     }
 
     public void ButtonReturn()
@@ -71,9 +88,13 @@ public class SettingUI : MonoBehaviour
         switch (sceneType)
         {
             case SceneType.Title:
+                AudioControl.Instance.SetSEVol(seDecisionVol * TitleRoot.Instance.dataScriptableObject.seVolSetting);
+                AudioControl.Instance.PlaySE(seDecisionClip);
                 TitleRoot.Instance.SettingClose();
                 break;
             case SceneType.MainGame:
+                AudioControl.Instance.SetSEVol(seDecisionVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                AudioControl.Instance.PlaySE(seDecisionClip);
                 MainGameRoot.Instance.SettingClose();
                 break;
         }

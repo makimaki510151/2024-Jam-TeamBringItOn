@@ -15,6 +15,11 @@ public class ModeSelectRoot : RootParent
     [SerializeField]
     private AudioClip bgmModeSelectClip = null;
 
+    [SerializeField]
+    private float seDecisionVol = 1.0f;
+    [SerializeField]
+    private AudioClip seDecisionClip = null;
+
     private bool isCoroutines = false;
     private AsyncOperation asyncLoad;
 
@@ -43,6 +48,7 @@ public class ModeSelectRoot : RootParent
     {
         if (isCoroutines) return;
         isCoroutines = true;
+
         StartCoroutine(LoadYourAsyncScene("Title"));
     }
 
@@ -52,6 +58,10 @@ public class ModeSelectRoot : RootParent
         isCoroutines = true;
         dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
         dataScriptableObject.cameraRotation = 0;
+
+        AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seDecisionClip);
+
         StartCoroutine(LoadYourAsyncScene("MainGame"));
     }
 
@@ -61,6 +71,10 @@ public class ModeSelectRoot : RootParent
         isCoroutines = true;
         dataScriptableObject.playType = DataScriptableObject.PlayType.One;
         dataScriptableObject.cameraRotation = 0;
+
+        AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seDecisionClip);
+
         StartCoroutine(LoadYourAsyncScene("MainGame"));
     }
 
@@ -75,6 +89,10 @@ public class ModeSelectRoot : RootParent
         isCoroutines = true;
         dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
         dataScriptableObject.cameraRotation = 180;
+
+        AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seDecisionClip);
+
         StartCoroutine(LoadYourAsyncScene("MainGame"));
     }
     IEnumerator LoadYourAsyncScene(string name)

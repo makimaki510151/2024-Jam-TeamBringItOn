@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Goal
   - Coin
+  - FinalSpurt
   layers:
   - Default
   - TransparentFX

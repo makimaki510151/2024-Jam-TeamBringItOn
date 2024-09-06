@@ -180,6 +180,8 @@ MonoBehaviour:
   mainFirstObject: {fileID: 1724179304}
   bgmTitleVol: 1
   bgmTitleClip: {fileID: 8300000, guid: e7d26c348fb2d0a4fb80d00f918c9fd2, type: 3}
+  seDecisionVol: 1
+  seDecisionClip: {fileID: 8300000, guid: 44fcf8934c03ec343b42c02c1eb2a246, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

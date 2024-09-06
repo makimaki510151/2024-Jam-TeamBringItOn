@@ -96,10 +96,16 @@ public class MainGameRoot : RootParent
     private float bgmMainGameVol = 1.0f;
     [SerializeField]
     private AudioClip bgmMainGameClip = null;
+
     [SerializeField]
     private float bgmTimeAttackVol = 1.0f;
     [SerializeField]
     private AudioClip bgmTimeAttackClip = null;
+
+    [SerializeField]
+    private float seDecisionVol = 1.0f;
+    [SerializeField]
+    private AudioClip seDecisionClip = null;
 
 
     private List<StockUI> stockUIsWater = new();
@@ -230,6 +236,7 @@ public class MainGameRoot : RootParent
     public void ButtonResume()
     {
         Time.timeScale = 1.0f;
+
         isPause = false;
         pauseUIObject.SetActive(false);
     }
@@ -246,16 +253,24 @@ public class MainGameRoot : RootParent
     }
     public void ButtonTitle()
     {
-        Time.timeScale = 1.0f;
         if (isCoroutines) return;
         isCoroutines = true;
+        Time.timeScale = 1.0f;
+
+        AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seDecisionClip);
+
         StartCoroutine(LoadYourAsyncScene("Title"));
     }
     public void ButtonModeSelect()
     {
-        Time.timeScale = 1.0f;
         if (isCoroutines) return;
         isCoroutines = true;
+        Time.timeScale = 1.0f;
+
+        AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seDecisionClip);
+
         StartCoroutine(LoadYourAsyncScene("ModeSelect"));
     }
     IEnumerator LoadYourAsyncScene(string name)

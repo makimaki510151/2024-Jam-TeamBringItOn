@@ -683,6 +683,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seSlider: {fileID: 4474211816033884488}
   bgmSlider: {fileID: 9159245936104294923}
+  seDecisionVol: 1
+  seDecisionClip: {fileID: 8300000, guid: 44fcf8934c03ec343b42c02c1eb2a246, type: 3}
   sceneType: 0
 --- !u!1 &4423337574646360165
 GameObject:
