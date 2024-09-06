@@ -12,7 +12,7 @@ public class Coin : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Player>().BuffUp(coinPower);
-            Destroy(collision.gameObject);
+            Destroy(gameObject);
         }
     }
 }

@@ -52,6 +52,10 @@ public class SettingUI : MonoBehaviour
                     break;
             }
         }
+        else if (bgmSlider.value > 0)
+        {
+            tempFloat = 1;
+        }
         switch (sceneType)
         {
             case SceneType.Title:
