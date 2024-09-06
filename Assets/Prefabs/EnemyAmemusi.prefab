@@ -150,6 +150,6 @@ MonoBehaviour:
   crabCoefficient: 1
   waterOctopusInc: {fileID: 0}
   fireOctopusInc: {fileID: 0}
-  bulletDelayTime: 1
+  bulletDelayTime: 2
   bulletPrefab: {fileID: 7393781246745687302, guid: a9153ce654f3f8741925ee9d59f9fe96, type: 3}
   bulletSpeed: 1

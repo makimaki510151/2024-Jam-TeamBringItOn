@@ -3,7 +3,11 @@ guid: e0d6e193075c79542a40294307e92bef
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - myUI: {fileID: 6508867907381779838, guid: cca305719e7238741bcadeef610949e4, type: 3}
+  - waterOctopusInc: {instanceID: 0}
+  - fireOctopusInc: {instanceID: 0}
+  - bulletPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
