@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started&&Time.timeScale ==1)
         {
             // 接地しているならフラグをオン
             if (isGround)
@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
 
     public void OnShot(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && Time.timeScale == 1)
         {
             MainGameRoot.Instance.StockEnemyShot(character);
         }
