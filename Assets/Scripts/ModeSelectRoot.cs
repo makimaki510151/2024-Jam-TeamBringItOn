@@ -4,11 +4,20 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ModeSelectRoot : RootParent
 {
     [SerializeField]
     private EventSystem eventSystem;
+
+    [SerializeField]
+    private Image guideImage = null;
+    private GameObject guideObject = null;
+    [SerializeField]
+    private Sprite[] guideSprites = new Sprite[2];
+    private int guideCount = 1;
+
     [Header("âπä÷åW")]
     [SerializeField]
     private float bgmModeSelectVol = 1.0f;
@@ -29,6 +38,8 @@ public class ModeSelectRoot : RootParent
     {
         AudioControl.Instance.SetBGMVol(bgmModeSelectVol * dataScriptableObject.bgmVolSetting);
         AudioControl.Instance.PlayBGM(bgmModeSelectClip);
+
+        guideObject = guideImage.gameObject;
     }
 
     private void Update()
@@ -80,8 +91,23 @@ public class ModeSelectRoot : RootParent
 
     public void ButtonManual()
     {
-        Debug.Log("ÇﬂÇ…Ç„Å`");
+        guideObject.SetActive(true);
     }
+    public void ButtonManualClose()
+    {
+        guideObject.SetActive(false);
+    }
+
+    public void ButtonManualPage()
+    {
+        guideImage.sprite = guideSprites[guideCount];
+        guideCount++;
+        if(guideCount == guideSprites.Length)
+        {
+            guideCount = 0;
+        }
+    }
+
 
     public void ButtonOmake()
     {
