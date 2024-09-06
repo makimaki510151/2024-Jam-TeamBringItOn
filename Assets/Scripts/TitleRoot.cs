@@ -17,6 +17,11 @@ public class TitleRoot : RootParent
     private GameObject settingFirstObject = null;
     [SerializeField]
     private GameObject mainFirstObject = null;
+    [Header("‰¹ŠÖŒW")]
+    [SerializeField]
+    private float bgmTitleVol = 1.0f;
+    [SerializeField]
+    private AudioClip bgmTitleClip = null;
 
     private GameObject selectEndButtonObject = null;
 
@@ -28,6 +33,11 @@ public class TitleRoot : RootParent
     {  
         base.Awake();
         Instance = this;
+    }
+    private void Start()
+    {
+        AudioControl.Instance.SetBGMVol(bgmTitleVol * dataScriptableObject.bgmVolSetting);
+        AudioControl.Instance.PlayBGM(bgmTitleClip);
     }
 
     private void Update()
