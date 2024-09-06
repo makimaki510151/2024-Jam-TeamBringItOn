@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seVolSetting: 0.5
   bgmVolSetting: 0.5
+  playType: 0
+  cameraRotation: 0

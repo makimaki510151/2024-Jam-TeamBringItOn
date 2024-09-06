@@ -7964,6 +7964,10 @@ MonoBehaviour:
   goalShowDelay: 1
   goalAnimator: {fileID: 525952122}
   timeUI: {fileID: 1634582793}
+  bgmMainGameVol: 1
+  bgmMainGameClip: {fileID: 8300000, guid: 73cf519304a75e940b031d39a32453cc, type: 3}
+  bgmTimeAttackVol: 1
+  bgmTimeAttackClip: {fileID: 8300000, guid: 7607d0fc3cae2a040832100c65700e58, type: 3}
 --- !u!1 &1991851647
 GameObject:
   m_ObjectHideFlags: 0

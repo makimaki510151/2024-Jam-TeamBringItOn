@@ -91,6 +91,17 @@ public class MainGameRoot : RootParent
     [SerializeField, Tooltip("ƒ^ƒCƒ€UI")]
     private TimeUI timeUI = null;
 
+    [Header("‰¹ŠÖŒW")]
+    [SerializeField]
+    private float bgmMainGameVol = 1.0f;
+    [SerializeField]
+    private AudioClip bgmMainGameClip = null;
+    [SerializeField]
+    private float bgmTimeAttackVol = 1.0f;
+    [SerializeField]
+    private AudioClip bgmTimeAttackClip = null;
+
+
     private List<StockUI> stockUIsWater = new();
     private List<StockUI> stockUIsFire = new();
 
@@ -112,7 +123,7 @@ public class MainGameRoot : RootParent
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (context.started&& startTime<=0&&!isResult)
+        if (context.started && startTime <= 0 && !isResult)
         {
             if (!isSetting)
             {
@@ -165,6 +176,17 @@ public class MainGameRoot : RootParent
         fireGoalRange = fireGoalTransform.position.x;
 
         Time.timeScale = 0;
+
+        if (dataScriptableObject.playType == DataScriptableObject.PlayType.Two)
+        {
+            AudioControl.Instance.SetBGMVol(bgmMainGameVol * dataScriptableObject.bgmVolSetting);
+            AudioControl.Instance.PlayBGM(bgmMainGameClip);
+        }
+        else
+        {
+            AudioControl.Instance.SetBGMVol(bgmTimeAttackVol * dataScriptableObject.bgmVolSetting);
+            AudioControl.Instance.PlayBGM(bgmTimeAttackClip);
+        }
     }
 
     private void Update()
@@ -173,8 +195,8 @@ public class MainGameRoot : RootParent
         {
             startTime -= Time.unscaledDeltaTime;
             Debug.Log(startTime);
-            startCountImage.sprite = numbers[((int)startTime / 1)+1];
-            if(startTime <= 0)
+            startCountImage.sprite = numbers[((int)startTime / 1) + 1];
+            if (startTime <= 0)
             {
                 Time.timeScale = 1;
                 startCountImage.gameObject.SetActive(false);
@@ -197,7 +219,7 @@ public class MainGameRoot : RootParent
         cameraFireTransform.position = tempVector3;
 
         tempFloat = playerWaterRigidbody2D.position.x / waterGoalRange;
-        tempVector3 = new Vector3(1820 * tempFloat+50, 540, 0);
+        tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
         waterIconRectTransform.position = tempVector3;
 
         tempFloat = playerFireRigidbody2D.position.x / fireGoalRange;
