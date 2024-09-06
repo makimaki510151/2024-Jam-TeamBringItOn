@@ -87,6 +87,7 @@ public class MainGameRoot : RootParent
     static readonly int isGoalOnePId = Animator.StringToHash("isGoalOneP");
 
     private bool isResult = false;  // リザルトが表示されたらフラグをオン
+    private bool isPlayerOne = false;
 
     [SerializeField, Tooltip("タイムUI")]
     private TimeUI timeUI = null;
@@ -192,6 +193,13 @@ public class MainGameRoot : RootParent
         {
             AudioControl.Instance.SetBGMVol(bgmTimeAttackVol * dataScriptableObject.bgmVolSetting);
             AudioControl.Instance.PlayBGM(bgmTimeAttackClip);
+        }
+        if (dataScriptableObject.playType == DataScriptableObject.PlayType.One)
+        {
+            playerFireRigidbody2D.gameObject.SetActive(false);
+            waterStockCount = 5;
+            isPlayerOne = true;
+            fireIconRectTransform.gameObject.SetActive(false);
         }
     }
 
@@ -383,6 +391,11 @@ public class MainGameRoot : RootParent
 
     public void StockEnemyShot(Player.PlayCharacter playCharacter)
     {
+        if (isPlayerOne)
+        {
+            return;
+        }
+
         switch (playCharacter)
         {
             case Player.PlayCharacter.Water:

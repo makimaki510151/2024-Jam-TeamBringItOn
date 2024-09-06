@@ -88,13 +88,9 @@ public class SettingUI : MonoBehaviour
         switch (sceneType)
         {
             case SceneType.Title:
-                AudioControl.Instance.SetSEVol(seDecisionVol * TitleRoot.Instance.dataScriptableObject.seVolSetting);
-                AudioControl.Instance.PlaySE(seDecisionClip);
                 TitleRoot.Instance.SettingClose();
                 break;
             case SceneType.MainGame:
-                AudioControl.Instance.SetSEVol(seDecisionVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-                AudioControl.Instance.PlaySE(seDecisionClip);
                 MainGameRoot.Instance.SettingClose();
                 break;
         }
