@@ -8080,6 +8080,8 @@ MonoBehaviour:
   bgmMainGameClip: {fileID: 0}
   bgmTimeAttackVol: 1
   bgmTimeAttackClip: {fileID: 0}
+  seDecisionVol: 1
+  seDecisionClip: {fileID: 0}
 --- !u!1 &1991851647
 GameObject:
   m_ObjectHideFlags: 0
