@@ -19,10 +19,8 @@ public class MainGameRoot : RootParent
     private Transform cameraWaterTransform = null;
     [SerializeField]
     private Transform cameraFireTransform = null;
-    [SerializeField]
-    private Rigidbody2D playerWaterRigidbody2D = null;
-    [SerializeField]
-    private Rigidbody2D playerFireRigidbody2D = null;
+    public Rigidbody2D playerWaterRigidbody2D = null;
+    public Rigidbody2D playerFireRigidbody2D = null;
     [SerializeField]
     private float lerpNum = 0.9f;
 

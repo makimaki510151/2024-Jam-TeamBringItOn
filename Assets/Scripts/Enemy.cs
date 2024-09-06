@@ -46,6 +46,8 @@ public class Enemy : MonoBehaviour
     private Vector3 tempVector3 = new(0,0,0);
     private GameObject tempObject = null;
     private float deltaTime;
+    private Transform playerWaterTransform;
+    private Transform playerFireTransform;
 
     private Rigidbody2D myRigidbody2D = null;
     private Transform myTransform = null;
@@ -65,6 +67,8 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyAiType.Amemusi:
                 bulletDelayTimer = bulletDelayTime;
+                playerWaterTransform = MainGameRoot.Instance.playerWaterRigidbody2D.transform;
+                playerFireTransform = MainGameRoot.Instance.playerFireRigidbody2D.transform;
                 break;
             case EnemyAiType.Bullet:
                 myRigidbody2D = GetComponent<Rigidbody2D>();
@@ -122,14 +126,18 @@ public class Enemy : MonoBehaviour
 
     private void UpdateForAmemusi()
     {
-        if (bulletDelayTimer > 0)
+        if((myTransform.position.y - playerWaterTransform.position.y) <= 5 && (myTransform.position.x - playerWaterTransform.position.x) <= 30 ||
+           (myTransform.position.y - playerFireTransform.position.y)  <= 5 && (myTransform.position.x - playerFireTransform.position.x)  <= 30)
         {
-            bulletDelayTimer -= deltaTime;
-            if (bulletDelayTimer <= 0)
+            if (bulletDelayTimer > 0)
             {
-                bulletTransform = Instantiate(bulletPrefab).transform;
-                bulletTransform.position = transform.position;
-                bulletDelayTimer = bulletDelayTime;
+                bulletDelayTimer -= deltaTime;
+                if (bulletDelayTimer <= 0)
+                {
+                    bulletTransform = Instantiate(bulletPrefab).transform;
+                    bulletTransform.position = transform.position;
+                    bulletDelayTimer = bulletDelayTime;
+                }
             }
         }
     }
