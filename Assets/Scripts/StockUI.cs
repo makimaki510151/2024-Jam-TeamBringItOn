@@ -14,6 +14,17 @@ public class StockUI : MonoBehaviour
     [SerializeField]
     private GameObject myEnemy = null;
 
+    [Header("‰¹ŠÖŒW")]
+    [SerializeField]
+    private float seParryStockVol = 1.0f;
+    [SerializeField]
+    private AudioClip seParryStockClip = null;
+
+    [SerializeField]
+    private float seParryLauncherVol = 1.0f;
+    [SerializeField]
+    private AudioClip seParryLauncherClip = null;
+
     [NonSerialized]
     public Player.PlayCharacter character = Player.PlayCharacter.Water;
 
@@ -22,9 +33,7 @@ public class StockUI : MonoBehaviour
     private Vector3 targetPos = Vector3.zero;
     private Vector3 stratPos = Vector3.zero;
     private bool myDie = false;
-    private int myStockCount = 0;
     private float tempFloat = 0f;
-    private GameObject tempObject;
 
     void Start()
     {
@@ -33,7 +42,6 @@ public class StockUI : MonoBehaviour
         stratPos = myRectTransform.position;
         myDie = MainGameRoot.Instance.GetStockDie(character);
         targetPos = MainGameRoot.Instance.GetStockUIPos(character, this);
-        myStockCount = MainGameRoot.Instance.GetStockCount(character);
     }
 
     // Update is called once per frame
@@ -45,6 +53,11 @@ public class StockUI : MonoBehaviour
             stockTimer += Time.deltaTime;
             tempFloat = stockTimer / stockTime;
             myRectTransform.position = Vector3.Lerp(stratPos, targetPos, tempFloat);
+            if(stockTimer >= stockTime)
+            {
+                AudioControl.Instance.SetSEVol(seParryStockVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                AudioControl.Instance.PlaySE(seParryStockClip);
+            }
         }
         else if (myDie)
         {
@@ -54,6 +67,9 @@ public class StockUI : MonoBehaviour
 
     public void StockShot(Vector3 vector3,GameObject parentObject)
     {
+        AudioControl.Instance.SetSEVol(seParryLauncherVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seParryLauncherClip);
+
         vector3.z = 0;
         Instantiate(myEnemy, vector3, Quaternion.identity).transform.parent = parentObject.transform;
         Destroy(gameObject);
