@@ -36,6 +36,14 @@ public class Player : MonoBehaviour
     private float parryTime = 0.25f;
     private float parryTimer = 0;
 
+    [SerializeField, Tooltip("パリィエフェクト")]
+    private GameObject parryEffectPrafab = null;
+    private Transform parryEffectTransform = null;
+
+    [SerializeField, Tooltip("ダメージエフェクト")]
+    private GameObject damageEffectPrafab = null;
+    private Transform damageEffectTransform = null;
+
     [SerializeField, Tooltip("無敵中の色")]
     private Color transparentColor = new(1, 1, 1, 0.25f);
 
@@ -263,7 +271,8 @@ public class Player : MonoBehaviour
                 }
 
                 // エフェクト処理
-                
+                parryEffectTransform = Instantiate(parryEffectPrafab).transform;
+                parryEffectTransform.position = Vector2.Lerp(myTransform.position, collision.transform.position, 0.5f);
             }
             // 無敵時間でないなら、ノックバック処理を行う
             else if (invincibleTimer <= 0)
@@ -273,6 +282,10 @@ public class Player : MonoBehaviour
                 myRigidbody2D.AddForce(myTransform.up * knockbackUp, ForceMode2D.Impulse);
                 invincibleTimer = invincibleTime;
                 myAnimator.SetBool(isDamageId, true);
+
+                // エフェクト処理
+                damageEffectTransform = Instantiate(damageEffectPrafab).transform;
+                damageEffectTransform.position = Vector2.Lerp(myTransform.position, collision.transform.position, 0.5f);
 
                 aiType = collision.GetComponent<Enemy>().AiType;
                 // タコに当たったら、タコスミを発射させる
