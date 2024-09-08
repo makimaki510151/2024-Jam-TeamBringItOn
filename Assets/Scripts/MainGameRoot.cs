@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainGameRoot : RootParent
 {
+    [SerializeField]
+    private EventSystem eventSystem = null;
     [SerializeField]
     private float startTime = 3;
     [SerializeField, Tooltip("ÉiÉìÉoÅ[UI")]
@@ -121,6 +124,7 @@ public class MainGameRoot : RootParent
     private Vector3 cameraPosFire = Vector2.zero;
     private bool isCoroutines = false;
     private AsyncOperation asyncLoad;
+    private GameObject selectEndButtonObject;
 
     private float waterGoalRange = 1;
     private float fireGoalRange = 1;
@@ -243,6 +247,19 @@ public class MainGameRoot : RootParent
         tempFloat = playerFireRigidbody2D.position.x / fireGoalRange;
         tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
         fireIconRectTransform.position = tempVector3;
+
+        if (isPause)
+        {
+            if (selectEndButtonObject != eventSystem.currentSelectedGameObject && eventSystem.currentSelectedGameObject != null)
+            {
+                selectEndButtonObject = eventSystem.currentSelectedGameObject;
+            }
+
+            if (eventSystem.currentSelectedGameObject == null)
+            {
+                EventSystem.current.SetSelectedGameObject(selectEndButtonObject);
+            }
+        }
     }
 
     public void ButtonResume()
