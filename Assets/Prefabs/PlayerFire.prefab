@@ -278,6 +278,10 @@ MonoBehaviour:
   myAnimator: {fileID: 8206820067443990338}
   skateboardBuffPower: 1.9
   skateboardTime: 3
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  maxDistance: 0.625
   seWaterParryVol: 0.5
   seWaterParryClip: {fileID: 8300000, guid: a77d17f255c5a3d43aa0fb519953c3a1, type: 3}
   seFireParryVol: 0.5

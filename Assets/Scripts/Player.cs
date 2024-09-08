@@ -63,6 +63,11 @@ public class Player : MonoBehaviour
     private float skateboardTime = 1.0f;
     private float skateboardTimer = 0;
 
+    [SerializeField, Tooltip("地面のレイヤー")]
+    private LayerMask groundLayerMask = default;
+    [SerializeField, Tooltip("設置判定のレイの長さ")]
+    private float maxDistance = 0.625f;
+
     [Header("音関係")]
     [SerializeField]
     private float seWaterParryVol = 1.0f;
@@ -96,6 +101,7 @@ public class Player : MonoBehaviour
     private Color colorWhite = Color.white;
     private float deltaTime;
     private Enemy.EnemyAiType aiType;
+    private RaycastHit2D hit;
 
     private Rigidbody2D myRigidbody2D = null;
     private Transform myTransform = null;
@@ -103,8 +109,18 @@ public class Player : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started&&Time.timeScale ==1)
+        if (context.started && Time.timeScale == 1)
         {
+            if (!isGround)
+            {
+                hit = Physics2D.Raycast(myTransform.position, -myTransform.up, maxDistance, groundLayerMask);
+                Debug.DrawRay(myTransform.position, -myTransform.up, Color.red, maxDistance);
+                //なにかと衝突した時だけそのオブジェクトの名前をログに出す
+                if (hit.collider)
+                {
+                    IsGroundTrue();
+                }
+            }
             // 接地しているならフラグをオン
             if (isGround)
             {
@@ -147,7 +163,7 @@ public class Player : MonoBehaviour
         deltaTime = Time.deltaTime;
 
         // 移動処理
-        tempVector2 = (myTransform.right * defaultSpeed + (myTransform.right * defaultSpeed * (speedBuffItemCount / 100)))* skateboardBuffContainer * Time.deltaTime;
+        tempVector2 = (myTransform.right * defaultSpeed + (myTransform.right * defaultSpeed * (speedBuffItemCount / 100))) * skateboardBuffContainer * Time.deltaTime;
         myRigidbody2D.velocity += tempVector2;
 
         // ジャンプフラグがオンなら、ジャンプする
@@ -162,12 +178,12 @@ public class Player : MonoBehaviour
         tempVector2 = myRigidbody2D.velocity;
 
         // 移動速度が最大値を超えないようにする
-        if (tempVector2.x > maxSpeed* skateboardBuffContainer)
+        if (tempVector2.x > maxSpeed * skateboardBuffContainer)
         {
             tempVector2.x = maxSpeed;
             myRigidbody2D.velocity = tempVector2;
         }
-        if(tempVector2.y > maxJumpSpeed)
+        if (tempVector2.y > maxJumpSpeed)
         {
             tempVector2.y = maxJumpSpeed;
             myRigidbody2D.velocity = tempVector2;
@@ -230,10 +246,10 @@ public class Player : MonoBehaviour
         }
 
         // スケボー処理
-        if(skateboardTimer > 0)
+        if (skateboardTimer > 0)
         {
             skateboardTimer -= deltaTime;
-            if(skateboardTimer <= 0)
+            if (skateboardTimer <= 0)
             {
                 skateboardTimer = 0;
                 skateboardBuffContainer = 1;
@@ -247,10 +263,7 @@ public class Player : MonoBehaviour
         // 地面にヒット
         if (collision.CompareTag("Ground"))
         {
-            isGround = true;
-            isParryCancel = false;
-            isParryHit = false;
-            myAnimator.SetBool(isDamageId, false);
+            IsGroundTrue();
         }
         // 敵にヒット
         else if (collision.CompareTag("Enemy"))
@@ -261,12 +274,12 @@ public class Player : MonoBehaviour
                 switch (character)
                 {
                     case PlayCharacter.Water:
-                        AudioControl.Instance.SetSEVol(seWaterParryVol*MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-                        AudioControl.Instance.PlaySE(seWaterParryClip,myTransform);
+                        AudioControl.Instance.SetSEVol(seWaterParryVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                        AudioControl.Instance.PlaySE(seWaterParryClip, myTransform);
                         break;
                     case PlayCharacter.Fire:
                         AudioControl.Instance.SetSEVol(seFireParryVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-                        AudioControl.Instance.PlaySE(seFireParryClip,myTransform);
+                        AudioControl.Instance.PlaySE(seFireParryClip, myTransform);
                         break;
                 }
 
@@ -304,7 +317,7 @@ public class Player : MonoBehaviour
                     collision.GetComponent<Enemy>().HitOctopus(character);
                 }
                 // 弾に当たったら、その弾を消す
-                else if(aiType == Enemy.EnemyAiType.Bullet)
+                else if (aiType == Enemy.EnemyAiType.Bullet)
                 {
                     Destroy(collision.gameObject);
                 }
@@ -316,6 +329,14 @@ public class Player : MonoBehaviour
             MainGameRoot.Instance.GoalPlayer(character);
         }
     }
+    private void IsGroundTrue()
+    {
+        isGround = true;
+        isParryCancel = false;
+        isParryHit = false;
+        myAnimator.SetBool(isDamageId, false);
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Ground"))
