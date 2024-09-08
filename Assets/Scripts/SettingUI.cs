@@ -25,6 +25,21 @@ public class SettingUI : MonoBehaviour
     private SceneType sceneType = SceneType.Title;
     private float tempFloat = 0f;
 
+    private void Start()
+    {
+        switch (sceneType)
+        {
+            case SceneType.Title:
+                seSlider.value = TitleRoot.Instance.dataScriptableObject.seVolSetting;
+                bgmSlider.value = TitleRoot.Instance.dataScriptableObject.bgmVolSetting;
+                break;
+            case SceneType.MainGame:
+                seSlider.value = MainGameRoot.Instance.dataScriptableObject.seVolSetting;
+                bgmSlider.value = MainGameRoot.Instance.dataScriptableObject.bgmVolSetting;
+                break;
+        }
+    }
+
     public void SeChange()
     {
         switch (sceneType)

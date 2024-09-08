@@ -178,9 +178,9 @@ MonoBehaviour:
   eventSystem: {fileID: 1060910278}
   settingFirstObject: {fileID: 904979612}
   mainFirstObject: {fileID: 1724179304}
-  bgmTitleVol: 0.3
+  bgmTitleVol: 0.5
   bgmTitleClip: {fileID: 8300000, guid: e7d26c348fb2d0a4fb80d00f918c9fd2, type: 3}
-  seDecisionVol: 1
+  seDecisionVol: 0.4
   seDecisionClip: {fileID: 8300000, guid: 44fcf8934c03ec343b42c02c1eb2a246, type: 3}
 --- !u!1 &519420028
 GameObject:

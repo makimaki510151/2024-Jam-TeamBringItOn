@@ -742,9 +742,9 @@ MonoBehaviour:
   guideSprites:
   - {fileID: 21300000, guid: b4dfb65a923d19844b1aadee8ae9a9d0, type: 3}
   - {fileID: 21300000, guid: 15e9ba326c3b47840aa691efcce97982, type: 3}
-  bgmModeSelectVol: 1
+  bgmModeSelectVol: 0.4
   bgmModeSelectClip: {fileID: 8300000, guid: 51c7ebf763171e043bbf9bd57ef04904, type: 3}
-  seDecisionVol: 1
+  seDecisionVol: 0.4
   seDecisionClip: {fileID: 8300000, guid: 44fcf8934c03ec343b42c02c1eb2a246, type: 3}
 --- !u!1 &435634184
 GameObject:

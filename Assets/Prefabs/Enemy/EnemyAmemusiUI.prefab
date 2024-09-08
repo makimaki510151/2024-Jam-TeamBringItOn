@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7780326503528499631}
   - component: {fileID: 5917529281992321945}
   m_Layer: 0
-  m_Name: EnemyUI
+  m_Name: EnemyAmemusiUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 130a78299155c1a4bb699a3d0a35d7e9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7af70a7d6c0772747ad18ce614a11e72, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -90,8 +90,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stockTime: 0.3
   rotateValue: 60
-  myEnemy: {fileID: 5706692815382498503, guid: 8500e4fc96b5cc540add9647c39dc2c5, type: 3}
-  seParryStockVol: 1
+  myEnemy: {fileID: 3973799897711254523, guid: fef2ee45d0af51e42ae336b205808c6f, type: 3}
+  seParryStockVol: 0.5
   seParryStockClip: {fileID: 8300000, guid: 9acf5bb8e0958dd4bbb53e1eaf7d80f7, type: 3}
-  seParryLauncherVol: 1
+  seParryLauncherVol: 0.5
   seParryLauncherClip: {fileID: 8300000, guid: ec9c0a08b02d0324f9fa3710b04b43d7, type: 3}

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7570378789457403929
+--- !u!1 &6508867907381779838
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8556968159024914269}
-  - component: {fileID: 2559274155712438345}
-  - component: {fileID: 256496727393455537}
-  - component: {fileID: 2567370292894207032}
+  - component: {fileID: 6120771360017132480}
+  - component: {fileID: 1350219119674182566}
+  - component: {fileID: 7780326503528499631}
+  - component: {fileID: 5917529281992321945}
   m_Layer: 0
-  m_Name: EnemyOctopusUI
+  m_Name: EnemyBulletUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &8556968159024914269
+--- !u!224 &6120771360017132480
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7570378789457403929}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 6508867907381779838}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -38,21 +38,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2559274155712438345
+--- !u!222 &1350219119674182566
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7570378789457403929}
+  m_GameObject: {fileID: 6508867907381779838}
   m_CullTransparentMesh: 1
---- !u!114 &256496727393455537
+--- !u!114 &7780326503528499631
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7570378789457403929}
+  m_GameObject: {fileID: 6508867907381779838}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 48484cee4fb74de4a94f9b854723cfd9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3303db9cdeab4ef4586a662529625f26, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -76,13 +76,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2567370292894207032
+--- !u!114 &5917529281992321945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7570378789457403929}
+  m_GameObject: {fileID: 6508867907381779838}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4388d6c76cc4f04a98cce5f347c48b3, type: 3}
@@ -90,8 +90,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stockTime: 0.3
   rotateValue: 60
-  myEnemy: {fileID: 2511403869165125581, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
-  seParryStockVol: 1
+  myEnemy: {fileID: 7393781246745687302, guid: a9153ce654f3f8741925ee9d59f9fe96, type: 3}
+  seParryStockVol: 0.5
   seParryStockClip: {fileID: 8300000, guid: 9acf5bb8e0958dd4bbb53e1eaf7d80f7, type: 3}
-  seParryLauncherVol: 1
+  seParryLauncherVol: 0.5
   seParryLauncherClip: {fileID: 8300000, guid: ec9c0a08b02d0324f9fa3710b04b43d7, type: 3}
