@@ -42,8 +42,10 @@ public class Enemy : MonoBehaviour
 
     [SerializeField, Tooltip("’e‚ÌˆÚ“®‘¬“x")]
     private float bulletSpeed = 1.0f;
+    [SerializeField, Tooltip("’e‚ÌŽõ–½")]
+    private float bulletLifeTime = 5f;
 
-    private Vector3 tempVector3 = new(0,0,0);
+    private Vector3 tempVector3 = new(0, 0, 0);
     private GameObject tempObject = null;
     private float deltaTime;
     private Transform playerWaterTransform;
@@ -114,7 +116,7 @@ public class Enemy : MonoBehaviour
 
     public void HitOctopus(Player.PlayCharacter playCharacter)
     {
-        if(playCharacter == Player.PlayCharacter.Water)
+        if (playCharacter == Player.PlayCharacter.Water)
         {
             waterOctopusInc.SplashInc();
         }
@@ -126,8 +128,8 @@ public class Enemy : MonoBehaviour
 
     private void UpdateForAmemusi()
     {
-        if((myTransform.position.y - playerWaterTransform.position.y) <= 5 && (myTransform.position.x - playerWaterTransform.position.x) <= 30 ||
-           (myTransform.position.y - playerFireTransform.position.y)  <= 5 && (myTransform.position.x - playerFireTransform.position.x)  <= 30)
+        if ((myTransform.position.y - playerWaterTransform.position.y) <= 5 && (myTransform.position.x - playerWaterTransform.position.x) <= 30 ||
+           (myTransform.position.y - playerFireTransform.position.y) <= 5 && (myTransform.position.x - playerFireTransform.position.x) <= 30)
         {
             if (bulletDelayTimer > 0)
             {
@@ -145,6 +147,11 @@ public class Enemy : MonoBehaviour
     private void UpdateForBullet()
     {
         myRigidbody2D.velocity = -myTransform.right * bulletSpeed;
+        bulletLifeTime -= deltaTime;
+        if (bulletLifeTime <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void StockMove(Player.PlayCharacter playCharacter)
