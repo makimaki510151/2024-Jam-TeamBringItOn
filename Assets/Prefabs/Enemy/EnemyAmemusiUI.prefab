@@ -91,6 +91,7 @@ MonoBehaviour:
   stockTime: 0.3
   rotateValue: 60
   myEnemy: {fileID: 3973799897711254523, guid: fef2ee45d0af51e42ae336b205808c6f, type: 3}
+  yPosGap: 3.5
   seParryStockVol: 0.5
   seParryStockClip: {fileID: 8300000, guid: 9acf5bb8e0958dd4bbb53e1eaf7d80f7, type: 3}
   seParryLauncherVol: 0.5

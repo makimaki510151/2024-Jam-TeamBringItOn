@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class StockUI : MonoBehaviour
 {
@@ -13,6 +12,9 @@ public class StockUI : MonoBehaviour
 
     [SerializeField]
     private GameObject myEnemy = null;
+
+    [SerializeField]
+    private float yPosGap = 3.5f;
 
     [Header("‰¹ŠÖŒW")]
     [SerializeField]
@@ -71,6 +73,7 @@ public class StockUI : MonoBehaviour
         AudioControl.Instance.PlaySE(seParryLauncherClip);
 
         vector3.z = 0;
+        vector3.y += Random.Range(0, yPosGap);
         Instantiate(myEnemy, vector3, Quaternion.identity).transform.parent = parentObject.transform;
         Destroy(gameObject);
     }

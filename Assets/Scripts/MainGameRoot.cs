@@ -216,7 +216,6 @@ public class MainGameRoot : RootParent
         if (startTime > 0)
         {
             startTime -= Time.unscaledDeltaTime;
-            Debug.Log(startTime);
             startCountImage.sprite = numbers[((int)startTime / 1) + 1];
             if (startTime <= 0)
             {
@@ -325,9 +324,16 @@ public class MainGameRoot : RootParent
                     stockUIsWater.Add(myStock);
                     return waterStocks[waterStockCount - 1].position;
                 }
-                else
+                else if (isPlayerOne)
                 {
                     return waterStockOver.position;
+                }
+                else
+                {
+                    StockEnemyShot(enemyCharacter);
+                    waterStockCount++;
+                    stockUIsWater.Add(myStock);
+                    return waterStocks[waterStockCount - 1].position;
                 }
             case Player.PlayCharacter.Fire:
             default:
@@ -337,9 +343,16 @@ public class MainGameRoot : RootParent
                     stockUIsFire.Add(myStock);
                     return fireStocks[fireStockCount - 1].position;
                 }
-                else
+                else if (isPlayerOne)
                 {
                     return fireStockOver.position;
+                }
+                else
+                {
+                    StockEnemyShot(enemyCharacter);
+                    fireStockCount++;
+                    stockUIsFire.Add(myStock);
+                    return fireStocks[fireStockCount - 1].position;
                 }
         }
     }
@@ -348,7 +361,7 @@ public class MainGameRoot : RootParent
         switch (enemyCharacter)
         {
             case Player.PlayCharacter.Water:
-                if (waterStockCount < 5)
+                if (!isPlayerOne)
                 {
                     return false;
                 }
@@ -358,7 +371,7 @@ public class MainGameRoot : RootParent
                 }
             case Player.PlayCharacter.Fire:
             default:
-                if (fireStockCount < 5)
+                if (!isPlayerOne)
                 {
                     return false;
                 }
