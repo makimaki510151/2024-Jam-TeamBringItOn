@@ -330,10 +330,11 @@ public class MainGameRoot : RootParent
                 }
                 else
                 {
-                    StockEnemyShot(enemyCharacter);
-                    waterStockCount++;
-                    stockUIsWater.Add(myStock);
-                    return waterStocks[waterStockCount - 1].position;
+                    return waterStockOver.position;
+                    //StockEnemyShot(enemyCharacter);
+                    //waterStockCount++;
+                    //stockUIsWater.Add(myStock);
+                    //return waterStocks[waterStockCount - 1].position;
                 }
             case Player.PlayCharacter.Fire:
             default:
@@ -349,10 +350,11 @@ public class MainGameRoot : RootParent
                 }
                 else
                 {
-                    StockEnemyShot(enemyCharacter);
-                    fireStockCount++;
-                    stockUIsFire.Add(myStock);
-                    return fireStocks[fireStockCount - 1].position;
+                    return fireStockOver.position;
+                    //StockEnemyShot(enemyCharacter);
+                    //fireStockCount++;
+                    //stockUIsFire.Add(myStock);
+                    //return fireStocks[fireStockCount - 1].position;
                 }
         }
     }
@@ -361,7 +363,7 @@ public class MainGameRoot : RootParent
         switch (enemyCharacter)
         {
             case Player.PlayCharacter.Water:
-                if (!isPlayerOne)
+                if (waterStockCount < 5)
                 {
                     return false;
                 }
@@ -371,7 +373,7 @@ public class MainGameRoot : RootParent
                 }
             case Player.PlayCharacter.Fire:
             default:
-                if (!isPlayerOne)
+                if (fireStockCount < 5)
                 {
                     return false;
                 }
