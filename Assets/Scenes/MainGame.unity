@@ -1748,7 +1748,7 @@ MonoBehaviour:
   playerTransform: {fileID: 1684583500}
   startPoint: 17
   goalPoint: 17
-  mapRange: 0
+  mapRange: 0.01
   isLoop: 0
   Sprites: []
   playerCamera: {fileID: 0}
@@ -14772,7 +14772,7 @@ MonoBehaviour:
   playerTransform: {fileID: 176195277}
   startPoint: 0
   goalPoint: 0
-  mapRange: 0
+  mapRange: 0.01
   isLoop: 0
   Sprites: []
   playerCamera: {fileID: 0}
