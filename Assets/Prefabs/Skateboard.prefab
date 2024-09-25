@@ -143,3 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 978526a1dad010d42a306bd169a3d6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickSkateboardSEVol: 1
+  pickSkateboardSE: {fileID: 8300000, guid: e04d1fd8f3c7fcd478ee48b533e8f67a, type: 3}

@@ -84,6 +84,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip seJumpClip = null;
 
+    [SerializeField]
+    private float seDamageVol = 1.0f;
+    [SerializeField]
+    private AudioClip seDamageClip = null;
 
     static readonly int isParryId = Animator.StringToHash("isParry");
     static readonly int isDamageId = Animator.StringToHash("isDamage");
@@ -309,6 +313,9 @@ public class Player : MonoBehaviour
                 // エフェクト処理
                 damageEffectTransform = Instantiate(damageEffectPrafab).transform;
                 damageEffectTransform.position = Vector2.Lerp(myTransform.position, collision.transform.position, 0.5f);
+
+                AudioControl.Instance.SetSEVol(seDamageVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                AudioControl.Instance.PlaySE(seDamageClip, myTransform);
 
                 aiType = collision.GetComponent<Enemy>().AiType;
                 // タコに当たったら、タコスミを発射させる
