@@ -86,6 +86,9 @@ public class MainGameRoot : RootParent
     [SerializeField, Tooltip("ゴールしてからアニメーションを開始するまでの時間")]
     private float goalShowDelay = 1.0f;
 
+    [SerializeField, Tooltip("アニメーションしてからモードセレクトに戻るまでの時間")]
+    private float goModeSelectDelay = 4.0f;
+
     [SerializeField, Tooltip("ゴールアニメーター")]
     private Animator goalAnimator = null;
 
@@ -424,7 +427,9 @@ public class MainGameRoot : RootParent
 
         goalAnimator.SetTrigger(isShowId);
 
-        isResult = true;
+        yield return new WaitForSeconds(goModeSelectDelay);
+
+        ButtonModeSelect();
     }
 
     public void StockEnemyShot(Player.PlayCharacter playCharacter)

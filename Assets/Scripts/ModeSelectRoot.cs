@@ -18,6 +18,12 @@ public class ModeSelectRoot : RootParent
     private Sprite[] guideSprites = new Sprite[2];
     private int guideCount = 1;
 
+    [SerializeField, Tooltip("操作ガイドを表示するボタン")]
+    private Button gideButton = null;
+
+    [SerializeField, Tooltip("操作ガイド表示時に選択するボタン")]
+    private Button firstSelectGideButton = null;
+
     [Header("音関係")]
     [SerializeField]
     private float bgmModeSelectVol = 1.0f;
@@ -92,10 +98,12 @@ public class ModeSelectRoot : RootParent
     public void ButtonManual()
     {
         guideObject.SetActive(true);
+        firstSelectGideButton.Select();
     }
     public void ButtonManualClose()
     {
         guideObject.SetActive(false);
+        gideButton.Select();
     }
 
     public void ButtonManualPage()
