@@ -244,11 +244,15 @@ public class MainGameRoot : RootParent
 
         tempFloat = playerWaterRigidbody2D.position.x / waterGoalRange;
         tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
-        waterIconRectTransform.position = tempVector3;
+        var posW = waterIconRectTransform.position;
+        posW.x = tempVector3.x;
+        waterIconRectTransform.position = posW;
 
         tempFloat = playerFireRigidbody2D.position.x / fireGoalRange;
         tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
-        fireIconRectTransform.position = tempVector3;
+        var posF = fireIconRectTransform.position;
+        posF.x = tempVector3.x;
+        fireIconRectTransform.position = posF;
 
         if (isPause)
         {
