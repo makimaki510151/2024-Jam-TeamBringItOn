@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPower: 1
+  pickCoinSEVol: 1
+  pickCoinSE: {fileID: 8300000, guid: 8b447c39049f07e4383b5affcf9c3a4d, type: 3}
 --- !u!111 &6048767135493096218
 Animation:
   m_ObjectHideFlags: 0
