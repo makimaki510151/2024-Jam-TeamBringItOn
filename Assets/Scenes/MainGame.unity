@@ -901,6 +901,10 @@ PrefabInstance:
       value: EnemyOctopus (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5456050231507655396, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
+      propertyPath: fireOctopusInc
+      value: 
+      objectReference: {fileID: 1186148289}
+    - target: {fileID: 5456050231507655396, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
       propertyPath: waterOctopusInc
       value: 
       objectReference: {fileID: 1604154165}
@@ -9417,6 +9421,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8316813292240532431, guid: 5ce22b63e49c6d140a0e7756816f5fef, type: 3}
   m_PrefabInstance: {fileID: 1185921817}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1186148289 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4415641559277455041, guid: 5e3b2229a9caf8448b7ef120b03e9648, type: 3}
+  m_PrefabInstance: {fileID: 1103240799}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe471ca3defaf24ca18c11f0c552ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1194498424
 GameObject:
   m_ObjectHideFlags: 0
@@ -9710,6 +9725,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyOctopus
       objectReference: {fileID: 0}
+    - target: {fileID: 5456050231507655396, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
+      propertyPath: fireOctopusInc
+      value: 
+      objectReference: {fileID: 1186148289}
     - target: {fileID: 5456050231507655396, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
       propertyPath: waterOctopusInc
       value: 
@@ -10843,6 +10862,10 @@ PrefabInstance:
       value: EnemyOctopus (3)
       objectReference: {fileID: 0}
     - target: {fileID: 5456050231507655396, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
+      propertyPath: fireOctopusInc
+      value: 
+      objectReference: {fileID: 1186148289}
+    - target: {fileID: 5456050231507655396, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
       propertyPath: waterOctopusInc
       value: 
       objectReference: {fileID: 1604154165}
@@ -11316,6 +11339,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyOctopus
       objectReference: {fileID: 0}
+    - target: {fileID: 5456050231507655396, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
+      propertyPath: fireOctopusInc
+      value: 
+      objectReference: {fileID: 1186148289}
     - target: {fileID: 5456050231507655396, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
       propertyPath: waterOctopusInc
       value: 
@@ -12179,6 +12206,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyOctopus (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5456050231507655396, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
+      propertyPath: fireOctopusInc
+      value: 
+      objectReference: {fileID: 1186148289}
     - target: {fileID: 5456050231507655396, guid: 8bb35a040adb8e742b9618c9d1fcb4b9, type: 3}
       propertyPath: waterOctopusInc
       value: 
@@ -15327,6 +15358,7 @@ MonoBehaviour:
   waterIconRectTransform: {fileID: 1484808686}
   fireIconRectTransform: {fileID: 580813609}
   goalShowDelay: 1
+  goModeSelectDelay: 4
   goalAnimator: {fileID: 525952122}
   timeUI: {fileID: 1634582793}
   bgmMainGameVol: 0.5
