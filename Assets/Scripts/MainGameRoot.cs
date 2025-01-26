@@ -24,6 +24,11 @@ public class MainGameRoot : RootParent
     private Transform cameraFireTransform = null;
     public Rigidbody2D playerWaterRigidbody2D = null;
     public Rigidbody2D playerFireRigidbody2D = null;
+
+    // プレイヤースクリプト
+    private Player playerWater;
+    private Player playerFire;
+
     [SerializeField]
     private float lerpNum = 0.9f;
 
@@ -134,6 +139,7 @@ public class MainGameRoot : RootParent
 
     private float tempFloat = 1;
     private Vector3 tempVector3 = new(0, 0, 0);
+    private bool isWaterHigherRank = false;
     private float deltaTime;
 
     public static MainGameRoot Instance;
@@ -185,6 +191,8 @@ public class MainGameRoot : RootParent
         cameraPosFire = (Vector2)cameraFireTransform.position - playerFireRigidbody2D.position;
         waterCamera = cameraWaterTransform.GetComponent<Camera>();
         fireCamera = cameraFireTransform.GetComponent<Camera>();
+        playerWater = playerWaterRigidbody2D.gameObject.GetComponent<Player>();
+        playerFire = playerFireRigidbody2D.gameObject.GetComponent<Player>();
 
         cameraFireTransform.rotation = Quaternion.Euler(0, 0, dataScriptableObject.cameraRotation);
 
@@ -254,6 +262,8 @@ public class MainGameRoot : RootParent
         posF.x = tempVector3.x;
         fireIconRectTransform.position = posF;
 
+        JudgeRank();
+
         if (isPause)
         {
             if (selectEndButtonObject != eventSystem.currentSelectedGameObject && eventSystem.currentSelectedGameObject != null)
@@ -265,6 +275,25 @@ public class MainGameRoot : RootParent
             {
                 EventSystem.current.SetSelectedGameObject(selectEndButtonObject);
             }
+        }
+    }
+
+    private void JudgeRank()
+    {
+        tempFloat = playerWaterRigidbody2D.position.x - playerFireRigidbody2D.position.x;
+        // 水の精霊が順位が上でフラグが立っていなければ、パリィ時間を変更する
+        if(tempFloat > 0 && !isWaterHigherRank)
+        {
+            isWaterHigherRank = true;
+            playerWater.SetParryTime(true);
+            playerFire.SetParryTime(false);
+        }
+        // 火の精霊が順位が上でフラグが立っていれば、パリィ時間を変更する
+        else if (tempFloat < 0 && isWaterHigherRank)
+        {
+            isWaterHigherRank = false;
+            playerWater.SetParryTime(false);
+            playerFire.SetParryTime(true);
         }
     }
 

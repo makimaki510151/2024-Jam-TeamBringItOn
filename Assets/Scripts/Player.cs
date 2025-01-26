@@ -3,15 +3,14 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [Header("移動設定")]
+
     [SerializeField, Tooltip("デフォルトの移動速度")]
     private float defaultSpeed = 10.0f;
     [SerializeField, Tooltip("ノックバック力(左)")]
     private float knockbackLeft = 10.0f;
     [SerializeField, Tooltip("ノックバック力(上)")]
     private float knockbackUp = 5.0f;
-    [SerializeField, Tooltip("無敵時間")]
-    private float invincibleTime = 0.5f;
-    private float invincibleTimer = 0;
     [SerializeField, Tooltip("最大移動速度")]
     private float maxSpeed = 20f;
     [SerializeField, Tooltip("最大ジャンプ速度")]
@@ -22,8 +21,6 @@ public class Player : MonoBehaviour
     private float speedBuffItemCount = 0;
     [SerializeField, Tooltip("通常のジャンプ力")]
     private float normalJumpPower = 8.0f;
-    [SerializeField, Tooltip("パリィのジャンプ力")]
-    private float parryJumpPower = 5.0f;
 
     // プレイヤーの位置
     public enum PlayCharacter
@@ -34,17 +31,33 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayCharacter character = PlayCharacter.Water;
 
-    [SerializeField, Tooltip("パリィ時間")]
-    private float parryTime = 0.25f;
+    [Header("パリィ設定")]
+
+    [SerializeField, Tooltip("順位が上の時のパリィ時間")]
+    private float parryTimeForHigherRank = 0.25f;
+
+    [SerializeField, Tooltip("順位が下の時のパリィ時間")]
+    private float parryTimeForLowerRank = 0.75f;
+
+    private float parryTime = 0;
     private float parryTimer = 0;
+
+    [SerializeField, Tooltip("パリィのジャンプ力")]
+    private float parryJumpPower = 5.0f;
 
     [SerializeField, Tooltip("パリィエフェクト")]
     private GameObject parryEffectPrafab = null;
     private Transform parryEffectTransform = null;
 
+    [Header("その他設定")]
+
     [SerializeField, Tooltip("ダメージエフェクト")]
     private GameObject damageEffectPrafab = null;
     private Transform damageEffectTransform = null;
+
+    [SerializeField, Tooltip("無敵時間")]
+    private float invincibleTime = 0.5f;
+    private float invincibleTimer = 0;
 
     [SerializeField, Tooltip("無敵中の色")]
     private Color transparentColor = new(1, 1, 1, 0.25f);
@@ -135,7 +148,6 @@ public class Player : MonoBehaviour
                 // 接地しておらず、パリィが可能でパリィ中でなければ、パリィを行う
                 if (!isParry && !isParryCancel)
                 {
-                    Debug.Log("準備");
                     isParry = true;
                     parryTimer = parryTime;
                     myAnimator.SetTrigger(isParryId);
@@ -160,6 +172,7 @@ public class Player : MonoBehaviour
         mySpriteRenderer = GetComponent<SpriteRenderer>();
 
         isGroundTime = isGroundTimer;
+        parryTime = parryTimeForHigherRank;
     }
 
     void Update()
@@ -363,5 +376,17 @@ public class Player : MonoBehaviour
         isParry = true;
         parryTimer = skateboardTime;
         myAnimator.SetBool(isSkateId, true);
+    }
+
+    public void SetParryTime(bool isHigher)
+    {
+        if(isHigher)
+        {
+            parryTime = parryTimeForHigherRank;
+        }
+        else
+        {
+            parryTime = parryTimeForLowerRank;
+        }
     }
 }
