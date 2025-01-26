@@ -81,6 +81,9 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("設置判定のレイの長さ")]
     private float maxDistance = 0.625f;
 
+    [SerializeField, Tooltip("敵を消滅させるヒット数")]
+    private int hitenemyCountDestroy = 3;
+
     [Header("音関係")]
     [SerializeField]
     private float seWaterParryVol = 1.0f;
@@ -112,6 +115,9 @@ public class Player : MonoBehaviour
     private bool isParryCancel = false;     // パリィできないならフラグをオン
     private bool isGround = false;
     private bool isTransparent = false;     // 点滅用
+
+    private GameObject enemyObject = null;
+    private int hitEnemyCount = 0;
 
     private Vector2 tempVector2 = new(0, 0);
     private Vector2 vector2zero = Vector2.zero;
@@ -340,6 +346,26 @@ public class Player : MonoBehaviour
                 else if (aiType == Enemy.EnemyAiType.Bullet)
                 {
                     Destroy(collision.gameObject);
+                }
+
+                // 連続ヒット処理
+                // ヒットした敵が前回の敵と違うなら、その敵を記憶しヒット数をリセットする
+                if(enemyObject != collision.gameObject)
+                {
+                    enemyObject = collision.gameObject;
+                    hitEnemyCount = 1;
+                }
+                // ヒットした敵が前回の敵と同じなら、ヒット数をカウントする
+                else
+                {
+                    hitEnemyCount++;
+                    // ヒット数が指定した数以上なら、その敵を消滅させる
+                    if(hitEnemyCount >= hitenemyCountDestroy)
+                    {
+                        Destroy(enemyObject);
+                        enemyObject = null;
+                        hitEnemyCount = 0;
+                    }
                 }
             }
         }
