@@ -13,11 +13,14 @@ public class Enemy : MonoBehaviour
         Octopus,
         Amemusi,
         Bullet,
+        MrFireWorks,
     }
     public EnemyAiType AiType { get => aiType; private set => aiType = value; }
 
     [SerializeField]
     private EnemyAiType aiType = EnemyAiType.Idle;
+
+    [Header("カニ設定")]
 
     [SerializeField]
     private float crabMoveTime = 1;
@@ -27,10 +30,28 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int crabCoefficient = 1;
 
+    [Header("タコ設定")]
+
     [SerializeField, Tooltip("Water側のタコスミ")]
     private OctopusInc waterOctopusInc = null;
     [SerializeField, Tooltip("Fire側のタコスミ")]
     private OctopusInc fireOctopusInc = null;
+
+    [Header("カンシャクダマ設定")]
+
+    [SerializeField, Tooltip("カンシャクダマの横移動速度")]
+    private float mrFireWorksMoveSpeed = 2.0f;
+
+    [SerializeField, Tooltip("カンシャクダマの横回転速度")]
+    private float mrFireWorksRotateSpeed = 2.0f;
+
+    [SerializeField, Tooltip("Water側の花火")]
+    private FireWork waterFireWork = null;
+
+    [SerializeField, Tooltip("Fire側の花火")]
+    private FireWork fireFireWork = null;
+
+    [Header("アメムシ設定")]
 
     [SerializeField, Tooltip("弾の発射間隔")]
     private float bulletDelayTime = 0.5f;
@@ -46,6 +67,7 @@ public class Enemy : MonoBehaviour
     private float bulletLifeTime = 5f;
 
     private Vector3 tempVector3 = new(0, 0, 0);
+    private Vector3 Vector3_left = Vector3.left;
     private GameObject tempObject = null;
     private float deltaTime;
     private Transform playerWaterTransform;
@@ -75,6 +97,9 @@ public class Enemy : MonoBehaviour
             case EnemyAiType.Bullet:
                 myRigidbody2D = GetComponent<Rigidbody2D>();
                 break;
+            case EnemyAiType.MrFireWorks:
+                myRigidbody2D = GetComponent<Rigidbody2D>();
+                break;
         }
     }
 
@@ -96,6 +121,9 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyAiType.Bullet:
                 UpdateForBullet();
+                break;
+            case EnemyAiType.MrFireWorks:
+                UpdateForMrFireWorks();
                 break;
         }
     }
@@ -152,6 +180,25 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void UpdateForMrFireWorks()
+    {
+        myRigidbody2D.velocity = Vector3_left * mrFireWorksMoveSpeed;
+        myTransform.Rotate(0, 0, mrFireWorksRotateSpeed);
+    }
+
+    public void HitMrFireWorks(Player.PlayCharacter playCharacter)
+    {
+        if (playCharacter == Player.PlayCharacter.Water)
+        {
+            waterFireWork.LaunchFireworks();
+        }
+        else
+        {
+            fireFireWork.LaunchFireworks();
+        }
+        Destroy(gameObject);
     }
 
     public void StockMove(Player.PlayCharacter playCharacter)

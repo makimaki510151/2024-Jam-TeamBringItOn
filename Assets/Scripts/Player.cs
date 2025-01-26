@@ -49,6 +49,18 @@ public class Player : MonoBehaviour
     private GameObject parryEffectPrafab = null;
     private Transform parryEffectTransform = null;
 
+    [Header("色設定")]
+
+    [SerializeField, Tooltip("基本色")]
+    private Color basicColor = Color.white;
+
+    [SerializeField, Tooltip("ベタ塗する色")]
+    private Color solidColor = Color.black;
+
+    [SerializeField, Tooltip("ベタ塗する時間")]
+    private float solidColorTime = 3.0f;
+    private float solidColorTimer = 0;
+
     [Header("その他設定")]
 
     [SerializeField, Tooltip("ダメージエフェクト")]
@@ -61,6 +73,8 @@ public class Player : MonoBehaviour
 
     [SerializeField, Tooltip("無敵中の色")]
     private Color transparentColor = new(1, 1, 1, 0.25f);
+
+    private Color transparentSolidColor = default(Color);
 
     [SerializeField, Tooltip("接地しているとみなす時間")]
     private float isGroundTimer = 0.5f;
@@ -115,6 +129,7 @@ public class Player : MonoBehaviour
     private bool isParryCancel = false;     // パリィできないならフラグをオン
     private bool isGround = false;
     private bool isTransparent = false;     // 点滅用
+    private bool isSolidColor = false;
 
     private GameObject enemyObject = null;
     private int hitEnemyCount = 0;
@@ -179,6 +194,7 @@ public class Player : MonoBehaviour
 
         isGroundTime = isGroundTimer;
         parryTime = parryTimeForHigherRank;
+        transparentSolidColor = transparentColor * solidColor;
     }
 
     void Update()
@@ -254,17 +270,20 @@ public class Player : MonoBehaviour
             isTransparent = !isTransparent;
             if (isTransparent)
             {
-                mySpriteRenderer.color = transparentColor;
+                if(!isSolidColor) mySpriteRenderer.color = transparentColor;
+                else mySpriteRenderer.color = transparentSolidColor;
             }
             else
             {
-                mySpriteRenderer.color = colorWhite;
+                if(!isSolidColor) mySpriteRenderer.color = colorWhite;
+                else mySpriteRenderer.color = solidColor;
             }
 
             // 指定した時間が経ったら、カラーを元に戻す
             if (invincibleTimer <= 0)
             {
-                mySpriteRenderer.color = colorWhite;
+                if(!isSolidColor) mySpriteRenderer.color = colorWhite;
+                else mySpriteRenderer.color = solidColor;
             }
         }
 
@@ -277,6 +296,18 @@ public class Player : MonoBehaviour
                 skateboardTimer = 0;
                 skateboardBuffContainer = 1;
                 myAnimator.SetBool(isSkateId, false);
+            }
+        }
+
+        // ベタ塗処理
+        if (isSolidColor)
+        {
+            solidColorTimer += deltaTime;
+            if(solidColorTimer >= solidColorTime)
+            {
+                solidColorTimer = 0;
+                isSolidColor = false;
+                mySpriteRenderer.color = colorWhite;
             }
         }
     }
@@ -341,11 +372,20 @@ public class Player : MonoBehaviour
                 if (aiType == Enemy.EnemyAiType.Octopus)
                 {
                     collision.GetComponent<Enemy>().HitOctopus(character);
+                    isSolidColor = true;
+                    solidColorTimer = 0;
                 }
                 // 弾に当たったら、その弾を消す
                 else if (aiType == Enemy.EnemyAiType.Bullet)
                 {
                     Destroy(collision.gameObject);
+                }
+                // カンシャクダマに当たったら、花火を打ち上げさせる
+                else if(aiType == Enemy.EnemyAiType.MrFireWorks)
+                {
+                    collision.GetComponent <Enemy>().HitMrFireWorks(character);
+                    isSolidColor = true;
+                    solidColorTimer = 0;
                 }
 
                 // 連続ヒット処理

@@ -73,7 +73,9 @@ public class StockUI : MonoBehaviour
         AudioControl.Instance.PlaySE(seParryLauncherClip);
 
         vector3.z = 0;
-        vector3.y += Random.Range(0, yPosGap);
+        // カンシャクダマ以外なら、ランダムで縦位置を変更する
+        if (myEnemy.GetComponent<Enemy>().AiType != Enemy.EnemyAiType.MrFireWorks) vector3.y += Random.Range(0, yPosGap);
+        else vector3.y -= 0.3f;
         Instantiate(myEnemy, vector3, Quaternion.identity).transform.parent = parentObject.transform;
         Destroy(gameObject);
     }
