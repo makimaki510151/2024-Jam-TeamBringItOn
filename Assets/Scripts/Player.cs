@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("通常のジャンプ力")]
     private float normalJumpPower = 8.0f;
 
+    private float speed = 0;
+    private float jumpPower = 0;
+
     // プレイヤーの位置
     public enum PlayCharacter
     {
@@ -60,6 +63,27 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("ベタ塗する時間")]
     private float solidColorTime = 3.0f;
     private float solidColorTimer = 0;
+
+    [Header("凍結状態設定")]
+
+    [SerializeField, Tooltip("凍結状態時の移動速度")]
+    private float maxSpeedForFrozen = 15.0f;
+
+    [SerializeField, Tooltip("凍結状態時の移動速度")]
+    private float jumpPowerForFrozen = 4.0f;
+
+    [SerializeField, Tooltip("凍結時間短縮量")]
+    private float shorteningFrozenTime = 0.1f;
+
+    [SerializeField, Tooltip("氷の画像")]
+    private Transform iceTransform = null;
+
+    [SerializeField, Tooltip("氷の最大の大きさ")]
+    private Vector2 maxSizeIce = Vector2.zero;
+
+    private float frozenTime = 0;
+    private float frozenTimer = 0;
+    private bool isFrozen = false;
 
     [Header("その他設定")]
 
@@ -139,6 +163,7 @@ public class Player : MonoBehaviour
     private Color colorWhite = Color.white;
     private float deltaTime;
     private Enemy.EnemyAiType aiType;
+    private GimmickGround.GimmickGroundType groundType;
     private RaycastHit2D hit;
 
     private Rigidbody2D myRigidbody2D = null;
@@ -174,6 +199,11 @@ public class Player : MonoBehaviour
                     myAnimator.SetTrigger(isParryId);
                 }
             }
+
+            if (isFrozen)
+            {
+                frozenTime -= shorteningFrozenTime;
+            }
         }
     }
 
@@ -192,9 +222,12 @@ public class Player : MonoBehaviour
         myTransform = transform;
         mySpriteRenderer = GetComponent<SpriteRenderer>();
 
+        speed = maxSpeed;
+        jumpPower = normalJumpPower;
         isGroundTime = isGroundTimer;
         parryTime = parryTimeForHigherRank;
         transparentSolidColor = transparentColor * solidColor;
+        iceTransform.localScale = vector2zero;
     }
 
     void Update()
@@ -210,16 +243,16 @@ public class Player : MonoBehaviour
         {
             AudioControl.Instance.SetSEVol(seJumpVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
             AudioControl.Instance.PlaySE(seJumpClip, myTransform);
-            myRigidbody2D.AddForce(myTransform.up * normalJumpPower, ForceMode2D.Impulse);
+            myRigidbody2D.AddForce(myTransform.up * jumpPower, ForceMode2D.Impulse);
             isJump = false;
         }
 
         tempVector2 = myRigidbody2D.velocity;
 
         // 移動速度が最大値を超えないようにする
-        if (tempVector2.x > maxSpeed * skateboardBuffContainer)
+        if (tempVector2.x > speed * skateboardBuffContainer)
         {
-            tempVector2.x = maxSpeed;
+            tempVector2.x = speed;
             myRigidbody2D.velocity = tempVector2;
         }
         if (tempVector2.y > maxJumpSpeed)
@@ -310,6 +343,21 @@ public class Player : MonoBehaviour
                 mySpriteRenderer.color = colorWhite;
             }
         }
+
+        // 氷結処理
+        if (isFrozen)
+        {
+            frozenTimer += deltaTime;
+            iceTransform.localScale = Vector2.Lerp(maxSizeIce, vector2zero, frozenTimer / frozenTime);
+            if (frozenTimer >= frozenTime)
+            {
+                isFrozen = false;
+                frozenTimer = 0;
+                speed = maxSpeed;
+                jumpPower = normalJumpPower;
+                iceTransform.localScale = vector2zero;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -318,6 +366,23 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             IsGroundTrue();
+        }
+        else if (collision.CompareTag("GimmickGround"))
+        {
+            groundType = collision.GetComponent<GimmickGround>().GroundType;
+            if(groundType == GimmickGround.GimmickGroundType.Ice)
+            {
+                frozenTime = collision.GetComponent<GimmickGround>().SetFrozenTime();
+                isFrozen = true;
+                frozenTimer = 0;
+                speed = maxSpeedForFrozen;
+                jumpPower = jumpPowerForFrozen;
+                KnockBackPlayer(collision);
+            }
+            else if(groundType == GimmickGround.GimmickGroundType.Magma)
+            {
+                KnockBackPlayer(collision);
+            }
         }
         // 敵にヒット
         else if (collision.CompareTag("Enemy"))
@@ -354,19 +419,7 @@ public class Player : MonoBehaviour
             // 無敵時間でないなら、ノックバック処理を行う
             else if (invincibleTimer <= 0)
             {
-                myRigidbody2D.velocity = vector2zero;
-                myRigidbody2D.AddForce(-myTransform.right * knockbackLeft, ForceMode2D.Impulse);
-                myRigidbody2D.AddForce(myTransform.up * knockbackUp, ForceMode2D.Impulse);
-                invincibleTimer = invincibleTime;
-                myAnimator.SetBool(isDamageId, true);
-
-                // エフェクト処理
-                damageEffectTransform = Instantiate(damageEffectPrafab).transform;
-                damageEffectTransform.position = Vector2.Lerp(myTransform.position, collision.transform.position, 0.5f);
-
-                AudioControl.Instance.SetSEVol(seDamageVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-                AudioControl.Instance.PlaySE(seDamageClip, myTransform);
-
+                KnockBackPlayer(collision);
                 aiType = collision.GetComponent<Enemy>().AiType;
                 // タコに当たったら、タコスミを発射させる
                 if (aiType == Enemy.EnemyAiType.Octopus)
@@ -421,6 +474,22 @@ public class Player : MonoBehaviour
         isParryCancel = false;
         isParryHit = false;
         myAnimator.SetBool(isDamageId, false);
+    }
+
+    private void KnockBackPlayer(Collider2D collider)
+    {
+        myRigidbody2D.velocity = vector2zero;
+        myRigidbody2D.AddForce(-myTransform.right * knockbackLeft, ForceMode2D.Impulse);
+        myRigidbody2D.AddForce(myTransform.up * knockbackUp, ForceMode2D.Impulse);
+        invincibleTimer = invincibleTime;
+        myAnimator.SetBool(isDamageId, true);
+
+        // エフェクト処理
+        damageEffectTransform = Instantiate(damageEffectPrafab).transform;
+        damageEffectTransform.position = Vector2.Lerp(myTransform.position, collider.transform.position, 0.5f);
+
+        AudioControl.Instance.SetSEVol(seDamageVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seDamageClip, myTransform);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
