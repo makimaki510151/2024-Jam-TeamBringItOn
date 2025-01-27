@@ -68,6 +68,7 @@ public class Enemy : MonoBehaviour
 
     private Vector3 tempVector3 = new(0, 0, 0);
     private Vector3 Vector3_left = Vector3.left;
+    private Vector2 Vector2_zero = Vector2.zero;
     private GameObject tempObject = null;
     private float deltaTime;
     private Transform playerWaterTransform;
@@ -99,6 +100,8 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyAiType.MrFireWorks:
                 myRigidbody2D = GetComponent<Rigidbody2D>();
+                playerWaterTransform = MainGameRoot.Instance.playerWaterRigidbody2D.transform;
+                playerFireTransform = MainGameRoot.Instance.playerFireRigidbody2D.transform;
                 break;
         }
     }
@@ -184,8 +187,16 @@ public class Enemy : MonoBehaviour
 
     private void UpdateForMrFireWorks()
     {
-        myRigidbody2D.velocity = Vector3_left * mrFireWorksMoveSpeed;
-        myTransform.Rotate(0, 0, mrFireWorksRotateSpeed);
+        if ((myTransform.position.y - playerWaterTransform.position.y) <= 5 && (myTransform.position.x - playerWaterTransform.position.x) <= 18 ||
+            (myTransform.position.y - playerFireTransform.position.y) <= 5 && (myTransform.position.x - playerFireTransform.position.x) <= 18)
+        {
+            myRigidbody2D.velocity = Vector3_left * mrFireWorksMoveSpeed;
+            myTransform.Rotate(0, 0, mrFireWorksRotateSpeed);
+        }
+        else
+        {
+            myRigidbody2D.velocity = Vector2_zero;
+        }
     }
 
     public void HitMrFireWorks(Player.PlayCharacter playCharacter)
