@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
         Amemusi,
         Bullet,
         MrFireWorks,
+        Candra,
     }
     public EnemyAiType AiType { get => aiType; private set => aiType = value; }
 
@@ -66,6 +67,47 @@ public class Enemy : MonoBehaviour
     [SerializeField, Tooltip("弾の寿命")]
     private float bulletLifeTime = 5f;
 
+    [Header("キャンドラ設定")]
+
+    [SerializeField, Tooltip("基本当たり判定サイズ")]
+    private Vector2 basicColliderSize = Vector2.one;
+
+    [SerializeField, Tooltip("基本当たり判定位置")]
+    private Vector2 basicColliderOffset = Vector2.zero;
+
+    [SerializeField, Tooltip("最大当たり判定サイズ")]
+    private Vector2 maxColliderSize = Vector2.one;
+
+    [SerializeField, Tooltip("最大当たり判定位置")]
+    private Vector2 maxColliderOffset = Vector2.zero;
+
+    [SerializeField, Tooltip("変更が終わるまでの時間")]
+    private float changeSizeTime = 0.2f;
+
+    [SerializeField, Tooltip("伸びるまでの時間")]
+    private float changeTimeForExtend = 0.7f;
+
+    [SerializeField, Tooltip("縮むまでの時間")]
+    private float changeTimeForShrink = 0.5f;
+    
+    private float changeTimer = 0;
+    private int changeState = 0;
+
+    [SerializeField, Tooltip("伸縮させる頭の火")]
+    private Transform headFireTransform = null;
+
+    [SerializeField, Tooltip("基本頭の火サイズ")]
+    private Vector2 basicHeadFireSize = Vector2.one;
+
+    [SerializeField, Tooltip("基本頭の火位置")]
+    private Vector2 basicHeadFirePosition = Vector2.zero;
+
+    [SerializeField, Tooltip("最大頭の火サイズ")]
+    private Vector2 maxHeadFireSize = Vector2.one;
+
+    [SerializeField, Tooltip("最大頭の火位置")]
+    private Vector2 maxHeadFirePosition = Vector2.zero;
+
     private Vector3 tempVector3 = new(0, 0, 0);
     private Vector3 Vector3_left = Vector3.left;
     private Vector2 Vector2_zero = Vector2.zero;
@@ -76,6 +118,7 @@ public class Enemy : MonoBehaviour
 
     private Rigidbody2D myRigidbody2D = null;
     private Transform myTransform = null;
+    private BoxCollider2D myCollider = null;
 
     private void Start()
     {
@@ -103,6 +146,9 @@ public class Enemy : MonoBehaviour
                 playerWaterTransform = MainGameRoot.Instance.playerWaterRigidbody2D.transform;
                 playerFireTransform = MainGameRoot.Instance.playerFireRigidbody2D.transform;
                 break;
+            case EnemyAiType.Candra:
+                myCollider = GetComponent<BoxCollider2D>();
+                break;
         }
     }
 
@@ -127,6 +173,9 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyAiType.MrFireWorks:
                 UpdateForMrFireWorks();
+                break;
+            case EnemyAiType.Candra:
+                UpdateForCandra();
                 break;
         }
     }
@@ -210,6 +259,60 @@ public class Enemy : MonoBehaviour
             fireFireWork.LaunchFireworks();
         }
         Destroy(gameObject);
+    }
+
+    private void UpdateForCandra()
+    {
+        changeTimer += deltaTime;
+        switch(changeState)
+        {
+            // 縮み
+            case 0:
+                // 指定した時間が経ったら、伸び始める
+                if(changeTimer >= changeTimeForExtend)
+                {
+                    changeState++;
+                    changeTimer = 0;
+                }
+                break;
+            // 縮み→伸び
+            case 1:
+                myCollider.size = Vector2.Lerp(basicColliderSize, maxColliderSize, changeTimer / changeSizeTime);
+                myCollider.offset = Vector2.Lerp(basicColliderOffset, maxColliderOffset, changeTimer / changeSizeTime);
+                headFireTransform.localScale = Vector2.Lerp(basicHeadFireSize, maxHeadFireSize, changeTimer / changeSizeTime);
+                headFireTransform.localPosition = Vector2.Lerp(basicHeadFirePosition, maxHeadFirePosition, changeTimer / changeSizeTime);
+                // 指定した時間が経ったら、最大サイズに固定する
+                if(changeTimer >= changeSizeTime)
+                {
+                    changeState++;
+                    changeTimer = 0;
+                    myCollider.size = maxColliderSize;
+                }
+                break;
+            // 伸び
+            case 2:
+                // 指定した時間が経ったら、縮み始める
+                if (changeTimer >= changeTimeForShrink)
+                {
+                    changeState++;
+                    changeTimer = 0;
+                }
+                break;
+            // 伸び→縮み
+            case 3:
+                myCollider.size = Vector2.Lerp(maxColliderSize, basicColliderSize, changeTimer / changeSizeTime);
+                myCollider.offset = Vector2.Lerp(maxColliderOffset, basicColliderOffset, changeTimer / changeSizeTime);
+                headFireTransform.localScale = Vector2.Lerp(maxHeadFireSize, basicHeadFireSize, changeTimer / changeSizeTime);
+                headFireTransform.localPosition = Vector2.Lerp(maxHeadFirePosition, basicHeadFirePosition, changeTimer / changeSizeTime);
+                // 指定した時間が経ったら、基本サイズに固定する
+                if (changeTimer >= changeSizeTime)
+                {
+                    changeState = 0;
+                    changeTimer = 0;
+                    myCollider.size = basicColliderSize;
+                }
+                break;
+        }
     }
 
     public void StockMove(Player.PlayCharacter playCharacter)
