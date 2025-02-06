@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayCharacter character = PlayCharacter.Water;
 
+    public PlayCharacter Character { get => character; private set => character = value; }
+
     [Header("パリィ設定")]
 
     [SerializeField, Tooltip("順位が上の時のパリィ時間")]
@@ -154,6 +156,7 @@ public class Player : MonoBehaviour
     private bool isGround = false;
     private bool isTransparent = false;     // 点滅用
     private bool isSolidColor = false;
+    private bool isGoal = false;
 
     private GameObject enemyObject = null;
     private int hitEnemyCount = 0;
@@ -236,15 +239,30 @@ public class Player : MonoBehaviour
 
         // 移動処理
         tempVector2 = (myTransform.right * defaultSpeed + (myTransform.right * defaultSpeed * (speedBuffItemCount / 100))) * skateboardBuffContainer * Time.deltaTime;
-        myRigidbody2D.velocity += tempVector2;
-
-        // ジャンプフラグがオンなら、ジャンプする
-        if (isJump)
+        if(!isGoal)
         {
-            AudioControl.Instance.SetSEVol(seJumpVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-            AudioControl.Instance.PlaySE(seJumpClip, myTransform);
-            myRigidbody2D.AddForce(myTransform.up * jumpPower, ForceMode2D.Impulse);
-            isJump = false;
+            myRigidbody2D.velocity += tempVector2;
+
+            // ジャンプフラグがオンなら、ジャンプする
+            if (isJump)
+            {
+                AudioControl.Instance.SetSEVol(seJumpVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                AudioControl.Instance.PlaySE(seJumpClip, myTransform);
+                myRigidbody2D.AddForce(myTransform.up * jumpPower, ForceMode2D.Impulse);
+                isJump = false;
+            }
+        }
+        else
+        {
+            if(myRigidbody2D.velocity.x < 0)
+            {
+                myRigidbody2D.velocity = vector2zero;
+                this.enabled = false;
+            }
+            else
+            {
+                myRigidbody2D.velocity -= tempVector2 / 2;
+            }
         }
 
         tempVector2 = myRigidbody2D.velocity;
@@ -465,7 +483,11 @@ public class Player : MonoBehaviour
         // ゴールにヒット
         else if (collision.CompareTag("Goal"))
         {
-            MainGameRoot.Instance.GoalPlayer(character);
+            if (!isGoal)
+            {
+                isGoal = true;
+                MainGameRoot.Instance.GoalPlayer(character);
+            }
         }
     }
     private void IsGroundTrue()

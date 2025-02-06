@@ -106,6 +106,25 @@ public class MainGameRoot : RootParent
     [SerializeField, Tooltip("タイムUI")]
     private TimeUI timeUI = null;
 
+    [Header("パン食い競争設定")]
+
+    [SerializeField, Tooltip("パン食い競争スクリプト")]
+    private BreadEatingCompetitionRoot breadEatingCompetitionRoot = null;
+
+    [SerializeField, Tooltip("パン食い競争モード")]
+    private bool isBreadEatingCompetitionMode = false;
+
+    [SerializeField, Tooltip("片方がゴールしてからの制限時間")]
+    private float breadEatingCompetitionTimeLimit = 20.0f;
+
+    [SerializeField, Tooltip("待機UI")]
+    private List<GameObject> waitUIs = null;
+
+    [SerializeField, Tooltip("結果UI")]
+    private GameObject resultUI = null;
+
+    private int goalCount = 0;
+
     [Header("音関係")]
     [SerializeField]
     private float bgmMainGameVol = 1.0f;
@@ -141,6 +160,8 @@ public class MainGameRoot : RootParent
     private Vector3 tempVector3 = new(0, 0, 0);
     private bool isWaterHigherRank = false;
     private float deltaTime;
+
+    private bool isWaitGoal = false;
 
     public static MainGameRoot Instance;
 
@@ -276,8 +297,21 @@ public class MainGameRoot : RootParent
                 EventSystem.current.SetSelectedGameObject(selectEndButtonObject);
             }
         }
+
+        if (isWaitGoal)
+        {
+            breadEatingCompetitionTimeLimit -= deltaTime;
+            if(breadEatingCompetitionTimeLimit <= 0)
+            {
+                isWaitGoal = false;
+                BreadGoal();
+            }
+        }
     }
 
+    /// <summary>
+    /// 順位に応じてプレイヤーのパリィ受付時間を変更します
+    /// </summary>
     private void JudgeRank()
     {
         tempFloat = playerWaterRigidbody2D.position.x - playerFireRigidbody2D.position.x;
@@ -438,18 +472,47 @@ public class MainGameRoot : RootParent
 
     public void GoalPlayer(Player.PlayCharacter character)
     {
-        // 1Pがゴールしたら、1PゴールUIを表示する
-        if (character == Player.PlayCharacter.Water)
+        // デュアルランナーモード
+        if (!isBreadEatingCompetitionMode)
         {
-            goalAnimator.SetBool(isGoalOnePId, true);
+            // 1Pがゴールしたら、1PゴールUIを表示する
+            if (character == Player.PlayCharacter.Water)
+            {
+                goalAnimator.SetBool(isGoalOnePId, true);
+            }
+            // 2Pがゴールしたら、2PゴールUIを表示する
+            else
+            {
+                goalAnimator.SetBool(isGoalOnePId, false);
+            }
+
+            StartCoroutine(OnGoalPlayer());
         }
-        // 2Pがゴールしたら、2PゴールUIを表示する
+        // パン食い競争モード
         else
         {
-            goalAnimator.SetBool(isGoalOnePId, false);
+            // 1Pがゴールしたら、1PゴールUIを表示する
+            if (character == Player.PlayCharacter.Water)
+            {
+                waitUIs[0].SetActive(true);
+                breadEatingCompetitionRoot.SetTimeOver(0);
+            }
+            // 2Pがゴールしたら、2PゴールUIを表示する
+            else
+            {
+                waitUIs[1].SetActive(true);
+                breadEatingCompetitionRoot.SetTimeOver(1);
+            }
+            goalCount++;
+            if(goalCount >= 2 && isWaitGoal)
+            {
+                BreadGoal();
+            }
+            else
+            {
+                isWaitGoal = true;
+            }
         }
-
-        StartCoroutine(OnGoalPlayer());
     }
 
     IEnumerator OnGoalPlayer()
@@ -463,6 +526,32 @@ public class MainGameRoot : RootParent
         yield return new WaitForSeconds(goModeSelectDelay);
 
         ButtonModeSelect();
+    }
+
+    private void BreadGoal()
+    {
+        breadEatingCompetitionRoot.SetResult();
+        StartCoroutine(OnBreadResult());
+    }
+
+    IEnumerator OnBreadResult()
+    {
+        waitUIs[0].SetActive(false);
+        waitUIs[1].SetActive(false);
+        resultUI.SetActive(true);
+
+        yield return new WaitForSeconds(1);
+
+        if (breadEatingCompetitionRoot.CheckWinner())
+        {
+            goalAnimator.SetBool(isGoalOnePId, true);
+        }
+        else
+        {
+            goalAnimator.SetBool(isGoalOnePId, false);
+        }
+
+        StartCoroutine(OnGoalPlayer());
     }
 
     public void StockEnemyShot(Player.PlayCharacter playCharacter)
