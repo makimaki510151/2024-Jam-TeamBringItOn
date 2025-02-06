@@ -108,6 +108,11 @@ public class Enemy : MonoBehaviour
     [SerializeField, Tooltip("最大頭の火位置")]
     private Vector2 maxHeadFirePosition = Vector2.zero;
 
+    [SerializeField, Tooltip("キャンドラのアニメーター")]
+    private Animator candraAnimator = null;
+
+    static readonly int isExtendId = Animator.StringToHash("isExtend");
+
     private Vector3 tempVector3 = new(0, 0, 0);
     private Vector3 Vector3_left = Vector3.left;
     private Vector2 Vector2_zero = Vector2.zero;
@@ -273,6 +278,7 @@ public class Enemy : MonoBehaviour
                 {
                     changeState++;
                     changeTimer = 0;
+                    candraAnimator.SetBool(isExtendId, true);
                 }
                 break;
             // 縮み→伸び
@@ -296,6 +302,7 @@ public class Enemy : MonoBehaviour
                 {
                     changeState++;
                     changeTimer = 0;
+                    candraAnimator.SetBool(isExtendId, false);
                 }
                 break;
             // 伸び→縮み
