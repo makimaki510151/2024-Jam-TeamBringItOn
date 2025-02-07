@@ -137,6 +137,8 @@ public class Enemy : MonoBehaviour
                 myRigidbody2D = GetComponent<Rigidbody2D>();
                 break;
             case EnemyAiType.Octopus:
+                waterOctopusInc = GameObject.Find("OctopusWater").GetComponent<OctopusInc>();
+                fireOctopusInc = GameObject.Find("OctopusFire").GetComponent<OctopusInc>();
                 break;
             case EnemyAiType.Amemusi:
                 bulletDelayTimer = bulletDelayTime;
