@@ -94,6 +94,15 @@ public class BreadEatingCompetitionRoot : MonoBehaviour
             reachedGoalUIs[2].SetActive(true);
             reachedGoalUIs[3].SetActive(false);
         }
+
+        if (playerScores[0] < 0)
+        {
+            playerScores[0] = 0;
+        }
+        else
+        {
+            playerScores[1] = 0;
+        }
         scoreTexts[0].text = playerScores[0].ToString();
         scoreTexts[1].text = playerScores[1].ToString();
     }
