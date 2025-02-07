@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -118,7 +119,10 @@ public class MainGameRoot : RootParent
     private float breadEatingCompetitionTimeLimit = 20.0f;
 
     [SerializeField, Tooltip("待機UI")]
-    private List<GameObject> waitUIs = null;
+    private List<GameObject> waitUIs = new List<GameObject>();
+    private List<Animator> waitUIAnimators = new List<Animator>();
+
+    static readonly int isShowIdForWaitUI = Animator.StringToHash("isShow");
 
     [SerializeField, Tooltip("結果UI")]
     private GameObject resultUI = null;
@@ -214,6 +218,11 @@ public class MainGameRoot : RootParent
         fireCamera = cameraFireTransform.GetComponent<Camera>();
         playerWater = playerWaterRigidbody2D.gameObject.GetComponent<Player>();
         playerFire = playerFireRigidbody2D.gameObject.GetComponent<Player>();
+        for(int i = 0; i < waitUIs.Count; i++)
+        {
+            waitUIAnimators.Add(waitUIs[i].GetComponent<Animator>());
+            waitUIs[i].SetActive(false);
+        }
 
         cameraFireTransform.rotation = Quaternion.Euler(0, 0, dataScriptableObject.cameraRotation);
 
@@ -495,12 +504,14 @@ public class MainGameRoot : RootParent
             if (character == Player.PlayCharacter.Water)
             {
                 waitUIs[0].SetActive(true);
+                waitUIAnimators[0].SetTrigger(isShowIdForWaitUI);
                 breadEatingCompetitionRoot.SetTimeOver(0);
             }
             // 2Pがゴールしたら、2PゴールUIを表示する
             else
             {
                 waitUIs[1].SetActive(true);
+                waitUIAnimators[1].SetTrigger(isShowIdForWaitUI);
                 breadEatingCompetitionRoot.SetTimeOver(1);
             }
             goalCount++;
