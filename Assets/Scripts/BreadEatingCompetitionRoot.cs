@@ -10,6 +10,9 @@ public class BreadEatingCompetitionRoot : MonoBehaviour
 
     private int bigBreadScore = 0;
 
+    [SerializeField, Tooltip("ゴールに着かなかった時の減点数")]
+    private int notReachedGoalDeductionScore = 10;
+
     [SerializeField, Tooltip("小さいパンの取得数を表示")]
     private List<TMP_Text> smallBreadCountTexts = new List<TMP_Text>();
 
@@ -73,6 +76,7 @@ public class BreadEatingCompetitionRoot : MonoBehaviour
         {
             reachedGoalUIs[0].SetActive(false);
             reachedGoalUIs[1].SetActive(true);
+            playerScores[0] -= notReachedGoalDeductionScore;
         }
         else
         {
@@ -83,6 +87,7 @@ public class BreadEatingCompetitionRoot : MonoBehaviour
         {
             reachedGoalUIs[2].SetActive(false);
             reachedGoalUIs[3].SetActive(true);
+            playerScores[1] -= notReachedGoalDeductionScore;
         }
         else
         {
