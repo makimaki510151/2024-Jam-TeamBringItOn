@@ -516,9 +516,11 @@ MonoBehaviour:
   menuObjects:
   - {fileID: 1374287701}
   - {fileID: 1144782985}
+  - {fileID: 911646968}
   firstSelectMenuButtons:
   - {fileID: 1072064039}
   - {fileID: 1324485789}
+  - {fileID: 1418339551}
   bgmModeSelectVol: 0.4
   bgmModeSelectClip: {fileID: 8300000, guid: 51c7ebf763171e043bbf9bd57ef04904, type: 3}
   seDecisionVol: 0.4
