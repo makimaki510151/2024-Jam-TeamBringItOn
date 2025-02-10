@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb34868e1e5f4042a4b98776867ad3f, type: 3}
   m_Name: DataScriptableObject
   m_EditorClassIdentifier: 
-  seVolSetting: 0.5
-  bgmVolSetting: 0.5
-  playType: 0
-  cameraRotation: 0
+  SeVolSetting: 0.5
+  BgmVolSetting: 0.5

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RootParent : MonoBehaviour
+public abstract class RootParent : MonoBehaviour
 {
     public DataScriptableObject dataScriptableObject = null;
 

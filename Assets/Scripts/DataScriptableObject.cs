@@ -1,15 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "DataScriptableObject", menuName = "DataScriptableObject", order = 0)]
 public class DataScriptableObject : ScriptableObject
 {
-    public float seVolSetting = 0.5f;
+    [SerializeField, Tooltip("SEのボリューム")]
+    private float SeVolSetting = default;
 
-    public float bgmVolSetting = 0.5f;
+    [NonSerialized]
+    public float seVolSetting;
+
+    [SerializeField, Tooltip("BGMのボリューム")]
+    private float BgmVolSetting = default;
+
+    [NonSerialized]
+    public float bgmVolSetting;
 
     public enum PlayType
     {
@@ -17,8 +23,25 @@ public class DataScriptableObject : ScriptableObject
         One
     }
 
+    [NonSerialized]
     public PlayType playType = PlayType.Two;
 
+    [NonSerialized]
     public float cameraRotation = 0;
 
+    [NonSerialized]
+    public bool isBreadMode = false;
+
+    [NonSerialized]
+    public bool isTwoPlayer = false;
+
+    public void OnAfterDeserialize()
+    {
+        // Editor上では再生中に変更したScriptableObject内の値が実行終了時に消えない。
+        // そのため、初期値と実行時に使う変数は分けておき、初期化する必要がある。
+        seVolSetting = SeVolSetting;
+        bgmVolSetting = BgmVolSetting;
+    }
+
+    public void OnBeforeSerialize() { /* do nothing */ }
 }

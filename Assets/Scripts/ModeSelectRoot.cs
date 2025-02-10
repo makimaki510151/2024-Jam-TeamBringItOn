@@ -1,28 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class ModeSelectRoot : RootParent
 {
+    public EventSystem EventSystem { get => eventSystem; private set => eventSystem = value; }
+
     [SerializeField]
     private EventSystem eventSystem;
 
-    [SerializeField]
-    private Image guideImage = null;
-    private GameObject guideObject = null;
-    [SerializeField]
-    private Sprite[] guideSprites = new Sprite[2];
-    private int guideCount = 1;
+    [SerializeField, Tooltip("メニュー")]
+    private List<GameObject> menuObjects = new List<GameObject>();
 
-    [SerializeField, Tooltip("操作ガイドを表示するボタン")]
-    private Button gideButton = null;
+    private int menuCount = 0;
 
-    [SerializeField, Tooltip("操作ガイド表示時に選択するボタン")]
-    private Button firstSelectGideButton = null;
+    [SerializeField, Tooltip("メニューを開いたときに選択するボタン")]
+    private List<Button> firstSelectMenuButtons = new List<Button>();
 
     [Header("音関係")]
     [SerializeField]
@@ -40,12 +36,21 @@ public class ModeSelectRoot : RootParent
 
     private GameObject selectEndButtonObject;
 
-    private void Start()
+    public static ModeSelectRoot Instance { get; private set; }
+
+    public override void Awake()
     {
+        base.Awake();
+        Instance = this;
+    }
+
+    void Start()
+    {
+        menuCount = menuObjects.Count;
+        ShowMenu(0);
+
         AudioControl.Instance.SetBGMVol(bgmModeSelectVol * dataScriptableObject.bgmVolSetting);
         AudioControl.Instance.PlayBGM(bgmModeSelectClip);
-
-        guideObject = guideImage.gameObject;
     }
 
     private void Update()
@@ -61,81 +66,68 @@ public class ModeSelectRoot : RootParent
         }
     }
 
-    public void ButtonRetrun()
-    {
-        if (isCoroutines) return;
-        isCoroutines = true;
-
-        StartCoroutine(LoadYourAsyncScene("Title"));
-    }
-
     public void ButtonPlayTwo()
     {
-        if (isCoroutines) return;
-        isCoroutines = true;
         dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
         dataScriptableObject.cameraRotation = 0;
 
         AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seDecisionClip);
 
-        StartCoroutine(LoadYourAsyncScene("MainGame"));
+        LoadScene(2);
     }
 
     public void ButtonPlayOne()
     {
-        if (isCoroutines) return;
-        isCoroutines = true;
         dataScriptableObject.playType = DataScriptableObject.PlayType.One;
         dataScriptableObject.cameraRotation = 0;
 
         AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seDecisionClip);
 
-        StartCoroutine(LoadYourAsyncScene("MainGame"));
+        LoadScene(2);
     }
-
-    public void ButtonManual()
-    {
-        guideObject.SetActive(true);
-        firstSelectGideButton.Select();
-    }
-    public void ButtonManualClose()
-    {
-        guideObject.SetActive(false);
-        gideButton.Select();
-    }
-
-    public void ButtonManualPage()
-    {
-        guideImage.sprite = guideSprites[guideCount];
-        guideCount++;
-        if(guideCount == guideSprites.Length)
-        {
-            guideCount = 0;
-        }
-    }
-
 
     public void ButtonOmake()
     {
-        if (isCoroutines) return;
-        isCoroutines = true;
         dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
         dataScriptableObject.cameraRotation = 180;
 
         AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seDecisionClip);
 
-        StartCoroutine(LoadYourAsyncScene("MainGame"));
+        LoadScene(2);
     }
-    IEnumerator LoadYourAsyncScene(string name)
-    {
-        asyncLoad = SceneManager.LoadSceneAsync(name);
 
+    public void LoadScene(int buildNumber)
+    {
+        if (!isCoroutines)
+        {
+            isCoroutines = true;
+            StartCoroutine(OnLoadScene(buildNumber));
+        }
+    }
+
+    IEnumerator OnLoadScene(int buildNumber)
+    {
+        asyncLoad = SceneManager.LoadSceneAsync(buildNumber);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
+    }
+
+    /// <summary>
+    /// 指定したメニューを表示します
+    /// </summary>
+    /// <param name="menuNumber">表示したいメニュー番号</param>
+    public void ShowMenu(int menuNumber)
+    {
+        for (int i = 0; i < menuCount; i++)
+        {
+            menuObjects[i].SetActive(false);
+        }
+        menuObjects[menuNumber].SetActive(true);
+        firstSelectMenuButtons[menuNumber].Select();
     }
 }
