@@ -35,6 +35,24 @@ public class DataScriptableObject : ScriptableObject
     [NonSerialized]
     public bool isTwoPlayer = false;
 
+    [NonSerialized]
+    public int playerAmountNumber = 0;
+
+    [NonSerialized]
+    public int operationNumber = 0;
+
+    [NonSerialized]
+    public int characterOneNumber = 0;
+
+    [NonSerialized]
+    public int characterTwoNumber = 0;
+
+    [NonSerialized]
+    public int stageOneNumber = 0;
+
+    [NonSerialized]
+    public int stageTwoNumber = 0;
+
     public void OnAfterDeserialize()
     {
         // Editor上では再生中に変更したScriptableObject内の値が実行終了時に消えない。

@@ -20,6 +20,9 @@ public class ModeSelectRoot : RootParent
     [SerializeField, Tooltip("メニューを開いたときに選択するボタン")]
     private List<Button> firstSelectMenuButtons = new List<Button>();
 
+    [SerializeField, Tooltip("その他メニュースクリプト")]
+    private OtherMenu otherMenu = null;
+
     [Header("音関係")]
     [SerializeField]
     private float bgmModeSelectVol = 1.0f;
@@ -129,5 +132,10 @@ public class ModeSelectRoot : RootParent
         }
         menuObjects[menuNumber].SetActive(true);
         firstSelectMenuButtons[menuNumber].Select();
+
+        if(menuNumber == 2)
+        {
+            otherMenu.SetSelectObject();
+        }
     }
 }
