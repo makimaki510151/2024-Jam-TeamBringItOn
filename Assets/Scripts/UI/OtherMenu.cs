@@ -3,11 +3,6 @@ using UnityEngine;
 
 public class OtherMenu : MonoBehaviour
 {
-    [SerializeField, Tooltip("選択するものの数")]
-    private int selectCount = 4;
-
-    private int selectCounter = 0;
-
     [SerializeField, Tooltip("人数選択の画像")]
     private List<GameObject> playerAmountObjects = new List<GameObject>();
 
@@ -26,14 +21,10 @@ public class OtherMenu : MonoBehaviour
     [SerializeField, Tooltip("ステージ（2P）選択の画像")]
     private List<GameObject> stageTwoObjects = new List<GameObject>();
 
+    private int selectCounter = 0;
     private int selectIndexOne = 0;
     private int selectIndexTwo = 0;
     private int waitCounter = 0;
-
-    void Update()
-    {
-        Debug.Log(selectIndexOne);
-    }
 
     /// <summary>
     /// 選択するものを設定します
@@ -57,24 +48,16 @@ public class OtherMenu : MonoBehaviour
             case 2:
                 selectIndexOne = ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber;
                 characterOneObjects[selectIndexOne].SetActive(true);
-                // 2Pありなら、2P側の画像も表示する
-                if(ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber == 1)
-                {
-                    selectIndexTwo = ModeSelectRoot.Instance.dataScriptableObject.characterTwoNumber;
-                    characterTwoObjects[selectIndexTwo].SetActive(true);
-                }
+                selectIndexTwo = ModeSelectRoot.Instance.dataScriptableObject.characterTwoNumber;
+                characterTwoObjects[selectIndexTwo].SetActive(true);
                 waitCounter = 0;
                 break;
             // ステージ
             case 3:
                 selectIndexOne = ModeSelectRoot.Instance.dataScriptableObject.stageOneNumber;
                 stageOneObjects[selectIndexOne].SetActive(true);
-                // 2Pありなら、2P側の画像も表示する
-                if (ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber == 1)
-                {
-                    selectIndexTwo = ModeSelectRoot.Instance.dataScriptableObject.stageTwoNumber;
-                    stageTwoObjects[selectIndexTwo].SetActive(true);
-                }
+                selectIndexTwo = ModeSelectRoot.Instance.dataScriptableObject.stageTwoNumber;
+                stageTwoObjects[selectIndexTwo].SetActive(true);
                 waitCounter = 0;
                 break;
         }
@@ -263,6 +246,11 @@ public class OtherMenu : MonoBehaviour
             // 人数
             case 0:
                 ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber = selectIndexOne;
+                // 1Pvs2Pなら、最初に表示する画像を変更する
+                if(selectIndexOne == 1)
+                {
+                    ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber = 2;
+                }
                 selectCounter++;
                 SetSelectObject();
                 break;
