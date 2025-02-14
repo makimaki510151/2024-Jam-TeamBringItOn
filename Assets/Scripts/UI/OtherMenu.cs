@@ -1,8 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OtherMenu : MonoBehaviour
 {
+    [SerializeField, Tooltip("決定ボタン")]
+    private List<Button> confirmButtons = new List<Button>();
+
     [SerializeField, Tooltip("人数選択の画像")]
     private List<GameObject> playerAmountObjects = new List<GameObject>();
 
@@ -211,7 +215,7 @@ public class OtherMenu : MonoBehaviour
                 {
                     characterTwoObjects[selectIndexTwo].SetActive(false);
                     selectIndexTwo--;
-                    if (selectIndexTwo >= 0) selectIndexTwo = characterTwoObjects.Count - 1;
+                    if (selectIndexTwo < 0) selectIndexTwo = characterTwoObjects.Count - 1;
                     characterTwoObjects[selectIndexTwo].SetActive(true);
                 }
                 break;
@@ -274,17 +278,18 @@ public class OtherMenu : MonoBehaviour
                 }
 
                 waitCounter++;
+                // 2人分の設定が終わったら次の設定画面に移行する
                 if (waitCounter >= 2)
                 {
                     waitCounter = 0;
+                    confirmButtons[0].Select();
                     selectCounter++;
                     SetSelectObject();
                 }
-
-                // 1Pのみなら、CPのキャラを選択する
-                if (ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber == 0)
+                // まだ設定が終わっていなかったら、2人目の選択に移行する
+                else
                 {
-
+                    confirmButtons[1].Select();
                 }
                 break;
             // ステージ
@@ -306,11 +311,10 @@ public class OtherMenu : MonoBehaviour
                     //----- ここでメインシーンへ移行処理 -----//
                     Debug.Log("設定完了！！！れ！！！！");
                 }
-
-                // 1Pのみなら、CPのステージを選択する
-                if (ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber == 0)
+                // まだ設定が終わっていなかったら、2人目の選択に移行する
+                else
                 {
-
+                    confirmButtons[1].Select();
                 }
                 break;
         }
@@ -326,6 +330,11 @@ public class OtherMenu : MonoBehaviour
         {
             selectCounter = 0;
             ModeSelectRoot.Instance.ShowMenu(1);
+        }
+        else if(waitCounter == 1)
+        {
+            waitCounter = 0;
+            confirmButtons[0].Select();
         }
         else
         {
