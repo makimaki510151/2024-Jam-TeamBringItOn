@@ -7,6 +7,15 @@ public class OtherMenu : MonoBehaviour
     [SerializeField, Tooltip("決定ボタン")]
     private List<Button> confirmButtons = new List<Button>();
 
+    [SerializeField, Tooltip("待機UI")]
+    private GameObject waitUI = null;
+
+    [SerializeField, Tooltip("エラーUI")]
+    private GameObject errorUI = null;
+
+    [SerializeField, Tooltip("エラーUIのボタン")]
+    private Button errorUIButton = null;
+
     [SerializeField, Tooltip("人数選択の画像")]
     private List<GameObject> playerAmountObjects = new List<GameObject>();
 
@@ -29,6 +38,11 @@ public class OtherMenu : MonoBehaviour
     private int selectIndexOne = 0;
     private int selectIndexTwo = 0;
     private int waitCounter = 0;
+
+    void Update()
+    {
+        Debug.Log(selectIndexOne);
+    }
 
     /// <summary>
     /// 選択するものを設定します
@@ -253,13 +267,24 @@ public class OtherMenu : MonoBehaviour
                 // 1Pvs2Pなら、最初に表示する画像を変更する
                 if(selectIndexOne == 1)
                 {
-                    ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber = 2;
+                    ModeSelectRoot.Instance.dataScriptableObject.operationNumber = 2;
                 }
                 selectCounter++;
                 SetSelectObject();
                 break;
             // 操作
             case 1:
+                // コントローラー・ライバルのとき
+                if (selectIndexOne == 4)
+                {
+                    // 接続されているコントローラーが足りなかったら、エラーUIを表示する
+                    if(Input.GetJoystickNames().Length <= 1)
+                    {
+                        errorUI.SetActive(true);
+                        errorUIButton.Select();
+                        break;
+                    }
+                }
                 ModeSelectRoot.Instance.dataScriptableObject.operationNumber = selectIndexOne;
                 selectCounter++;
                 SetSelectObject();
@@ -269,12 +294,12 @@ public class OtherMenu : MonoBehaviour
                 if(player == 0)
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber = selectIndexOne;
-                    //----- ここでちょっとまってね画像を表示 -----//
+                    waitUI.SetActive(true);
                 }
                 else
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.characterTwoNumber = selectIndexTwo;
-                    //----- ここでちょっとまってね画像を表示 -----//
+                    waitUI.SetActive(false);
                 }
 
                 waitCounter++;
@@ -297,19 +322,19 @@ public class OtherMenu : MonoBehaviour
                 if (player == 0)
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.stageOneNumber = selectIndexOne;
-                    //----- ここでちょっとまってね画像を表示 -----//
+                    waitUI.SetActive(true);
                 }
                 else
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.stageTwoNumber = selectIndexTwo;
-                    //----- ここでちょっとまってね画像を表示 -----//
+                    waitUI.SetActive(false);
                 }
 
                 waitCounter++;
+                // 2人分の設定が終わったら設定を終える
                 if (waitCounter >= 2)
                 {
-                    //----- ここでメインシーンへ移行処理 -----//
-                    Debug.Log("設定完了！！！れ！！！！");
+                    FinishSetting();
                 }
                 // まだ設定が終わっていなかったら、2人目の選択に移行する
                 else
@@ -334,6 +359,7 @@ public class OtherMenu : MonoBehaviour
         else if(waitCounter == 1)
         {
             waitCounter = 0;
+            waitUI.SetActive(false);
             confirmButtons[0].Select();
         }
         else
@@ -341,5 +367,24 @@ public class OtherMenu : MonoBehaviour
             selectCounter--;
             SetSelectObject();
         }
+    }
+
+    /// <summary>
+    /// エラーUIを非表示にします
+    /// </summary>
+    public void HideErrorUI()
+    {
+        errorUI.SetActive(false);
+        SetSelectObject();
+        confirmButtons[0].Select();
+    }
+
+    /// <summary>
+    /// 設定を終えます
+    /// </summary>
+    private void FinishSetting()
+    {
+        characterOneObjects[ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber].GetComponent<Animator>().enabled = true;
+        characterTwoObjects[ModeSelectRoot.Instance.dataScriptableObject.characterTwoNumber].GetComponent<Animator>().enabled = true;
     }
 }
