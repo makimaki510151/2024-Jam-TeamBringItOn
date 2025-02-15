@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,9 @@ public class OtherMenu : MonoBehaviour
     [SerializeField, Tooltip("決定ボタン")]
     private List<Button> confirmButtons = new List<Button>();
 
+    [SerializeField, Tooltip("選択ボタン")]
+    private List<GameObject> changeButtons = new List<GameObject>();
+
     [SerializeField, Tooltip("待機UI")]
     private GameObject waitUI = null;
 
@@ -15,6 +19,23 @@ public class OtherMenu : MonoBehaviour
 
     [SerializeField, Tooltip("エラーUIのボタン")]
     private Button errorUIButton = null;
+
+    [SerializeField, Tooltip("キャラクターの移動速度")]
+    private float characterSpeed = 1.0f;
+
+    [SerializeField, Tooltip("設定を終えてからフェードアウトを開始するまでの時間")]
+    private float fadeoutStartTime = 1.0f;
+    private float fadeoutStartTimer = 0;
+
+    [SerializeField, Tooltip("フェードアニメーター")]
+    private Animator fadeAnimator = null;
+
+    [SerializeField, Tooltip("フェードアニメーション")]
+    private AnimationClip fadeAnimationClip = null;
+
+    static readonly int isFadeout = Animator.StringToHash("isFadeout");
+
+    [Header("設定項目")]
 
     [SerializeField, Tooltip("人数選択の画像")]
     private List<GameObject> playerAmountObjects = new List<GameObject>();
@@ -38,10 +59,38 @@ public class OtherMenu : MonoBehaviour
     private int selectIndexOne = 0;
     private int selectIndexTwo = 0;
     private int waitCounter = 0;
+    private float deltaTime = 0;
+    private List<RectTransform> characterRectTransforms = new List<RectTransform>();
+    private Vector2 pos = Vector2.zero;
+    private bool isFinish = false;
+    private bool isFade = false;
 
     void Update()
     {
-        Debug.Log(selectIndexOne);
+        if (isFinish)
+        {
+            deltaTime = Time.deltaTime;
+            for (int i = 0; i < characterRectTransforms.Count; i++)
+            {
+                pos = characterRectTransforms[i].position;
+                pos.x += characterSpeed * deltaTime;
+                characterRectTransforms[i].position = pos;
+            }
+            fadeoutStartTimer += deltaTime;
+            if(!isFade && fadeoutStartTimer >= fadeoutStartTime)
+            {
+                StartCoroutine(OnFinish());
+            }
+        }
+    }
+
+    IEnumerator OnFinish()
+    {
+        fadeAnimator.SetTrigger(isFadeout);
+
+        yield return new WaitForSeconds(fadeAnimationClip.length);
+
+        ModeSelectRoot.Instance.LoadScene(2);
     }
 
     /// <summary>
@@ -386,5 +435,16 @@ public class OtherMenu : MonoBehaviour
     {
         characterOneObjects[ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber].GetComponent<Animator>().enabled = true;
         characterTwoObjects[ModeSelectRoot.Instance.dataScriptableObject.characterTwoNumber].GetComponent<Animator>().enabled = true;
+        characterRectTransforms.Add(characterOneObjects[ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber].GetComponent<RectTransform>());
+        characterRectTransforms.Add(characterTwoObjects[ModeSelectRoot.Instance.dataScriptableObject.characterTwoNumber].GetComponent<RectTransform>());
+        for(int i = 0; i < confirmButtons.Count; i++)
+        {
+            confirmButtons[i].gameObject.SetActive(false);
+        }
+        for(int i = 0; i < changeButtons.Count; i++)
+        {
+            changeButtons[i].SetActive(false);
+        }
+        isFinish = true;
     }
 }
