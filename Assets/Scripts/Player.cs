@@ -28,13 +28,10 @@ public class Player : MonoBehaviour
     // プレイヤーの位置
     public enum PlayCharacter
     {
-        Water,
-        Fire
+        One,
+        Two
     }
-    [SerializeField]
-    private PlayCharacter character = PlayCharacter.Water;
-
-    public PlayCharacter Character { get => character; private set => character = value; }
+    public PlayCharacter character = PlayCharacter.One;
 
     [Header("パリィ設定")]
 
@@ -126,14 +123,9 @@ public class Player : MonoBehaviour
 
     [Header("音関係")]
     [SerializeField]
-    private float seWaterParryVol = 1.0f;
+    private float seParryVol = 1.0f;
     [SerializeField]
-    private AudioClip seWaterParryClip = null;
-
-    [SerializeField]
-    private float seFireParryVol = 1.0f;
-    [SerializeField]
-    private AudioClip seFireParryClip = null;
+    private AudioClip seParryClip = null;
 
     [SerializeField]
     private float seJumpVol = 1.0f;
@@ -408,18 +400,6 @@ public class Player : MonoBehaviour
             // パリィ中なら、パリィ処理を行う
             if (isParry)
             {
-                switch (character)
-                {
-                    case PlayCharacter.Water:
-                        AudioControl.Instance.SetSEVol(seWaterParryVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-                        AudioControl.Instance.PlaySE(seWaterParryClip, myTransform);
-                        break;
-                    case PlayCharacter.Fire:
-                        AudioControl.Instance.SetSEVol(seFireParryVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-                        AudioControl.Instance.PlaySE(seFireParryClip, myTransform);
-                        break;
-                }
-
                 isParryHit = true;
                 collision.GetComponent<Enemy>().StockMove(character);
                 if (skateboardTimer <= 0)
@@ -433,6 +413,9 @@ public class Player : MonoBehaviour
                 // エフェクト処理
                 parryEffectTransform = Instantiate(parryEffectPrafab).transform;
                 parryEffectTransform.position = Vector2.Lerp(myTransform.position, collision.transform.position, 0.5f);
+
+                AudioControl.Instance.SetSEVol(seParryVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                AudioControl.Instance.PlaySE(seParryClip, myTransform);
             }
             // 無敵時間でないなら、ノックバック処理を行う
             else if (invincibleTimer <= 0)

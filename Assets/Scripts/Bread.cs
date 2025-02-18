@@ -23,7 +23,7 @@ public class Bread : MonoBehaviour
         var layer = 1 << collider.gameObject.layer;
         if((layer & playerLayerMask) != 0)
         {
-            if(collider.GetComponent<Player>().Character == Player.PlayCharacter.Water)
+            if(collider.GetComponent<Player>().character == Player.PlayCharacter.One)
             {
                 playerIndex = 0;
             }

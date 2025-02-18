@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class BackGround : MonoBehaviour
 {
-    [SerializeField, Tooltip("プレイヤー")]
     private Transform playerTransform = null;
 
     [SerializeField, Tooltip("最初の位置")]
@@ -22,7 +21,6 @@ public class BackGround : MonoBehaviour
     [SerializeField]
     private Transform[] Sprites = null;
 
-    [SerializeField, Tooltip("カメラ")]
     private Transform playerCamera = null;
 
     [SerializeField, Tooltip("背景の幅")]
@@ -59,5 +57,11 @@ public class BackGround : MonoBehaviour
                 Sprites[index].position = position;
             }
         }
+    }
+
+    public void SetInformation(Transform player, Transform camera)
+    {
+        playerTransform = player;
+        playerCamera = camera;
     }
 }

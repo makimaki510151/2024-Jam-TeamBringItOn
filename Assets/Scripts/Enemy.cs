@@ -142,16 +142,16 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyAiType.Amemusi:
                 bulletDelayTimer = bulletDelayTime;
-                playerWaterTransform = MainGameRoot.Instance.playerWaterRigidbody2D.transform;
-                playerFireTransform = MainGameRoot.Instance.playerFireRigidbody2D.transform;
+                playerWaterTransform = MainGameRoot.Instance.playerOneRigidbody2D.transform;
+                playerFireTransform = MainGameRoot.Instance.playerTwoRigidbody2D.transform;
                 break;
             case EnemyAiType.Bullet:
                 myRigidbody2D = GetComponent<Rigidbody2D>();
                 break;
             case EnemyAiType.MrFireWorks:
                 myRigidbody2D = GetComponent<Rigidbody2D>();
-                playerWaterTransform = MainGameRoot.Instance.playerWaterRigidbody2D.transform;
-                playerFireTransform = MainGameRoot.Instance.playerFireRigidbody2D.transform;
+                playerWaterTransform = MainGameRoot.Instance.playerOneRigidbody2D.transform;
+                playerFireTransform = MainGameRoot.Instance.playerTwoRigidbody2D.transform;
                 break;
             case EnemyAiType.Candra:
                 myCollider = GetComponent<BoxCollider2D>();
@@ -203,7 +203,7 @@ public class Enemy : MonoBehaviour
 
     public void HitOctopus(Player.PlayCharacter playCharacter)
     {
-        if (playCharacter == Player.PlayCharacter.Water)
+        if (playCharacter == Player.PlayCharacter.One)
         {
             waterOctopusInc.SplashInc();
         }
@@ -257,7 +257,7 @@ public class Enemy : MonoBehaviour
 
     public void HitMrFireWorks(Player.PlayCharacter playCharacter)
     {
-        if (playCharacter == Player.PlayCharacter.Water)
+        if (playCharacter == Player.PlayCharacter.One)
         {
             waterFireWork.LaunchFireworks();
         }
@@ -328,14 +328,14 @@ public class Enemy : MonoBehaviour
     {
         switch (playCharacter)
         {
-            case Player.PlayCharacter.Water:
+            case Player.PlayCharacter.One:
                 tempVector3 = MainGameRoot.Instance.waterCamera.WorldToScreenPoint(myTransform.position);
                 tempObject = Instantiate(myUI, tempVector3, Quaternion.identity);
                 tempObject.GetComponent<StockUI>().character = playCharacter;
                 tempObject.transform.SetParent(MainGameRoot.Instance.GetCanvas().GetComponent<RectTransform>());
                 Destroy(gameObject);
                 break;
-            case Player.PlayCharacter.Fire:
+            case Player.PlayCharacter.Two:
                 tempVector3 = MainGameRoot.Instance.fireCamera.WorldToScreenPoint(myTransform.position);
                 tempObject = Instantiate(myUI, tempVector3, Quaternion.identity);
                 tempObject.GetComponent<StockUI>().character = playCharacter;

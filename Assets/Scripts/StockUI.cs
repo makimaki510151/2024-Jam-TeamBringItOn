@@ -28,7 +28,7 @@ public class StockUI : MonoBehaviour
     private AudioClip seParryLauncherClip = null;
 
     [NonSerialized]
-    public Player.PlayCharacter character = Player.PlayCharacter.Water;
+    public Player.PlayCharacter character = Player.PlayCharacter.One;
 
     private RectTransform myRectTransform;
 
@@ -67,7 +67,7 @@ public class StockUI : MonoBehaviour
         }
     }
 
-    public void StockShot(Vector3 vector3,GameObject parentObject)
+    public void StockShot(Vector3 vector3)
     {
         AudioControl.Instance.SetSEVol(seParryLauncherVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seParryLauncherClip);
@@ -76,7 +76,8 @@ public class StockUI : MonoBehaviour
         // カンシャクダマ以外なら、ランダムで縦位置を変更する
         if (myEnemy.GetComponent<Enemy>().AiType != Enemy.EnemyAiType.MrFireWorks) vector3.y += Random.Range(0, yPosGap);
         else vector3.y -= 0.3f;
-        Instantiate(myEnemy, vector3, Quaternion.identity).transform.parent = parentObject.transform;
+        Debug.Log(vector3);
+        Instantiate(myEnemy, vector3, Quaternion.identity);
         Destroy(gameObject);
     }
 }

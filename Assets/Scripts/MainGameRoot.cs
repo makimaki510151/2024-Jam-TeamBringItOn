@@ -10,6 +10,9 @@ using UnityEngine.UI;
 
 public class MainGameRoot : RootParent
 {
+    [SerializeField, Tooltip("StageSetter")]
+    private StageSetter stageSetter = null;
+
     [SerializeField]
     private EventSystem eventSystem = null;
     [SerializeField]
@@ -19,16 +22,15 @@ public class MainGameRoot : RootParent
     [SerializeField]
     private Image startCountImage = null;
 
-    [SerializeField]
-    private Transform cameraWaterTransform = null;
-    [SerializeField]
-    private Transform cameraFireTransform = null;
-    public Rigidbody2D playerWaterRigidbody2D = null;
-    public Rigidbody2D playerFireRigidbody2D = null;
+    public Transform cameraOneTransform = null;
+    public Transform cameraTwoTransform = null;
+
+    public Rigidbody2D playerOneRigidbody2D = null;
+    public Rigidbody2D playerTwoRigidbody2D = null;
 
     // プレイヤースクリプト
-    private Player playerWater;
-    private Player playerFire;
+    private Player playerOne;
+    private Player playerTwo;
 
     [SerializeField]
     private float lerpNum = 0.9f;
@@ -56,10 +58,10 @@ public class MainGameRoot : RootParent
     private RectTransform stockShotPosWater = null;
     [SerializeField]
     private RectTransform stockShotPosFire = null;
-    [SerializeField]
-    private GameObject stageWaterEnemysObject = null;
-    [SerializeField]
-    private GameObject stageFireEnemysObject = null;
+    //[SerializeField]
+    //private GameObject stageWaterEnemysObject = null;
+    //[SerializeField]
+    //private GameObject stageFireEnemysObject = null;
 
     [SerializeField]
     private int waterStockCount = 0;
@@ -208,23 +210,27 @@ public class MainGameRoot : RootParent
     {
         base.Awake();
         Instance = this;
+
+        stageSetter.StageSetting();
+        playerOneRigidbody2D = stageSetter.GetCharacterOne().GetComponent<Rigidbody2D>();
+        playerTwoRigidbody2D = stageSetter.GetCharacterTwo().GetComponent<Rigidbody2D>();
     }
 
     private void Start()
     {
-        cameraPosWater = (Vector2)cameraWaterTransform.position - playerWaterRigidbody2D.position;
-        cameraPosFire = (Vector2)cameraFireTransform.position - playerFireRigidbody2D.position;
-        waterCamera = cameraWaterTransform.GetComponent<Camera>();
-        fireCamera = cameraFireTransform.GetComponent<Camera>();
-        playerWater = playerWaterRigidbody2D.gameObject.GetComponent<Player>();
-        playerFire = playerFireRigidbody2D.gameObject.GetComponent<Player>();
+        cameraPosWater = (Vector2)cameraOneTransform.position - playerOneRigidbody2D.position;
+        cameraPosFire = (Vector2)cameraTwoTransform.position - playerTwoRigidbody2D.position;
+        waterCamera = cameraOneTransform.GetComponent<Camera>();
+        fireCamera = cameraTwoTransform.GetComponent<Camera>();
+        playerOne = playerOneRigidbody2D.gameObject.GetComponent<Player>();
+        playerTwo = playerTwoRigidbody2D.gameObject.GetComponent<Player>();
         for(int i = 0; i < waitUIs.Count; i++)
         {
             waitUIAnimators.Add(waitUIs[i].GetComponent<Animator>());
             waitUIs[i].SetActive(false);
         }
 
-        cameraFireTransform.rotation = Quaternion.Euler(0, 0, dataScriptableObject.cameraRotation);
+        cameraTwoTransform.rotation = Quaternion.Euler(0, 0, dataScriptableObject.cameraRotation);
 
         PlayTime = 0;
 
@@ -245,7 +251,7 @@ public class MainGameRoot : RootParent
         }
         if (dataScriptableObject.playType == DataScriptableObject.PlayType.One)
         {
-            playerFireRigidbody2D.gameObject.SetActive(false);
+            playerTwoRigidbody2D.gameObject.SetActive(false);
             waterStockCount = 5;
             isPlayerOne = true;
             fireIconRectTransform.gameObject.SetActive(false);
@@ -270,23 +276,23 @@ public class MainGameRoot : RootParent
         // タイム計測
         PlayTime += deltaTime;
 
-        tempVector3 = Vector2.Lerp(cameraWaterTransform.position, playerWaterRigidbody2D.position + (Vector2)cameraPosWater, lerpNum);
+        tempVector3 = Vector2.Lerp(cameraOneTransform.position, playerOneRigidbody2D.position + (Vector2)cameraPosWater, lerpNum);
         tempVector3.y = 7.75f;
         tempVector3.z = -10;
-        cameraWaterTransform.position = tempVector3;
+        cameraOneTransform.position = tempVector3;
 
-        tempVector3 = Vector2.Lerp(cameraFireTransform.position, playerFireRigidbody2D.position + (Vector2)cameraPosFire, lerpNum);
+        tempVector3 = Vector2.Lerp(cameraTwoTransform.position, playerTwoRigidbody2D.position + (Vector2)cameraPosFire, lerpNum);
         tempVector3.y = -12.25f;
         tempVector3.z = -10;
-        cameraFireTransform.position = tempVector3;
+        cameraTwoTransform.position = tempVector3;
 
-        tempFloat = playerWaterRigidbody2D.position.x / waterGoalRange;
+        tempFloat = playerOneRigidbody2D.position.x / waterGoalRange;
         tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
         var posW = waterIconRectTransform.position;
         posW.x = tempVector3.x;
         waterIconRectTransform.position = posW;
 
-        tempFloat = playerFireRigidbody2D.position.x / fireGoalRange;
+        tempFloat = playerTwoRigidbody2D.position.x / fireGoalRange;
         tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
         var posF = fireIconRectTransform.position;
         posF.x = tempVector3.x;
@@ -323,20 +329,20 @@ public class MainGameRoot : RootParent
     /// </summary>
     private void JudgeRank()
     {
-        tempFloat = playerWaterRigidbody2D.position.x - playerFireRigidbody2D.position.x;
+        tempFloat = playerOneRigidbody2D.position.x - playerTwoRigidbody2D.position.x;
         // 水の精霊が順位が上でフラグが立っていなければ、パリィ時間を変更する
         if(tempFloat > 0 && !isWaterHigherRank)
         {
             isWaterHigherRank = true;
-            playerWater.SetParryTime(true);
-            playerFire.SetParryTime(false);
+            playerOne.SetParryTime(true);
+            playerTwo.SetParryTime(false);
         }
         // 火の精霊が順位が上でフラグが立っていれば、パリィ時間を変更する
         else if (tempFloat < 0 && isWaterHigherRank)
         {
             isWaterHigherRank = false;
-            playerWater.SetParryTime(false);
-            playerFire.SetParryTime(true);
+            playerOne.SetParryTime(false);
+            playerTwo.SetParryTime(true);
         }
     }
 
@@ -396,7 +402,7 @@ public class MainGameRoot : RootParent
     {
         switch (enemyCharacter)
         {
-            case Player.PlayCharacter.Water:
+            case Player.PlayCharacter.One:
                 if (waterStockCount < 5)
                 {
                     waterStockCount++;
@@ -415,7 +421,7 @@ public class MainGameRoot : RootParent
                     //stockUIsWater.Add(myStock);
                     //return waterStocks[waterStockCount - 1].position;
                 }
-            case Player.PlayCharacter.Fire:
+            case Player.PlayCharacter.Two:
             default:
                 if (fireStockCount < 5)
                 {
@@ -441,7 +447,7 @@ public class MainGameRoot : RootParent
     {
         switch (enemyCharacter)
         {
-            case Player.PlayCharacter.Water:
+            case Player.PlayCharacter.One:
                 if (waterStockCount < 5)
                 {
                     return false;
@@ -450,7 +456,7 @@ public class MainGameRoot : RootParent
                 {
                     return true;
                 }
-            case Player.PlayCharacter.Fire:
+            case Player.PlayCharacter.Two:
             default:
                 if (fireStockCount < 5)
                 {
@@ -467,9 +473,9 @@ public class MainGameRoot : RootParent
     {
         switch (enemyCharacter)
         {
-            case Player.PlayCharacter.Water:
+            case Player.PlayCharacter.One:
                 return waterStockCount;
-            case Player.PlayCharacter.Fire:
+            case Player.PlayCharacter.Two:
             default:
                 return fireStockCount;
         }
@@ -485,7 +491,7 @@ public class MainGameRoot : RootParent
         if (!isBreadEatingCompetitionMode)
         {
             // 1Pがゴールしたら、1PゴールUIを表示する
-            if (character == Player.PlayCharacter.Water)
+            if (character == Player.PlayCharacter.One)
             {
                 goalAnimator.SetBool(isGoalOnePId, true);
             }
@@ -501,7 +507,7 @@ public class MainGameRoot : RootParent
         else
         {
             // 1Pがゴールしたら、1PゴールUIを表示する
-            if (character == Player.PlayCharacter.Water)
+            if (character == Player.PlayCharacter.One)
             {
                 waitUIs[0].SetActive(true);
                 waitUIAnimators[0].SetTrigger(isShowIdForWaitUI);
@@ -574,23 +580,24 @@ public class MainGameRoot : RootParent
 
         switch (playCharacter)
         {
-            case Player.PlayCharacter.Water:
+            case Player.PlayCharacter.One:
                 if (waterStockCount > 0)
                 {
                     waterStockCount--;
                     tempVector3 = MainGameRoot.Instance.fireCamera.ScreenToWorldPoint(stockShotPosFire.position);
-                    stockUIsWater[waterStockCount].StockShot(tempVector3, stageWaterEnemysObject);
+                    stockUIsWater[waterStockCount].StockShot(tempVector3);
                     stockUIsWater.Remove(stockUIsWater[waterStockCount]);
 
                 }
                 break;
-            case Player.PlayCharacter.Fire:
+            case Player.PlayCharacter.Two:
             default:
                 if (fireStockCount > 0)
                 {
                     fireStockCount--;
                     tempVector3 = MainGameRoot.Instance.waterCamera.ScreenToWorldPoint(stockShotPosWater.position);
-                    stockUIsFire[fireStockCount].StockShot(tempVector3, stageFireEnemysObject);
+                    Debug.Log(tempVector3);
+                    stockUIsFire[fireStockCount].StockShot(tempVector3);
                     stockUIsFire.Remove(stockUIsFire[fireStockCount]);
                 }
                 break;
