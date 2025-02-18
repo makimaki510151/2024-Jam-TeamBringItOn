@@ -829,7 +829,6 @@ RectTransform:
   m_Children:
   - {fileID: 1440525294}
   - {fileID: 1008685287}
-  - {fileID: 196381903}
   - {fileID: 38567186}
   - {fileID: 722642320}
   - {fileID: 1610927757}
@@ -839,6 +838,7 @@ RectTransform:
   - {fileID: 580813609}
   - {fileID: 693853832}
   - {fileID: 525952121}
+  - {fileID: 196381903}
   m_Father: {fileID: 1989068092}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1716,11 +1716,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611753492}
   m_CullTransparentMesh: 1
---- !u!1 &623949981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5292903816829094008, guid: 70d62e6b17d795a4193683c2eef49306, type: 3}
-  m_PrefabInstance: {fileID: 6869650554720574401}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &653456494
 GameObject:
   m_ObjectHideFlags: 0
@@ -2770,11 +2765,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1989068092}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &972201861 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5489825140891377161, guid: 45ddaba0bf090d545a11387b246465c4, type: 3}
-  m_PrefabInstance: {fileID: 1046583331625865265}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1002726206
 GameObject:
   m_ObjectHideFlags: 0
@@ -5372,8 +5362,6 @@ MonoBehaviour:
   fireStockOver: {fileID: 1939926981}
   stockShotPosWater: {fileID: 1931078440}
   stockShotPosFire: {fileID: 1445386494}
-  stageWaterEnemysObject: {fileID: 623949981}
-  stageFireEnemysObject: {fileID: 972201861}
   waterStockCount: 0
   fireStockCount: 0
   canvasObject: {fileID: 152205687}

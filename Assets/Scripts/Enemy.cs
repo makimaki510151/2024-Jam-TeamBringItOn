@@ -152,6 +152,8 @@ public class Enemy : MonoBehaviour
                 myRigidbody2D = GetComponent<Rigidbody2D>();
                 playerWaterTransform = MainGameRoot.Instance.playerOneRigidbody2D.transform;
                 playerFireTransform = MainGameRoot.Instance.playerTwoRigidbody2D.transform;
+                waterFireWork = GameObject.Find("FireWorkWater").GetComponent<FireWork>();
+                fireFireWork = GameObject.Find("FireWorkFire").GetComponent<FireWork>();
                 break;
             case EnemyAiType.Candra:
                 myCollider = GetComponent<BoxCollider2D>();

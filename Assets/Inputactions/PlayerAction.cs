@@ -227,6 +227,94 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Rival"",
+            ""id"": ""d8924df9-a9f1-4e64-8641-fb410af4dc62"",
+            ""actions"": [
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""cc4e7e3e-14df-4a65-831d-0498822f18bf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shot"",
+                    ""type"": ""Button"",
+                    ""id"": ""84088310-d567-462f-8f22-55f20230d856"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""99b95d44-c317-4d46-beeb-8af30df55e5c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Result"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd87346a-9d46-4bda-badd-4c555b110a16"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a95aa21a-7b22-4751-84ec-ecddedcb3ae4"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""19035f1d-f130-45ae-9e10-567c0ef5c9ea"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Shot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""678fb348-dabb-46be-b4f1-abfeaff01c45"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86922807-f5eb-49f5-a3d0-a09620dc5202"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Result"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -300,6 +388,12 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_Love_TwoShot = m_Love.FindAction("TwoShot", throwIfNotFound: true);
         m_Love_Pause = m_Love.FindAction("Pause", throwIfNotFound: true);
         m_Love_Result = m_Love.FindAction("Result", throwIfNotFound: true);
+        // Rival
+        m_Rival = asset.FindActionMap("Rival", throwIfNotFound: true);
+        m_Rival_Jump = m_Rival.FindAction("Jump", throwIfNotFound: true);
+        m_Rival_Shot = m_Rival.FindAction("Shot", throwIfNotFound: true);
+        m_Rival_Pause = m_Rival.FindAction("Pause", throwIfNotFound: true);
+        m_Rival_Result = m_Rival.FindAction("Result", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -443,6 +537,76 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         }
     }
     public LoveActions @Love => new LoveActions(this);
+
+    // Rival
+    private readonly InputActionMap m_Rival;
+    private List<IRivalActions> m_RivalActionsCallbackInterfaces = new List<IRivalActions>();
+    private readonly InputAction m_Rival_Jump;
+    private readonly InputAction m_Rival_Shot;
+    private readonly InputAction m_Rival_Pause;
+    private readonly InputAction m_Rival_Result;
+    public struct RivalActions
+    {
+        private @PlayerAction m_Wrapper;
+        public RivalActions(@PlayerAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Jump => m_Wrapper.m_Rival_Jump;
+        public InputAction @Shot => m_Wrapper.m_Rival_Shot;
+        public InputAction @Pause => m_Wrapper.m_Rival_Pause;
+        public InputAction @Result => m_Wrapper.m_Rival_Result;
+        public InputActionMap Get() { return m_Wrapper.m_Rival; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(RivalActions set) { return set.Get(); }
+        public void AddCallbacks(IRivalActions instance)
+        {
+            if (instance == null || m_Wrapper.m_RivalActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_RivalActionsCallbackInterfaces.Add(instance);
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
+            @Shot.started += instance.OnShot;
+            @Shot.performed += instance.OnShot;
+            @Shot.canceled += instance.OnShot;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+            @Result.started += instance.OnResult;
+            @Result.performed += instance.OnResult;
+            @Result.canceled += instance.OnResult;
+        }
+
+        private void UnregisterCallbacks(IRivalActions instance)
+        {
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
+            @Shot.started -= instance.OnShot;
+            @Shot.performed -= instance.OnShot;
+            @Shot.canceled -= instance.OnShot;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+            @Result.started -= instance.OnResult;
+            @Result.performed -= instance.OnResult;
+            @Result.canceled -= instance.OnResult;
+        }
+
+        public void RemoveCallbacks(IRivalActions instance)
+        {
+            if (m_Wrapper.m_RivalActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IRivalActions instance)
+        {
+            foreach (var item in m_Wrapper.m_RivalActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_RivalActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public RivalActions @Rival => new RivalActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -494,6 +658,13 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         void OnOneShot(InputAction.CallbackContext context);
         void OnTwoJump(InputAction.CallbackContext context);
         void OnTwoShot(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+        void OnResult(InputAction.CallbackContext context);
+    }
+    public interface IRivalActions
+    {
+        void OnJump(InputAction.CallbackContext context);
+        void OnShot(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnResult(InputAction.CallbackContext context);
     }
