@@ -10,9 +10,6 @@ using UnityEngine.UI;
 
 public class MainGameRoot : RootParent
 {
-    [SerializeField, Tooltip("StageSetter")]
-    private StageSetter stageSetter = null;
-
     [SerializeField]
     private EventSystem eventSystem = null;
     [SerializeField]
@@ -81,10 +78,8 @@ public class MainGameRoot : RootParent
     [NonSerialized]
     public Camera fireCamera = null;
 
-    [SerializeField]
-    private Transform waterGoalTransform = null;
-    [SerializeField]
-    private Transform fireGoalTransform = null;
+    public Transform waterGoalTransform = null;
+    public Transform fireGoalTransform = null;
 
     [SerializeField]
     private RectTransform waterIconRectTransform = null;
@@ -168,6 +163,7 @@ public class MainGameRoot : RootParent
     private float deltaTime;
 
     private bool isWaitGoal = false;
+    private StageSetter stageSetter = null;
 
     public static MainGameRoot Instance;
 
@@ -211,6 +207,7 @@ public class MainGameRoot : RootParent
         base.Awake();
         Instance = this;
 
+        stageSetter = GetComponent<StageSetter>();
         stageSetter.StageSetting();
         playerOneRigidbody2D = stageSetter.GetCharacterOne().GetComponent<Rigidbody2D>();
         playerTwoRigidbody2D = stageSetter.GetCharacterTwo().GetComponent<Rigidbody2D>();

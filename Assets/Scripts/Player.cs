@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
     private bool isParry = false;
     private bool isParryHit = false;        // パリィが当たったらフラグをオン
     private bool isParryCancel = false;     // パリィできないならフラグをオン
-    private bool isGround = false;
+    public bool isGround { get; private set; }
     private bool isTransparent = false;     // 点滅用
     private bool isSolidColor = false;
     private bool isGoal = false;
@@ -169,36 +169,7 @@ public class Player : MonoBehaviour
     {
         if (context.started && Time.timeScale == 1)
         {
-            if (!isGround)
-            {
-                hit = Physics2D.Raycast(myTransform.position, -myTransform.up, maxDistance, groundLayerMask);
-                Debug.DrawRay(myTransform.position, -myTransform.up, Color.red, maxDistance);
-                //なにかと衝突した時だけそのオブジェクトの名前をログに出す
-                if (hit.collider)
-                {
-                    IsGroundTrue();
-                }
-            }
-            // 接地しているならフラグをオン
-            if (isGround)
-            {
-                isJump = true;
-            }
-            else
-            {
-                // 接地しておらず、パリィが可能でパリィ中でなければ、パリィを行う
-                if (!isParry && !isParryCancel)
-                {
-                    isParry = true;
-                    parryTimer = parryTime;
-                    myAnimator.SetTrigger(isParryId);
-                }
-            }
-
-            if (isFrozen)
-            {
-                frozenTime -= shorteningFrozenTime;
-            }
+            SetJump();
         }
     }
 
@@ -206,8 +177,47 @@ public class Player : MonoBehaviour
     {
         if (context.started && Time.timeScale == 1)
         {
-            MainGameRoot.Instance.StockEnemyShot(character);
+            SetShot();
         }
+    }
+
+    public void SetJump()
+    {
+        if (!isGround)
+        {
+            hit = Physics2D.Raycast(myTransform.position, -myTransform.up, maxDistance, groundLayerMask);
+            Debug.DrawRay(myTransform.position, -myTransform.up, Color.red, maxDistance);
+            //なにかと衝突した時だけそのオブジェクトの名前をログに出す
+            if (hit.collider)
+            {
+                IsGroundTrue();
+            }
+        }
+        // 接地しているならフラグをオン
+        if (isGround)
+        {
+            isJump = true;
+        }
+        else
+        {
+            // 接地しておらず、パリィが可能でパリィ中でなければ、パリィを行う
+            if (!isParry && !isParryCancel)
+            {
+                isParry = true;
+                parryTimer = parryTime;
+                myAnimator.SetTrigger(isParryId);
+            }
+        }
+
+        if (isFrozen)
+        {
+            frozenTime -= shorteningFrozenTime;
+        }
+    }
+
+    public void SetShot()
+    {
+        MainGameRoot.Instance.StockEnemyShot(character);
     }
 
     void Start()
@@ -223,6 +233,7 @@ public class Player : MonoBehaviour
         parryTime = parryTimeForHigherRank;
         transparentSolidColor = transparentColor * solidColor;
         iceTransform.localScale = vector2zero;
+        isGround = false;
     }
 
     void Update()

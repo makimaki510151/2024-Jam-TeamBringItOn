@@ -16,6 +16,9 @@ public class StageSetter : MonoBehaviour
     [SerializeField, Tooltip("ステージの初期位置")]
     private List<Vector2> stagePositions = new List<Vector2>();
 
+    [SerializeField, Tooltip("NonPlayerControllerオブジェクト")]
+    private GameObject nonPlayerControllerPrefab = null;
+
     private DataScriptableObject dataScriptableObject = null;
     private GameObject stageObject = null;
     private GameObject characterOneObject = null;
@@ -41,6 +44,7 @@ public class StageSetter : MonoBehaviour
                 backGround.SetInformation(characterOneObject.transform, MainGameRoot.Instance.cameraOneTransform);
             }
         }
+        MainGameRoot.Instance.waterGoalTransform = stageObject.transform.Find("Goal").transform;
 
         stageObject = Instantiate(stages[dataScriptableObject.stageTwoNumber]);
         stageObject.transform.position = stagePositions[1];
@@ -55,6 +59,11 @@ public class StageSetter : MonoBehaviour
             {
                 backGround.SetInformation(characterTwoObject.transform, MainGameRoot.Instance.cameraTwoTransform);
             }
+        }
+        MainGameRoot.Instance.fireGoalTransform = stageObject.transform.Find("Goal").transform;
+        if(dataScriptableObject.playerAmountNumber == 0)
+        {
+            Instantiate(nonPlayerControllerPrefab).transform.parent = characterTwoObject.transform;
         }
     }
 
