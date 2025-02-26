@@ -7788,7 +7788,7 @@ GameObject:
   - component: {fileID: 6984768331288431091}
   - component: {fileID: 6261344944612838436}
   m_Layer: 0
-  m_Name: Goal (1)
+  m_Name: Goal
   m_TagString: Goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10046,13 +10046,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c803a4a221d41e3409ffbde9c65c048b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
   startPoint: 0
   goalPoint: 0
   mapRange: 0.01
   isLoop: 0
   Sprites: []
-  playerCamera: {fileID: 0}
   backGroundWidth: 23.13
 --- !u!1 &6325307649766837041
 GameObject:
@@ -10355,7 +10353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c803a4a221d41e3409ffbde9c65c048b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
   startPoint: 0
   goalPoint: 0
   mapRange: 0
@@ -10364,7 +10361,6 @@ MonoBehaviour:
   - {fileID: 5636535528500455482}
   - {fileID: 5428613516920693342}
   - {fileID: 4685870081663555523}
-  playerCamera: {fileID: 0}
   backGroundWidth: 23.13
 --- !u!1 &6620476243252191696
 GameObject:
@@ -12768,13 +12764,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c803a4a221d41e3409ffbde9c65c048b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
   startPoint: 17.6
   goalPoint: -1.6
   mapRange: 190
   isLoop: 0
   Sprites: []
-  playerCamera: {fileID: 0}
   backGroundWidth: 23.13
 --- !u!1 &7828519564806609045
 GameObject:

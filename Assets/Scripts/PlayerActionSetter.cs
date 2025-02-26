@@ -19,8 +19,11 @@ public class PlayerActionSetter : MonoBehaviour
 
         playerAction.Love.OneJump.started += playerOne.OnJump;
         playerAction.Love.OneShot.started += playerOne.OnShot;
-        playerAction.Love.TwoJump.started += playerTwo.OnJump;
-        playerAction.Love.TwoShot.started += playerTwo.OnShot;
+        if(MainGameRoot.Instance.dataScriptableObject.playerAmountNumber == 1)
+        {
+            playerAction.Love.TwoJump.started += playerTwo.OnJump;
+            playerAction.Love.TwoShot.started += playerTwo.OnShot;
+        }
         playerAction.Love.Pause.started += MainGameRoot.Instance.OnPause;
         playerAction.Love.Result.started += MainGameRoot.Instance.OnResult;
 

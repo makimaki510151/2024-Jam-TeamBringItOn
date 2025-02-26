@@ -78,8 +78,8 @@ public class MainGameRoot : RootParent
     [NonSerialized]
     public Camera fireCamera = null;
 
-    public Transform waterGoalTransform = null;
-    public Transform fireGoalTransform = null;
+    public Transform goalTransformOne = null;
+    public Transform goalTransformTwo = null;
 
     [SerializeField]
     private RectTransform waterIconRectTransform = null;
@@ -154,8 +154,8 @@ public class MainGameRoot : RootParent
     private AsyncOperation asyncLoad;
     private GameObject selectEndButtonObject;
 
-    private float waterGoalRange = 1;
-    private float fireGoalRange = 1;
+    private float goalRangeOne = 1;
+    private float goalRangeTwo = 1;
 
     private float tempFloat = 1;
     private Vector3 tempVector3 = new(0, 0, 0);
@@ -215,6 +215,15 @@ public class MainGameRoot : RootParent
 
     private void Start()
     {
+        if (dataScriptableObject.isBreadMode)
+        {
+            isBreadEatingCompetitionMode = true;
+        }
+        else
+        {
+            isBreadEatingCompetitionMode = false;
+        }
+
         cameraPosWater = (Vector2)cameraOneTransform.position - playerOneRigidbody2D.position;
         cameraPosFire = (Vector2)cameraTwoTransform.position - playerTwoRigidbody2D.position;
         waterCamera = cameraOneTransform.GetComponent<Camera>();
@@ -231,8 +240,8 @@ public class MainGameRoot : RootParent
 
         PlayTime = 0;
 
-        waterGoalRange = waterGoalTransform.position.x;
-        fireGoalRange = fireGoalTransform.position.x;
+        goalRangeOne = goalTransformOne.position.x;
+        goalRangeTwo = goalTransformTwo.position.x;
 
         Time.timeScale = 0;
 
@@ -283,13 +292,13 @@ public class MainGameRoot : RootParent
         tempVector3.z = -10;
         cameraTwoTransform.position = tempVector3;
 
-        tempFloat = playerOneRigidbody2D.position.x / waterGoalRange;
+        tempFloat = playerOneRigidbody2D.position.x / goalRangeOne;
         tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
         var posW = waterIconRectTransform.position;
         posW.x = tempVector3.x;
         waterIconRectTransform.position = posW;
 
-        tempFloat = playerTwoRigidbody2D.position.x / fireGoalRange;
+        tempFloat = playerTwoRigidbody2D.position.x / goalRangeTwo;
         tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
         var posF = fireIconRectTransform.position;
         posF.x = tempVector3.x;

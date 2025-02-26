@@ -44,7 +44,7 @@ public class StageSetter : MonoBehaviour
                 backGround.SetInformation(characterOneObject.transform, MainGameRoot.Instance.cameraOneTransform);
             }
         }
-        MainGameRoot.Instance.waterGoalTransform = stageObject.transform.Find("Goal").transform;
+        MainGameRoot.Instance.goalTransformOne = stageObject.transform.Find("Goal").transform;
 
         stageObject = Instantiate(stages[dataScriptableObject.stageTwoNumber]);
         stageObject.transform.position = stagePositions[1];
@@ -60,7 +60,7 @@ public class StageSetter : MonoBehaviour
                 backGround.SetInformation(characterTwoObject.transform, MainGameRoot.Instance.cameraTwoTransform);
             }
         }
-        MainGameRoot.Instance.fireGoalTransform = stageObject.transform.Find("Goal").transform;
+        MainGameRoot.Instance.goalTransformTwo = stageObject.transform.Find("Goal").transform;
         if(dataScriptableObject.playerAmountNumber == 0)
         {
             Instantiate(nonPlayerControllerPrefab).transform.parent = characterTwoObject.transform;

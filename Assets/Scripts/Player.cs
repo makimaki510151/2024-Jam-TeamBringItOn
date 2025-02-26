@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
 
     private float frozenTime = 0;
     private float frozenTimer = 0;
-    private bool isFrozen = false;
+    public bool isFrozen { get; private set; }
 
     [Header("その他設定")]
 
@@ -183,16 +183,6 @@ public class Player : MonoBehaviour
 
     public void SetJump()
     {
-        if (!isGround)
-        {
-            hit = Physics2D.Raycast(myTransform.position, -myTransform.up, maxDistance, groundLayerMask);
-            Debug.DrawRay(myTransform.position, -myTransform.up, Color.red, maxDistance);
-            //なにかと衝突した時だけそのオブジェクトの名前をログに出す
-            if (hit.collider)
-            {
-                IsGroundTrue();
-            }
-        }
         // 接地しているならフラグをオン
         if (isGround)
         {
@@ -239,6 +229,13 @@ public class Player : MonoBehaviour
     void Update()
     {
         deltaTime = Time.deltaTime;
+
+        // 接地処理
+        hit = Physics2D.Raycast(myTransform.position, -myTransform.up, maxDistance, groundLayerMask);
+        if (hit.collider)
+        {
+            IsGroundTrue();
+        }
 
         // 移動処理
         tempVector2 = (myTransform.right * defaultSpeed + (myTransform.right * defaultSpeed * (speedBuffItemCount / 100))) * skateboardBuffContainer * Time.deltaTime;

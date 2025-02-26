@@ -44,13 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47dd1a2d441326a45b13de5f3bc33df6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayRightDistance: 1.5
-  rayRightNotGroundDistance: 0.7
-  rayUpperRightDistance: 2
-  rayLowerRightDistance: 0.7
+  rayRightDistance: 1.9
+  rayRightNotGroundDistance: 0.8
+  rayUpperRightDistance: 3
+  rayUpperRightNotGroundDistance: 1
+  rayLowerRightDistance: 1.5
   rayDownDistance: 1
+  rayUpDistance: 1
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
   enemyTag: Enemy
   gimmickGroundTag: GimmickGround
+  delayTime: 0.1
+  delayFrozenTime: 0.15
