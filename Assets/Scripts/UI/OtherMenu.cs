@@ -17,8 +17,8 @@ public class OtherMenu : MonoBehaviour
     [SerializeField, Tooltip("エラーUI")]
     private GameObject errorUI = null;
 
-    [SerializeField, Tooltip("エラーUIのボタン")]
-    private Button errorUIButton = null;
+    //[SerializeField, Tooltip("エラーUIのボタン")]
+    //private Button errorUIButton = null;
 
     [SerializeField, Tooltip("キャラクターの移動速度")]
     private float characterSpeed = 1.0f;
@@ -40,8 +40,8 @@ public class OtherMenu : MonoBehaviour
     [SerializeField, Tooltip("人数選択の画像")]
     private List<GameObject> playerAmountObjects = new List<GameObject>();
 
-    [SerializeField, Tooltip("操作選択の画像")]
-    private List<GameObject> operationObjects = new List<GameObject>();
+    //[SerializeField, Tooltip("操作選択の画像")]
+    //private List<GameObject> operationObjects = new List<GameObject>();
 
     [SerializeField, Tooltip("キャラクター（1P）選択の画像")]
     private List<GameObject> characterOneObjects = new List<GameObject>();
@@ -106,13 +106,13 @@ public class OtherMenu : MonoBehaviour
                 selectIndexOne = ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber;
                 playerAmountObjects[selectIndexOne].SetActive(true);
                 break;
-            // 操作
-            case 1:
-                selectIndexOne = ModeSelectRoot.Instance.dataScriptableObject.operationNumber;
-                operationObjects[selectIndexOne].SetActive(true);
-                break;
+            //// 操作
+            //case 1:
+            //    selectIndexOne = ModeSelectRoot.Instance.dataScriptableObject.operationNumber;
+            //    operationObjects[selectIndexOne].SetActive(true);
+            //    break;
             // キャラクター
-            case 2:
+            case 1:
                 selectIndexOne = ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber;
                 characterOneObjects[selectIndexOne].SetActive(true);
                 selectIndexTwo = ModeSelectRoot.Instance.dataScriptableObject.characterTwoNumber;
@@ -120,7 +120,7 @@ public class OtherMenu : MonoBehaviour
                 waitCounter = 0;
                 break;
             // ステージ
-            case 3:
+            case 2:
                 selectIndexOne = ModeSelectRoot.Instance.dataScriptableObject.stageOneNumber;
                 stageOneObjects[selectIndexOne].SetActive(true);
                 selectIndexTwo = ModeSelectRoot.Instance.dataScriptableObject.stageTwoNumber;
@@ -139,10 +139,10 @@ public class OtherMenu : MonoBehaviour
         {
             playerAmountObjects[i].SetActive(false);
         }
-        for (int i = 0; i < operationObjects.Count; i++)
-        {
-            operationObjects[i].SetActive(false);
-        }
+        //for (int i = 0; i < operationObjects.Count; i++)
+        //{
+        //    operationObjects[i].SetActive(false);
+        //}
         for (int i = 0; i < stageOneObjects.Count; i++)
         {
             stageOneObjects[i].SetActive(false);
@@ -153,7 +153,7 @@ public class OtherMenu : MonoBehaviour
         }
 
         // ステージ選択時でなければ、キャラクター選択も非表示にする
-        if (selectCounter != 3)
+        if (selectCounter != 2)
         {
             for (int i = 0; i < characterOneObjects.Count; i++)
             {
@@ -181,24 +181,24 @@ public class OtherMenu : MonoBehaviour
                 if (selectIndexOne >= playerAmountObjects.Count) selectIndexOne = 0;
                 playerAmountObjects[selectIndexOne].SetActive(true);
                 break;
-            // 操作
-            case 1:
-                operationObjects[selectIndexOne].SetActive(false);
-                selectIndexOne++;
-                // 1Pのみ
-                if (ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber == 0)
-                {
-                    if (selectIndexOne >= 2) selectIndexOne = 0;
-                }
-                // 2Pあり
-                else
-                {
-                    if (selectIndexOne >= operationObjects.Count) selectIndexOne = 2;
-                }
-                operationObjects[selectIndexOne].SetActive(true);
-                break;
+            //// 操作
+            //case 1:
+            //    operationObjects[selectIndexOne].SetActive(false);
+            //    selectIndexOne++;
+            //    // 1Pのみ
+            //    if (ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber == 0)
+            //    {
+            //        if (selectIndexOne >= 2) selectIndexOne = 0;
+            //    }
+            //    // 2Pあり
+            //    else
+            //    {
+            //        if (selectIndexOne >= operationObjects.Count) selectIndexOne = 2;
+            //    }
+            //    operationObjects[selectIndexOne].SetActive(true);
+            //    break;
             // キャラクター
-            case 2:
+            case 1:
                 if(player == 0)
                 {
                     characterOneObjects[selectIndexOne].SetActive(false);
@@ -215,7 +215,7 @@ public class OtherMenu : MonoBehaviour
                 }
                 break;
             // ステージ
-            case 3:
+            case 2:
                 if (player == 0)
                 {
                     stageOneObjects[selectIndexOne].SetActive(false);
@@ -249,24 +249,24 @@ public class OtherMenu : MonoBehaviour
                 if (selectIndexOne < 0) selectIndexOne = playerAmountObjects.Count - 1;
                 playerAmountObjects[selectIndexOne].SetActive(true);
                 break;
-            // 操作
-            case 1:
-                operationObjects[selectIndexOne].SetActive(false);
-                selectIndexOne--;
-                // 1Pのみ
-                if (ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber == 0)
-                {
-                    if (selectIndexOne < 0) selectIndexOne = 1;
-                }
-                // 2Pあり
-                else
-                {
-                    if (selectIndexOne < 2) selectIndexOne = operationObjects.Count - 1;
-                }
-                operationObjects[selectIndexOne].SetActive(true);
-                break;
+            //// 操作
+            //case 1:
+            //    operationObjects[selectIndexOne].SetActive(false);
+            //    selectIndexOne--;
+            //    // 1Pのみ
+            //    if (ModeSelectRoot.Instance.dataScriptableObject.playerAmountNumber == 0)
+            //    {
+            //        if (selectIndexOne < 0) selectIndexOne = 1;
+            //    }
+            //    // 2Pあり
+            //    else
+            //    {
+            //        if (selectIndexOne < 2) selectIndexOne = operationObjects.Count - 1;
+            //    }
+            //    operationObjects[selectIndexOne].SetActive(true);
+            //    break;
             // キャラクター
-            case 2:
+            case 1:
                 if (player == 0)
                 {
                     characterOneObjects[selectIndexOne].SetActive(false);
@@ -283,7 +283,7 @@ public class OtherMenu : MonoBehaviour
                 }
                 break;
             // ステージ
-            case 3:
+            case 2:
                 if (player == 0)
                 {
                     stageOneObjects[selectIndexOne].SetActive(false);
@@ -321,25 +321,25 @@ public class OtherMenu : MonoBehaviour
                 selectCounter++;
                 SetSelectObject();
                 break;
-            // 操作
-            case 1:
-                // コントローラー・ライバルのとき
-                if (selectIndexOne == 4)
-                {
-                    // 接続されているコントローラーが足りなかったら、エラーUIを表示する
-                    if(Input.GetJoystickNames().Length <= 1)
-                    {
-                        errorUI.SetActive(true);
-                        errorUIButton.Select();
-                        break;
-                    }
-                }
-                ModeSelectRoot.Instance.dataScriptableObject.operationNumber = selectIndexOne;
-                selectCounter++;
-                SetSelectObject();
-                break;
+            //// 操作
+            //case 1:
+            //    // コントローラー・ライバルのとき
+            //    if (selectIndexOne == 4)
+            //    {
+            //        // 接続されているコントローラーが足りなかったら、エラーUIを表示する
+            //        if(Input.GetJoystickNames().Length <= 1)
+            //        {
+            //            errorUI.SetActive(true);
+            //            errorUIButton.Select();
+            //            break;
+            //        }
+            //    }
+            //    ModeSelectRoot.Instance.dataScriptableObject.operationNumber = selectIndexOne;
+            //    selectCounter++;
+            //    SetSelectObject();
+            //    break;
             // キャラクター
-            case 2:
+            case 1:
                 if(player == 0)
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber = selectIndexOne;
@@ -367,7 +367,7 @@ public class OtherMenu : MonoBehaviour
                 }
                 break;
             // ステージ
-            case 3:
+            case 2:
                 if (player == 0)
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.stageOneNumber = selectIndexOne;

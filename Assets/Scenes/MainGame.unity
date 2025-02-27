@@ -5266,8 +5266,8 @@ MonoBehaviour:
   waterStockCount: 0
   fireStockCount: 0
   canvasObject: {fileID: 152205687}
-  waterGoalTransform: {fileID: 0}
-  fireGoalTransform: {fileID: 0}
+  goalTransformOne: {fileID: 0}
+  goalTransformTwo: {fileID: 0}
   waterIconRectTransform: {fileID: 1484808686}
   fireIconRectTransform: {fileID: 580813609}
   goalShowDelay: 1
@@ -5330,6 +5330,7 @@ MonoBehaviour:
   characters:
   - {fileID: 689352690180814808, guid: d35932d65a5900547be0196c5f145bae, type: 3}
   - {fileID: 5280537983579463877, guid: e7fe5166a55623e4085ded45e28ac232, type: 3}
+  - {fileID: 689352690180814808, guid: 5c233578351ff1347813fbb46e4b4892, type: 3}
   stages:
   - {fileID: 5371523249022123950, guid: 70d62e6b17d795a4193683c2eef49306, type: 3}
   - {fileID: 3260253847088386122, guid: 45ddaba0bf090d545a11387b246465c4, type: 3}
