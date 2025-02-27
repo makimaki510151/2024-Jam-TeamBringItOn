@@ -331,14 +331,14 @@ public class Enemy : MonoBehaviour
         switch (playCharacter)
         {
             case Player.PlayCharacter.One:
-                tempVector3 = MainGameRoot.Instance.waterCamera.WorldToScreenPoint(myTransform.position);
+                tempVector3 = MainGameRoot.Instance.cameraOne.WorldToScreenPoint(myTransform.position);
                 tempObject = Instantiate(myUI, tempVector3, Quaternion.identity);
                 tempObject.GetComponent<StockUI>().character = playCharacter;
                 tempObject.transform.SetParent(MainGameRoot.Instance.GetCanvas().GetComponent<RectTransform>());
                 Destroy(gameObject);
                 break;
             case Player.PlayCharacter.Two:
-                tempVector3 = MainGameRoot.Instance.fireCamera.WorldToScreenPoint(myTransform.position);
+                tempVector3 = MainGameRoot.Instance.cameraTwo.WorldToScreenPoint(myTransform.position);
                 tempObject = Instantiate(myUI, tempVector3, Quaternion.identity);
                 tempObject.GetComponent<StockUI>().character = playCharacter;
                 tempObject.transform.SetParent(MainGameRoot.Instance.GetCanvas().GetComponent<RectTransform>());

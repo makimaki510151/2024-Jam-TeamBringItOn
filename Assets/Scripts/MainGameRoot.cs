@@ -74,9 +74,9 @@ public class MainGameRoot : RootParent
     public bool isSetting = false;
 
     [NonSerialized]
-    public Camera waterCamera = null;
+    public Camera cameraOne = null;
     [NonSerialized]
-    public Camera fireCamera = null;
+    public Camera cameraTwo = null;
 
     public Transform goalTransformOne = null;
     public Transform goalTransformTwo = null;
@@ -96,7 +96,9 @@ public class MainGameRoot : RootParent
     private Animator goalAnimator = null;
 
     static readonly int isShowId = Animator.StringToHash("isShow");
-    static readonly int isGoalOnePId = Animator.StringToHash("isGoalOneP");
+    static readonly int isWaterId = Animator.StringToHash("isWater");
+    static readonly int isFireId = Animator.StringToHash("isFire");
+    static readonly int isAttributeNessId = Animator.StringToHash("isAttributeNess");
 
     private bool isResult = false;  // リザルトが表示されたらフラグをオン
     private bool isPlayerOne = false;
@@ -226,8 +228,8 @@ public class MainGameRoot : RootParent
 
         cameraPosWater = (Vector2)cameraOneTransform.position - playerOneRigidbody2D.position;
         cameraPosFire = (Vector2)cameraTwoTransform.position - playerTwoRigidbody2D.position;
-        waterCamera = cameraOneTransform.GetComponent<Camera>();
-        fireCamera = cameraTwoTransform.GetComponent<Camera>();
+        cameraOne = cameraOneTransform.GetComponent<Camera>();
+        cameraTwo = cameraTwoTransform.GetComponent<Camera>();
         playerOne = playerOneRigidbody2D.gameObject.GetComponent<Player>();
         playerTwo = playerTwoRigidbody2D.gameObject.GetComponent<Player>();
         for(int i = 0; i < waitUIs.Count; i++)
@@ -499,12 +501,34 @@ public class MainGameRoot : RootParent
             // 1Pがゴールしたら、1PゴールUIを表示する
             if (character == Player.PlayCharacter.One)
             {
-                goalAnimator.SetBool(isGoalOnePId, true);
+                switch(dataScriptableObject.characterOneNumber)
+                {
+                    case 0:
+                        goalAnimator.SetTrigger(isWaterId);
+                        break;
+                    case 1:
+                        goalAnimator.SetTrigger(isFireId);
+                        break;
+                    case 2:
+                        goalAnimator.SetTrigger(isAttributeNessId);
+                        break;
+                }
             }
             // 2Pがゴールしたら、2PゴールUIを表示する
             else
             {
-                goalAnimator.SetBool(isGoalOnePId, false);
+                switch (dataScriptableObject.characterTwoNumber)
+                {
+                    case 0:
+                        goalAnimator.SetTrigger(isWaterId);
+                        break;
+                    case 1:
+                        goalAnimator.SetTrigger(isFireId);
+                        break;
+                    case 2:
+                        goalAnimator.SetTrigger(isAttributeNessId);
+                        break;
+                }
             }
 
             StartCoroutine(OnGoalPlayer());
@@ -567,11 +591,33 @@ public class MainGameRoot : RootParent
 
         if (breadEatingCompetitionRoot.CheckWinner())
         {
-            goalAnimator.SetBool(isGoalOnePId, true);
+            switch (dataScriptableObject.characterOneNumber)
+            {
+                case 0:
+                    goalAnimator.SetTrigger(isWaterId);
+                    break;
+                case 1:
+                    goalAnimator.SetTrigger(isFireId);
+                    break;
+                case 2:
+                    goalAnimator.SetTrigger(isAttributeNessId);
+                    break;
+            }
         }
         else
         {
-            goalAnimator.SetBool(isGoalOnePId, false);
+            switch (dataScriptableObject.characterTwoNumber)
+            {
+                case 0:
+                    goalAnimator.SetTrigger(isWaterId);
+                    break;
+                case 1:
+                    goalAnimator.SetTrigger(isFireId);
+                    break;
+                case 2:
+                    goalAnimator.SetTrigger(isAttributeNessId);
+                    break;
+            }
         }
 
         StartCoroutine(OnGoalPlayer());
@@ -590,7 +636,7 @@ public class MainGameRoot : RootParent
                 if (waterStockCount > 0)
                 {
                     waterStockCount--;
-                    tempVector3 = MainGameRoot.Instance.fireCamera.ScreenToWorldPoint(stockShotPosFire.position);
+                    tempVector3 = cameraTwo.ScreenToWorldPoint(stockShotPosFire.position);
                     stockUIsWater[waterStockCount].StockShot(tempVector3);
                     stockUIsWater.Remove(stockUIsWater[waterStockCount]);
 
@@ -601,7 +647,7 @@ public class MainGameRoot : RootParent
                 if (fireStockCount > 0)
                 {
                     fireStockCount--;
-                    tempVector3 = MainGameRoot.Instance.waterCamera.ScreenToWorldPoint(stockShotPosWater.position);
+                    tempVector3 = cameraOne.ScreenToWorldPoint(stockShotPosWater.position);
                     Debug.Log(tempVector3);
                     stockUIsFire[fireStockCount].StockShot(tempVector3);
                     stockUIsFire.Remove(stockUIsFire[fireStockCount]);
