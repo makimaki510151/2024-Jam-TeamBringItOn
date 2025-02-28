@@ -118,7 +118,7 @@ public class NonPlayerController : MonoBehaviour
             if (player.isGround)
             {
                 hit = Physics2D.Raycast(playerTransform.position, playerTransform.right, rayRightDistance, ~playerLayerMask);
-                Debug.DrawRay(playerTransform.position, playerTransform.right * rayRightDistance, Color.red);
+                //Debug.DrawRay(playerTransform.position, playerTransform.right * rayRightDistance, Color.red);
                 if (hit.collider)
                 {
                     if (hit.collider.CompareTag(enemyTag) || hit.collider.CompareTag(gimmickGroundTag))
@@ -128,7 +128,7 @@ public class NonPlayerController : MonoBehaviour
                 }
 
                 hit = Physics2D.Raycast(playerTransform.position, playerTransform.right + playerTransform.up / 3, rayUpperRightDistance, ~playerLayerMask);
-                Debug.DrawRay(playerTransform.position, (playerTransform.right + playerTransform.up / 3) * rayUpperRightDistance, Color.red);
+                //Debug.DrawRay(playerTransform.position, (playerTransform.right + playerTransform.up / 3) * rayUpperRightDistance, Color.red);
                 if (hit.collider)
                 {
                     if (hit.collider.CompareTag(enemyTag))
@@ -140,7 +140,7 @@ public class NonPlayerController : MonoBehaviour
             else
             {
                 hit = Physics2D.Raycast(playerTransform.position, playerTransform.right, rayRightNotGroundDistance, ~playerLayerMask);
-                Debug.DrawRay(playerTransform.position, playerTransform.right * rayRightNotGroundDistance, Color.red);
+                //Debug.DrawRay(playerTransform.position, playerTransform.right * rayRightNotGroundDistance, Color.red);
                 if (hit.collider)
                 {
                     if (hit.collider.CompareTag(enemyTag) || hit.collider.CompareTag(gimmickGroundTag))
@@ -150,7 +150,7 @@ public class NonPlayerController : MonoBehaviour
                 }
 
                 hit = Physics2D.Raycast(playerTransform.position, playerTransform.right + playerTransform.up / 2, rayUpperRightNotGroundDistance, ~playerLayerMask);
-                Debug.DrawRay(playerTransform.position, (playerTransform.right + playerTransform.up / 2) * rayUpperRightNotGroundDistance, Color.red);
+                //Debug.DrawRay(playerTransform.position, (playerTransform.right + playerTransform.up / 2) * rayUpperRightNotGroundDistance, Color.red);
                 if (hit.collider)
                 {
                     if (hit.collider.CompareTag(enemyTag))
@@ -160,7 +160,7 @@ public class NonPlayerController : MonoBehaviour
                 }
 
                 hit = Physics2D.Raycast(playerTransform.position, playerTransform.right - playerTransform.up, rayLowerRightDistance, ~playerLayerMask);
-                Debug.DrawRay(playerTransform.position, playerTransform.right - playerTransform.up * rayLowerRightDistance, Color.red);
+                //Debug.DrawRay(playerTransform.position, playerTransform.right - playerTransform.up * rayLowerRightDistance, Color.red);
                 if (hit.collider)
                 {
                     if (hit.collider.CompareTag(enemyTag) && playerRigidbody2D.velocity.y <= 0)
@@ -170,7 +170,7 @@ public class NonPlayerController : MonoBehaviour
                 }
 
                 hit = Physics2D.Raycast(playerTransform.position, -playerTransform.up, rayDownDistance, ~playerLayerMask);
-                Debug.DrawRay(playerTransform.position, -playerTransform.up * rayDownDistance, Color.red);
+                //Debug.DrawRay(playerTransform.position, -playerTransform.up * rayDownDistance, Color.red);
                 if (hit.collider)
                 {
                     if (hit.collider.CompareTag(enemyTag) && playerRigidbody2D.velocity.y <= 0)
@@ -180,7 +180,7 @@ public class NonPlayerController : MonoBehaviour
                 }
 
                 hit = Physics2D.Raycast(playerTransform.position, playerTransform.up, rayUpDistance, ~playerLayerMask);
-                Debug.DrawRay(playerTransform.position, playerTransform.up * rayUpDistance, Color.red);
+                //Debug.DrawRay(playerTransform.position, playerTransform.up * rayUpDistance, Color.red);
                 if (hit.collider)
                 {
                     if (hit.collider.CompareTag(enemyTag) && playerRigidbody2D.velocity.y > 0)
@@ -269,10 +269,6 @@ public class NonPlayerController : MonoBehaviour
         if (rand + 1 <= probability)
         {
             player.SetJump();
-        }
-        else
-        {
-            Debug.Log(rand + 1);
         }
         isDelay = true;
     }
