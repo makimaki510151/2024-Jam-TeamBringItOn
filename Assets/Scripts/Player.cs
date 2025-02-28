@@ -137,6 +137,26 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip seDamageClip = null;
 
+    [SerializeField]
+    private float seVoiceJumpVol = 1.0f;
+    [SerializeField]
+    private AudioClip seVoiceJumpClip = null;
+
+    [SerializeField]
+    private float seVoiceDamageVol = 1.0f;
+    [SerializeField]
+    private AudioClip seVoiceDamageClip = null;
+
+    [SerializeField]
+    private float seVoiceParryVol = 1.0f;
+    [SerializeField]
+    private AudioClip seVoiceParryClip = null;
+
+    [SerializeField]
+    private float seVoiceItemVol = 1.0f;
+    [SerializeField]
+    private AudioClip seVoiceItemClip = null;
+
     static readonly int isParryId = Animator.StringToHash("isParry");
     static readonly int isParrySuccessId = Animator.StringToHash("isParrySuccess");
     static readonly int isDamageId = Animator.StringToHash("isDamage");
@@ -251,6 +271,8 @@ public class Player : MonoBehaviour
             {
                 AudioControl.Instance.SetSEVol(seJumpVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
                 AudioControl.Instance.PlaySE(seJumpClip, myTransform);
+                AudioControl.Instance.SetSEVol(seVoiceJumpVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                AudioControl.Instance.PlaySE(seVoiceJumpClip, myTransform);
                 myRigidbody2D.AddForce(myTransform.up * jumpPower, ForceMode2D.Impulse);
                 isJump = false;
             }
@@ -507,6 +529,8 @@ public class Player : MonoBehaviour
 
         AudioControl.Instance.SetSEVol(seDamageVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seDamageClip, myTransform);
+        AudioControl.Instance.SetSEVol(seVoiceDamageVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seVoiceDamageClip, myTransform);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -520,6 +544,8 @@ public class Player : MonoBehaviour
     public void BuffUp(int buffPower)
     {
         speedBuffItemCount += buffPower;
+        AudioControl.Instance.SetSEVol(seVoiceItemVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seVoiceItemClip, myTransform);
     }
     public void SkateboardTime()
     {
@@ -528,6 +554,8 @@ public class Player : MonoBehaviour
         isParry = true;
         parryTimer = skateboardTime;
         myAnimator.SetBool(isSkateId, true);
+        AudioControl.Instance.SetSEVol(seVoiceItemVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seVoiceItemClip, myTransform);
     }
 
     public void SetParryTime(bool isHigher)

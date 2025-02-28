@@ -10,15 +10,13 @@ public class FinalSpurt : MonoBehaviour
     [SerializeField]
     private AudioClip bgmMainGameLastSpurtClip = null;
 
-    private bool isBgm = false;
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")&&!isBgm)
+        if (collision.CompareTag("Player"))
         {
-            isBgm = true;
             AudioControl.Instance.SetBGMVol(bgmMainGameLastSpurtVol * MainGameRoot.Instance.dataScriptableObject.bgmVolSetting);
             AudioControl.Instance.PlayBGM(bgmMainGameLastSpurtClip);
+            Destroy(gameObject);
         }
     }
 }

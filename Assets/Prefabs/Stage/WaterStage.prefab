@@ -12701,7 +12701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4bb980ae11f0346aa55804dc83b2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmMainGameLastSpurtVol: 1
+  bgmMainGameLastSpurtVol: 0.5
   bgmMainGameLastSpurtClip: {fileID: 8300000, guid: ee3931869cf0b7d4eae8e84f23a0e6df, type: 3}
 --- !u!1 &7953929679543110133
 GameObject:

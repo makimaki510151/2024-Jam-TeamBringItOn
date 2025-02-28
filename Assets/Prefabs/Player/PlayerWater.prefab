@@ -209,14 +209,20 @@ MonoBehaviour:
     m_Bits: 512
   maxDistance: 0.625
   hitenemyCountDestroy: 3
-  seWaterParryVol: 0.5
-  seWaterParryClip: {fileID: 8300000, guid: a77d17f255c5a3d43aa0fb519953c3a1, type: 3}
-  seFireParryVol: 0.5
-  seFireParryClip: {fileID: 8300000, guid: a77d17f255c5a3d43aa0fb519953c3a1, type: 3}
+  seParryVol: 1
+  seParryClip: {fileID: 8300000, guid: a77d17f255c5a3d43aa0fb519953c3a1, type: 3}
   seJumpVol: 0.5
   seJumpClip: {fileID: 8300000, guid: 85e0d8e17884d80429032dfe41b7bf72, type: 3}
   seDamageVol: 1
   seDamageClip: {fileID: 8300000, guid: 2756d85f54cc16240b94cb0ad5588e87, type: 3}
+  seVoiceJumpVol: 1
+  seVoiceJumpClip: {fileID: 8300000, guid: ae9ce09dc3833b741a64e034566bd22b, type: 3}
+  seVoiceDamageVol: 1
+  seVoiceDamageClip: {fileID: 8300000, guid: 206e2cbe90c24a443876daf5d9d3b5b2, type: 3}
+  seVoiceParryVol: 1
+  seVoiceParryClip: {fileID: 8300000, guid: 7d1ebcc652a0b274b9bfd8fbb53576f4, type: 3}
+  seVoiceItemVol: 1
+  seVoiceItemClip: {fileID: 8300000, guid: ef1e74072508f074e83a2e1c54021512, type: 3}
 --- !u!61 &4274571922432793070
 BoxCollider2D:
   m_ObjectHideFlags: 0
