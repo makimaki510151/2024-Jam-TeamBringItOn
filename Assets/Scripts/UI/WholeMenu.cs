@@ -42,6 +42,14 @@ public class WholeMenu : MonoBehaviour
     }
 
     /// <summary>
+    /// 一人用モード選択画面に移行します
+    /// </summary>
+    public void GoToOneMode()
+    {
+        ModeSelectRoot.Instance.ShowMenu(3);
+    }
+
+    /// <summary>
     /// 操作ガイドを表示します
     /// </summary>
     public void ShowManual()
