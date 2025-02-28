@@ -90,7 +90,7 @@ public class OtherMenu : MonoBehaviour
 
         yield return new WaitForSeconds(fadeAnimationClip.length);
 
-        ModeSelectRoot.Instance.LoadScene(2);
+        ModeSelectRoot.Instance.ButtonPlayTwo();
     }
 
     /// <summary>
