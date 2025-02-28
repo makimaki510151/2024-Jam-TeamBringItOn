@@ -138,6 +138,7 @@ public class Player : MonoBehaviour
     private AudioClip seDamageClip = null;
 
     static readonly int isParryId = Animator.StringToHash("isParry");
+    static readonly int isParrySuccessId = Animator.StringToHash("isParrySuccess");
     static readonly int isDamageId = Animator.StringToHash("isDamage");
     static readonly int isSkateId = Animator.StringToHash("isSkate");
 
@@ -416,6 +417,7 @@ public class Player : MonoBehaviour
                     tempVector2.y = 0;
                     myRigidbody2D.velocity = tempVector2;
                     myRigidbody2D.AddForce(myTransform.up * parryJumpPower, ForceMode2D.Impulse);
+                    myAnimator.SetTrigger(isParrySuccessId);
                 }
 
                 // エフェクト処理
