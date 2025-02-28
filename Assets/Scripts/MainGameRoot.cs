@@ -43,13 +43,13 @@ public class MainGameRoot : RootParent
     private Button settingSelectButton = null;
 
     [SerializeField]
-    private List<RectTransform> waterStocks = new();
+    private List<RectTransform> oneStocks = new();
     [SerializeField]
-    private RectTransform waterStockOver = null;
+    private RectTransform oneStockOver = null;
     [SerializeField]
-    private List<RectTransform> fireStocks = new();
+    private List<RectTransform> twoStocks = new();
     [SerializeField]
-    private RectTransform fireStockOver = null;
+    private RectTransform twoStockOver = null;
 
     [SerializeField]
     private RectTransform stockShotPosWater = null;
@@ -61,9 +61,9 @@ public class MainGameRoot : RootParent
     //private GameObject stageFireEnemysObject = null;
 
     [SerializeField]
-    private int waterStockCount = 0;
+    private int oneStockCount = 0;
     [SerializeField]
-    private int fireStockCount = 0;
+    private int twoStockCount = 0;
 
     [SerializeField]
     private GameObject canvasObject = null;
@@ -217,14 +217,7 @@ public class MainGameRoot : RootParent
 
     private void Start()
     {
-        if (dataScriptableObject.isBreadMode)
-        {
-            isBreadEatingCompetitionMode = true;
-        }
-        else
-        {
-            isBreadEatingCompetitionMode = false;
-        }
+        isBreadEatingCompetitionMode = dataScriptableObject.isBreadMode;
 
         cameraPosWater = (Vector2)cameraOneTransform.position - playerOneRigidbody2D.position;
         cameraPosFire = (Vector2)cameraTwoTransform.position - playerTwoRigidbody2D.position;
@@ -260,7 +253,7 @@ public class MainGameRoot : RootParent
         if (dataScriptableObject.playType == DataScriptableObject.PlayType.One)
         {
             playerTwoRigidbody2D.gameObject.SetActive(false);
-            waterStockCount = 5;
+            oneStockCount = 5;
             isPlayerOne = true;
             fireIconRectTransform.gameObject.SetActive(false);
         }
@@ -411,19 +404,19 @@ public class MainGameRoot : RootParent
         switch (enemyCharacter)
         {
             case Player.PlayCharacter.One:
-                if (waterStockCount < 5)
+                if (oneStockCount < 5)
                 {
-                    waterStockCount++;
+                    oneStockCount++;
                     stockUIsWater.Add(myStock);
-                    return waterStocks[waterStockCount - 1].position;
+                    return oneStocks[oneStockCount - 1].position;
                 }
                 else if (isPlayerOne)
                 {
-                    return waterStockOver.position;
+                    return oneStockOver.position;
                 }
                 else
                 {
-                    return waterStockOver.position;
+                    return oneStockOver.position;
                     //StockEnemyShot(enemyCharacter);
                     //waterStockCount++;
                     //stockUIsWater.Add(myStock);
@@ -431,23 +424,23 @@ public class MainGameRoot : RootParent
                 }
             case Player.PlayCharacter.Two:
             default:
-                if (fireStockCount < 5)
+                if (twoStockCount < 5)
                 {
-                    fireStockCount++;
+                    twoStockCount++;
                     stockUIsFire.Add(myStock);
-                    return fireStocks[fireStockCount - 1].position;
+                    return twoStocks[twoStockCount - 1].position;
                 }
                 else if (isPlayerOne)
                 {
-                    return fireStockOver.position;
+                    return twoStockOver.position;
                 }
                 else
                 {
-                    return fireStockOver.position;
+                    return twoStockOver.position;
                     //StockEnemyShot(enemyCharacter);
-                    //fireStockCount++;
+                    //twoStockCount++;
                     //stockUIsFire.Add(myStock);
-                    //return fireStocks[fireStockCount - 1].position;
+                    //return fireStocks[twoStockCount - 1].position;
                 }
         }
     }
@@ -456,7 +449,7 @@ public class MainGameRoot : RootParent
         switch (enemyCharacter)
         {
             case Player.PlayCharacter.One:
-                if (waterStockCount < 5)
+                if (oneStockCount < 5)
                 {
                     return false;
                 }
@@ -466,7 +459,7 @@ public class MainGameRoot : RootParent
                 }
             case Player.PlayCharacter.Two:
             default:
-                if (fireStockCount < 5)
+                if (twoStockCount < 5)
                 {
                     return false;
                 }
@@ -482,10 +475,10 @@ public class MainGameRoot : RootParent
         switch (enemyCharacter)
         {
             case Player.PlayCharacter.One:
-                return waterStockCount;
+                return oneStockCount;
             case Player.PlayCharacter.Two:
             default:
-                return fireStockCount;
+                return twoStockCount;
         }
     }
     public GameObject GetCanvas()
@@ -633,24 +626,24 @@ public class MainGameRoot : RootParent
         switch (playCharacter)
         {
             case Player.PlayCharacter.One:
-                if (waterStockCount > 0)
+                if (oneStockCount > 0)
                 {
-                    waterStockCount--;
+                    oneStockCount--;
                     tempVector3 = cameraTwo.ScreenToWorldPoint(stockShotPosFire.position);
-                    stockUIsWater[waterStockCount].StockShot(tempVector3);
-                    stockUIsWater.Remove(stockUIsWater[waterStockCount]);
+                    stockUIsWater[oneStockCount].StockShot(tempVector3);
+                    stockUIsWater.Remove(stockUIsWater[oneStockCount]);
 
                 }
                 break;
             case Player.PlayCharacter.Two:
             default:
-                if (fireStockCount > 0)
+                if (twoStockCount > 0)
                 {
-                    fireStockCount--;
+                    twoStockCount--;
                     tempVector3 = cameraOne.ScreenToWorldPoint(stockShotPosWater.position);
                     Debug.Log(tempVector3);
-                    stockUIsFire[fireStockCount].StockShot(tempVector3);
-                    stockUIsFire.Remove(stockUIsFire[fireStockCount]);
+                    stockUIsFire[twoStockCount].StockShot(tempVector3);
+                    stockUIsFire.Remove(stockUIsFire[twoStockCount]);
                 }
                 break;
         }
