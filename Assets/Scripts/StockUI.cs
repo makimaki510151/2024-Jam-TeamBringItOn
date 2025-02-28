@@ -76,7 +76,6 @@ public class StockUI : MonoBehaviour
         // カンシャクダマ以外なら、ランダムで縦位置を変更する
         if (myEnemy.GetComponent<Enemy>().AiType != Enemy.EnemyAiType.MrFireWorks) vector3.y += Random.Range(0, yPosGap);
         else vector3.y -= 0.3f;
-        Debug.Log(vector3);
         Instantiate(myEnemy, vector3, Quaternion.identity);
         Destroy(gameObject);
     }

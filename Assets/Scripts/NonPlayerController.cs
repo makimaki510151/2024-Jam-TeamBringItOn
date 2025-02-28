@@ -47,9 +47,15 @@ public class NonPlayerController : MonoBehaviour
 
     [Header("パリィ砲設定")]
 
-    [SerializeField, Tooltip("パリィ砲待機時間")]
+    [SerializeField, Tooltip("パリィ砲基本待機時間")]
     private float shotDelayTime = 3.0f;
     private float shotDelayTimer = 0;
+
+    [SerializeField, Tooltip("パリィ砲指定待機時間")]
+    private List<float> shotDesignationDelayTime = new List<float>();
+
+    [SerializeField, Tooltip("パリィ砲連射時の待機時間")]
+    private float rapidFireDelayTime = 1.0f;
 
     private float deltaTime;
     private Player player;
@@ -74,7 +80,7 @@ public class NonPlayerController : MonoBehaviour
         if (player.isFrozen)
         {
             delayFrozenTimer += deltaTime;
-            if(delayFrozenTimer >= delayFrozenTime)
+            if (delayFrozenTimer >= delayFrozenTime)
             {
                 player.SetJump();
                 delayFrozenTimer = 0;
@@ -103,7 +109,6 @@ public class NonPlayerController : MonoBehaviour
                     {
                         player.SetJump();
                         isDelay = true;
-                        Debug.Log("右");
                     }
                 }
 
@@ -115,7 +120,6 @@ public class NonPlayerController : MonoBehaviour
                     {
                         player.SetJump();
                         isDelay = true;
-                        Debug.Log("右上");
                     }
                 }
             }
@@ -129,7 +133,6 @@ public class NonPlayerController : MonoBehaviour
                     {
                         player.SetJump();
                         isDelay = true;
-                        Debug.Log("空中右");
                     }
                 }
 
@@ -141,7 +144,6 @@ public class NonPlayerController : MonoBehaviour
                     {
                         player.SetJump();
                         isDelay = true;
-                        Debug.Log("空中右上");
                     }
                 }
 
@@ -153,7 +155,6 @@ public class NonPlayerController : MonoBehaviour
                     {
                         player.SetJump();
                         isDelay = true;
-                        Debug.Log("右下");
                     }
                 }
 
@@ -165,7 +166,6 @@ public class NonPlayerController : MonoBehaviour
                     {
                         player.SetJump();
                         isDelay = true;
-                        Debug.Log("下");
                     }
                 }
 
@@ -177,39 +177,57 @@ public class NonPlayerController : MonoBehaviour
                     {
                         player.SetJump();
                         isDelay = true;
-                        Debug.Log("上");
                     }
                 }
             }
         }
 
-        // パリィ砲
-        if(MainGameRoot.Instance.twoStockCount > 0)
+        if (shotDelayTimer > 0)
         {
-            if(shotDelayTimer > 0)
+            shotDelayTimer -= deltaTime;
+            if (shotDelayTimer <= 0)
             {
-                shotDelayTime -= deltaTime;
-                if(shotDelayTime <= 0)
+                shotDelayTimer = -1;
+            }
+        }
+        // パリィ砲
+        else if (MainGameRoot.Instance.twoStockCount > 0)
+        {
+            rand = Random.Range(1, 9);
+
+            if (rand <= 5)
+            {
+                for (int i = 1; i <= rand; i++)
                 {
-                    shotDelayTimer = -1;
-                    rand = Random.Range(1, 9);
+                    player.SetShot();
                 }
+                shotDelayTimer = shotDelayTime;
             }
             else
             {
-                if(rand <= 5)
+                switch (rand)
                 {
-                    for(int i = 1; i <= rand; i++)
-                    {
-                        player.SetShot();
-                    }
-                }
-                else
-                {
-
+                    case 6:
+                        StartCoroutine(OnDelayShot());
+                        shotDelayTimer = shotDelayTime;
+                        break;
+                    case 7:
+                        shotDelayTimer = shotDesignationDelayTime[0];
+                        break;
+                    case 8:
+                        shotDelayTimer = shotDesignationDelayTime[1];
+                        break;
                 }
             }
         }
-        
+    }
+
+    IEnumerator OnDelayShot()
+    {
+        player.SetShot();
+
+        yield return new WaitForSeconds(rapidFireDelayTime);
+
+        player.SetShot();
     }
 }
