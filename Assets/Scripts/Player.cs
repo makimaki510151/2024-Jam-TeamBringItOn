@@ -367,10 +367,29 @@ public class Player : MonoBehaviour
         if (skateboardTimer > 0)
         {
             skateboardTimer -= deltaTime;
+
+            // “_–Åˆ—
+            if(skateboardTimer <= 1)
+            {
+                isTransparent = !isTransparent;
+                if (isTransparent)
+                {
+                    if (!isSolidColor) mySpriteRenderer.color = transparentColor;
+                    else mySpriteRenderer.color = transparentSolidColor;
+                }
+                else
+                {
+                    if (!isSolidColor) mySpriteRenderer.color = colorWhite;
+                    else mySpriteRenderer.color = solidColor;
+                }
+            }
+
             if (skateboardTimer <= 0)
             {
                 skateboardTimer = 0;
                 skateboardBuffContainer = 1;
+                if (!isSolidColor) mySpriteRenderer.color = colorWhite;
+                else mySpriteRenderer.color = solidColor;
                 myAnimator.SetBool(isSkateId, false);
             }
         }
