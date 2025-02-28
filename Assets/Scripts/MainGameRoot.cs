@@ -60,10 +60,8 @@ public class MainGameRoot : RootParent
     //[SerializeField]
     //private GameObject stageFireEnemysObject = null;
 
-    [SerializeField]
     private int oneStockCount = 0;
-    [SerializeField]
-    private int twoStockCount = 0;
+    public int twoStockCount { get; private set; }
 
     [SerializeField]
     private GameObject canvasObject = null;
@@ -218,6 +216,7 @@ public class MainGameRoot : RootParent
     private void Start()
     {
         isBreadEatingCompetitionMode = dataScriptableObject.isBreadMode;
+        twoStockCount = 0;
 
         cameraPosWater = (Vector2)cameraOneTransform.position - playerOneRigidbody2D.position;
         cameraPosFire = (Vector2)cameraTwoTransform.position - playerTwoRigidbody2D.position;
@@ -632,7 +631,6 @@ public class MainGameRoot : RootParent
                     tempVector3 = cameraTwo.ScreenToWorldPoint(stockShotPosFire.position);
                     stockUIsWater[oneStockCount].StockShot(tempVector3);
                     stockUIsWater.Remove(stockUIsWater[oneStockCount]);
-
                 }
                 break;
             case Player.PlayCharacter.Two:
@@ -641,7 +639,6 @@ public class MainGameRoot : RootParent
                 {
                     twoStockCount--;
                     tempVector3 = cameraOne.ScreenToWorldPoint(stockShotPosWater.position);
-                    Debug.Log(tempVector3);
                     stockUIsFire[twoStockCount].StockShot(tempVector3);
                     stockUIsFire.Remove(stockUIsFire[twoStockCount]);
                 }

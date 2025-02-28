@@ -17,7 +17,7 @@ public class Coin : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Player>().BuffUp(coinPower);
-            AudioControl.Instance.SetSEVol(pickCoinSEVol);
+            AudioControl.Instance.SetSEVol(pickCoinSEVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
             AudioControl.Instance.PlaySE(pickCoinSE);
             Destroy(gameObject);
         }

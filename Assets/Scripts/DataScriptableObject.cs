@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "DataScriptableObject", menuName = "DataScriptableObject", order = 0)]
-public class DataScriptableObject : ScriptableObject
+public class DataScriptableObject : ScriptableObject, ISerializationCallbackReceiver
 {
     [SerializeField, Tooltip("SE‚Ìƒ{ƒŠƒ…[ƒ€")]
     private float SeVolSetting = default;

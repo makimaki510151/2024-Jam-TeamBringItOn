@@ -5,6 +5,8 @@ using static UnityEngine.UI.Image;
 
 public class NonPlayerController : MonoBehaviour
 {
+    [Header("監視設定")]
+
     [SerializeField, Tooltip("レイ（右）の長さ")]
     private float rayRightDistance = 1.0f;
 
@@ -43,11 +45,18 @@ public class NonPlayerController : MonoBehaviour
     private float delayFrozenTime = 0.25f;
     private float delayFrozenTimer = 0;
 
+    [Header("パリィ砲設定")]
+
+    [SerializeField, Tooltip("パリィ砲待機時間")]
+    private float shotDelayTime = 3.0f;
+    private float shotDelayTimer = 0;
+
     private float deltaTime;
     private Player player;
     private Transform playerTransform;
     RaycastHit2D hit;
     private bool isDelay = false;
+    private int rand = 0;
     private Rigidbody2D playerRigidbody2D;
 
     void Start()
@@ -61,6 +70,7 @@ public class NonPlayerController : MonoBehaviour
     {
         deltaTime = Time.deltaTime;
 
+        // 氷結中
         if (player.isFrozen)
         {
             delayFrozenTimer += deltaTime;
@@ -70,6 +80,7 @@ public class NonPlayerController : MonoBehaviour
                 delayFrozenTimer = 0;
             }
         }
+        // 待機
         if (isDelay)
         {
             delayTimer += deltaTime;
@@ -79,6 +90,7 @@ public class NonPlayerController : MonoBehaviour
                 isDelay = false;
             }
         }
+        // 監視
         else
         {
             if (player.isGround)
@@ -170,5 +182,34 @@ public class NonPlayerController : MonoBehaviour
                 }
             }
         }
+
+        // パリィ砲
+        if(MainGameRoot.Instance.twoStockCount > 0)
+        {
+            if(shotDelayTimer > 0)
+            {
+                shotDelayTime -= deltaTime;
+                if(shotDelayTime <= 0)
+                {
+                    shotDelayTimer = -1;
+                    rand = Random.Range(1, 9);
+                }
+            }
+            else
+            {
+                if(rand <= 5)
+                {
+                    for(int i = 1; i <= rand; i++)
+                    {
+                        player.SetShot();
+                    }
+                }
+                else
+                {
+
+                }
+            }
+        }
+        
     }
 }
