@@ -58,6 +58,10 @@ MonoBehaviour:
   gimmickGroundTag: GimmickGround
   delayTime: 0.1
   delayFrozenTime: 0.15
+  probabilityJump: 90
+  probabilityJumpForHigherRank: 90
+  probabilityParry: 90
+  probabilityParryForHigherRank: 70
   shotDelayTime: 3
   shotDesignationDelayTime:
   - 3
