@@ -97,6 +97,7 @@ public class MainGameRoot : RootParent
     static readonly int isWaterId = Animator.StringToHash("isWater");
     static readonly int isFireId = Animator.StringToHash("isFire");
     static readonly int isAttributeNessId = Animator.StringToHash("isAttributeNess");
+    static readonly int isDrawId = Animator.StringToHash("isDraw");
 
     private bool isResult = false;  // リザルトが表示されたらフラグをオン
     private bool isPlayerOne = false;
@@ -164,6 +165,7 @@ public class MainGameRoot : RootParent
 
     private bool isWaitGoal = false;
     private StageSetter stageSetter = null;
+    private int winBread = 0;
 
     public static MainGameRoot Instance;
 
@@ -330,14 +332,14 @@ public class MainGameRoot : RootParent
     private void JudgeRank()
     {
         tempFloat = playerOneRigidbody2D.position.x - playerTwoRigidbody2D.position.x;
-        // 水の精霊が順位が上でフラグが立っていなければ、パリィ時間を変更する
+        // 1Pが順位が上でフラグが立っていなければ、パリィ時間を変更する
         if(tempFloat > 0 && !isWaterHigherRank)
         {
             isWaterHigherRank = true;
             playerOne.SetParryTime(true);
             playerTwo.SetParryTime(false);
         }
-        // 火の精霊が順位が上でフラグが立っていれば、パリィ時間を変更する
+        // 2Pが順位が上でフラグが立っていれば、パリィ時間を変更する
         else if (tempFloat < 0 && isWaterHigherRank)
         {
             isWaterHigherRank = false;
@@ -581,7 +583,8 @@ public class MainGameRoot : RootParent
 
         yield return new WaitForSeconds(1);
 
-        if (breadEatingCompetitionRoot.CheckWinner())
+        winBread = breadEatingCompetitionRoot.CheckWinner();
+        if (winBread == 0)
         {
             switch (dataScriptableObject.characterOneNumber)
             {
@@ -596,7 +599,7 @@ public class MainGameRoot : RootParent
                     break;
             }
         }
-        else
+        else if(winBread == 1)
         {
             switch (dataScriptableObject.characterTwoNumber)
             {
@@ -610,6 +613,10 @@ public class MainGameRoot : RootParent
                     goalAnimator.SetTrigger(isAttributeNessId);
                     break;
             }
+        }
+        else
+        {
+            goalAnimator.SetTrigger(isDrawId);
         }
 
         StartCoroutine(OnGoalPlayer());

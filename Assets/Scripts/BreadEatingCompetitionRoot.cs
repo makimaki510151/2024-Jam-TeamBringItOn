@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BreadEatingCompetitionRoot : MonoBehaviour
 {
@@ -13,22 +14,36 @@ public class BreadEatingCompetitionRoot : MonoBehaviour
     [SerializeField, Tooltip("ゴールに着かなかった時の減点数")]
     private int notReachedGoalDeductionScore = 10;
 
-    [SerializeField, Tooltip("小さいパンの取得数を表示")]
-    private List<TMP_Text> smallBreadCountTexts = new List<TMP_Text>();
-
-    [SerializeField, Tooltip("大きいパンの取得数を表示")]
-    private List<TMP_Text> bigBreadCountTexts = new List<TMP_Text>();
-
     [SerializeField, Tooltip("ゴールできたかを表示")]
     private List<GameObject> reachedGoalUIs = new List<GameObject>();
 
-    [SerializeField, Tooltip("スコアを表示")]
-    private List<TMP_Text> scoreTexts = new List<TMP_Text>();
+    [SerializeField, Tooltip("ナンバーUI")]
+    private Sprite[] numbers = new Sprite[10];
+
+    [SerializeField, Tooltip("1Pの小さいパンのスコア")]
+    private Image[] valuesSmallBreadOne = null;
+
+    [SerializeField, Tooltip("2Pの小さいパンのスコア")]
+    private Image[] valuesSmallBreadTwo = null;
+
+    [SerializeField, Tooltip("1Pの大きいパンのスコア")]
+    private Image[] valuesBigBreadOne = null;
+
+    [SerializeField, Tooltip("2Pの大きいパンのスコア")]
+    private Image[] valuesBigBreadTwo = null;
+
+    [SerializeField, Tooltip("1Pの最終スコア")]
+    private Image[] valuesScoreOne = null;
+
+    [SerializeField, Tooltip("2Pの最終スコア")]
+    private Image[] valuesScoreTwo = null;
 
     private int[] smallBreadCounts = new int[2];
     private int[] bigBreadCounts = new int[2];
     private bool[] timeOvers = new bool[2];
     private int[] playerScores = new int[2];
+
+    private int score = 0;
 
     public static BreadEatingCompetitionRoot Instance;
 
@@ -68,10 +83,26 @@ public class BreadEatingCompetitionRoot : MonoBehaviour
 
     public void SetResult()
     {
-        smallBreadCountTexts[0].text = smallBreadCounts[0].ToString();
-        smallBreadCountTexts[1].text = smallBreadCounts[1].ToString();
-        bigBreadCountTexts[0].text = bigBreadCounts[0].ToString();
-        bigBreadCountTexts[1].text = bigBreadCounts[1].ToString();
+        for (int index = 0; index < valuesSmallBreadOne.Length; index++)
+        {
+            valuesSmallBreadOne[index].sprite = numbers[smallBreadCounts[0] % 10];
+            smallBreadCounts[0] /= 10;
+        }
+        for (int index = 0; index < valuesSmallBreadTwo.Length; index++)
+        {
+            valuesSmallBreadTwo[index].sprite = numbers[smallBreadCounts[1] % 10];
+            smallBreadCounts[1] /= 10;
+        }
+        for (int index = 0; index < valuesBigBreadOne.Length; index++)
+        {
+            valuesBigBreadOne[index].sprite = numbers[bigBreadCounts[0] % 10];
+            bigBreadCounts[0] /= 10;
+        }
+        for (int index = 0; index < valuesBigBreadTwo.Length; index++)
+        {
+            valuesBigBreadTwo[index].sprite = numbers[bigBreadCounts[1] % 10];
+            bigBreadCounts[1] /= 10;
+        }
         if (timeOvers[0])
         {
             reachedGoalUIs[0].SetActive(false);
@@ -99,23 +130,38 @@ public class BreadEatingCompetitionRoot : MonoBehaviour
         {
             playerScores[0] = 0;
         }
-        else
+        else if (playerScores[1] < 0)
         {
             playerScores[1] = 0;
         }
-        scoreTexts[0].text = playerScores[0].ToString();
-        scoreTexts[1].text = playerScores[1].ToString();
+
+        score = playerScores[0];
+        for (int index = 0; index < valuesScoreOne.Length; index++)
+        {
+            valuesScoreOne[index].sprite = numbers[score % 10];
+            score /= 10;
+        }
+        score = playerScores[1];
+        for (int index = 0; index < valuesScoreTwo.Length; index++)
+        {
+            valuesScoreTwo[index].sprite = numbers[score % 10];
+            score /= 10;
+        }
     }
 
-    public bool CheckWinner()
+    public int CheckWinner()
     {
         if (playerScores[0] > playerScores[1])
         {
-            return true;
+            return 0;
+        }
+        else if(playerScores[0] < playerScores[1])
+        {
+            return 1;
         }
         else
         {
-            return false;
+            return 2;
         }
     }
 }
