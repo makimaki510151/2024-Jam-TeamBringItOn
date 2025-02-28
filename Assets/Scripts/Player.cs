@@ -150,6 +150,7 @@ public class Player : MonoBehaviour
     private bool isTransparent = false;     // “_–Å—p
     private bool isSolidColor = false;
     private bool isGoal = false;
+    public bool isHigherPlayer { get; private set; }
 
     private GameObject enemyObject = null;
     private int hitEnemyCount = 0;
@@ -225,6 +226,7 @@ public class Player : MonoBehaviour
         transparentSolidColor = transparentColor * solidColor;
         iceTransform.localScale = vector2zero;
         isGround = false;
+        isHigherPlayer = true;
     }
 
     void Update()
@@ -530,7 +532,8 @@ public class Player : MonoBehaviour
 
     public void SetParryTime(bool isHigher)
     {
-        if(isHigher)
+        isHigherPlayer = isHigher;
+        if (isHigher)
         {
             parryTime = parryTimeForHigherRank;
         }

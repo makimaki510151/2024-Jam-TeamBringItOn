@@ -45,6 +45,22 @@ public class NonPlayerController : MonoBehaviour
     private float delayFrozenTime = 0.25f;
     private float delayFrozenTimer = 0;
 
+    [Header("乱数設定(%)")]
+
+    [SerializeField, Tooltip("ジャンプ確率")]
+    private int probabilityJump = 90;
+
+    [SerializeField, Tooltip("順位が上のときのジャンプ確率")]
+    private int probabilityJumpForHigherRank = 90;
+
+    [SerializeField, Tooltip("パリィ確率")]
+    private int probabilityParry = 70;
+
+    [SerializeField, Tooltip("順位が上のときのパリィ確率")]
+    private int probabilityParryForHigherRank = 65;
+
+    private int probability = 0;
+
     [Header("パリィ砲設定")]
 
     [SerializeField, Tooltip("パリィ砲基本待機時間")]
@@ -107,8 +123,7 @@ public class NonPlayerController : MonoBehaviour
                 {
                     if (hit.collider.CompareTag(enemyTag) || hit.collider.CompareTag(gimmickGroundTag))
                     {
-                        player.SetJump();
-                        isDelay = true;
+                        CheckProbability();
                     }
                 }
 
@@ -118,8 +133,7 @@ public class NonPlayerController : MonoBehaviour
                 {
                     if (hit.collider.CompareTag(enemyTag))
                     {
-                        player.SetJump();
-                        isDelay = true;
+                        CheckProbability();
                     }
                 }
             }
@@ -131,8 +145,7 @@ public class NonPlayerController : MonoBehaviour
                 {
                     if (hit.collider.CompareTag(enemyTag) || hit.collider.CompareTag(gimmickGroundTag))
                     {
-                        player.SetJump();
-                        isDelay = true;
+                        CheckProbability();
                     }
                 }
 
@@ -142,8 +155,7 @@ public class NonPlayerController : MonoBehaviour
                 {
                     if (hit.collider.CompareTag(enemyTag))
                     {
-                        player.SetJump();
-                        isDelay = true;
+                        CheckProbability();
                     }
                 }
 
@@ -153,8 +165,7 @@ public class NonPlayerController : MonoBehaviour
                 {
                     if (hit.collider.CompareTag(enemyTag) && playerRigidbody2D.velocity.y <= 0)
                     {
-                        player.SetJump();
-                        isDelay = true;
+                        CheckProbability();
                     }
                 }
 
@@ -164,8 +175,7 @@ public class NonPlayerController : MonoBehaviour
                 {
                     if (hit.collider.CompareTag(enemyTag) && playerRigidbody2D.velocity.y <= 0)
                     {
-                        player.SetJump();
-                        isDelay = true;
+                        CheckProbability();
                     }
                 }
 
@@ -175,8 +185,7 @@ public class NonPlayerController : MonoBehaviour
                 {
                     if (hit.collider.CompareTag(enemyTag) && playerRigidbody2D.velocity.y > 0)
                     {
-                        player.SetJump();
-                        isDelay = true;
+                        CheckProbability();
                     }
                 }
             }
@@ -229,5 +238,42 @@ public class NonPlayerController : MonoBehaviour
         yield return new WaitForSeconds(rapidFireDelayTime);
 
         player.SetShot();
+    }
+
+    private void CheckProbability()
+    {
+        if (player.isGround)
+        {
+            if (player.isHigherPlayer)
+            {
+                probability = probabilityJumpForHigherRank;
+            }
+            else
+            {
+                probability = probabilityJump;
+            }
+        }
+        else
+        {
+            if (player.isHigherPlayer)
+            {
+                probability = probabilityParryForHigherRank;
+            }
+            else
+            {
+                probability = probabilityParry;
+            }
+        }
+
+        rand = Random.Range(0, 100);
+        if (rand + 1 <= probability)
+        {
+            player.SetJump();
+        }
+        else
+        {
+            Debug.Log(rand + 1);
+        }
+        isDelay = true;
     }
 }
