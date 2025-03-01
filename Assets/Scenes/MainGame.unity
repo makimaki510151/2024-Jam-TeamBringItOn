@@ -3340,7 +3340,7 @@ MonoBehaviour:
   waterIconRectTransform: {fileID: 1484808686}
   fireIconRectTransform: {fileID: 580813609}
   goalShowDelay: 1
-  goModeSelectDelay: 4
+  goModeSelectDelay: 9
   goalAnimator: {fileID: 525952122}
   timeUI: {fileID: 1634582793}
   breadEatingCompetitionRoot: {fileID: 1989068095}
@@ -3356,8 +3356,8 @@ MonoBehaviour:
   bgmTimeAttackClip: {fileID: 8300000, guid: 7607d0fc3cae2a040832100c65700e58, type: 3}
   seDecisionVol: 0.5
   seDecisionClip: {fileID: 8300000, guid: 44fcf8934c03ec343b42c02c1eb2a246, type: 3}
-  bgmWinnerVol: 1
-  bgmWinnerClip: {fileID: 0}
+  bgmWinnerVol: 0.5
+  bgmWinnerClip: {fileID: 8300000, guid: 06a2a2ff5a4365e43965ffc131de33e5, type: 3}
   seGoalVol: 0.5
   seGoalClip: {fileID: 8300000, guid: e986263fce901fb489514490fce6e2f3, type: 3}
 --- !u!114 &1989068095
