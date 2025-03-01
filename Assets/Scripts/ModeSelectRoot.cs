@@ -24,10 +24,16 @@ public class ModeSelectRoot : RootParent
     private OtherMenu otherMenu = null;
 
     [Header("‰¹ŠÖŒW")]
+
     [SerializeField]
     private float bgmModeSelectVol = 1.0f;
     [SerializeField]
     private AudioClip bgmModeSelectClip = null;
+
+    [SerializeField]
+    private float bgmAreaSelectVol = 1.0f;
+    [SerializeField]
+    private AudioClip bgmAreaSelectClip = null;
 
     //[SerializeField]
     //private float seDecisionVol = 1.0f;
@@ -145,6 +151,17 @@ public class ModeSelectRoot : RootParent
         if(menuNumber == 2)
         {
             otherMenu.SetSelectObject();
+        }
+        
+        if(menuNumber == 4)
+        {
+            AudioControl.Instance.SetBGMVol(bgmAreaSelectVol * dataScriptableObject.seVolSetting);
+            AudioControl.Instance.PlayBGM(bgmAreaSelectClip);
+        }
+        else
+        {
+            AudioControl.Instance.SetBGMVol(bgmModeSelectVol * dataScriptableObject.seVolSetting);
+            AudioControl.Instance.PlayBGM(bgmModeSelectClip);
         }
 
         AudioControl.Instance.SetSEVol(seChoiceVol * dataScriptableObject.seVolSetting);
