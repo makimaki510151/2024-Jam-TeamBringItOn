@@ -469,6 +469,8 @@ public class Player : MonoBehaviour
 
                 AudioControl.Instance.SetSEVol(seParryVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
                 AudioControl.Instance.PlaySE(seParryClip, myTransform);
+                AudioControl.Instance.SetSEVol(seVoiceParryVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+                AudioControl.Instance.PlaySE(seVoiceParryClip, myTransform);
             }
             // 無敵時間でないなら、ノックバック処理を行う
             else if (invincibleTimer <= 0)

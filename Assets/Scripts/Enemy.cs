@@ -38,6 +38,11 @@ public class Enemy : MonoBehaviour
     [SerializeField, Tooltip("Fire側のタコスミ")]
     private OctopusInc fireOctopusInc = null;
 
+    [SerializeField]
+    private float seOctopusVol = 1.0f;
+    [SerializeField]
+    private AudioClip seOctopusClip = null;
+
     [Header("カンシャクダマ設定")]
 
     [SerializeField, Tooltip("カンシャクダマの横移動速度")]
@@ -51,6 +56,11 @@ public class Enemy : MonoBehaviour
 
     [SerializeField, Tooltip("Fire側の花火")]
     private FireWork fireFireWork = null;
+
+    [SerializeField]
+    private float seFireWorkVol = 1.0f;
+    [SerializeField]
+    private AudioClip seFireWorkClip = null;
 
     [Header("アメムシ設定")]
 
@@ -213,6 +223,8 @@ public class Enemy : MonoBehaviour
         {
             fireOctopusInc.SplashInc();
         }
+        AudioControl.Instance.SetSEVol(seOctopusVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seOctopusClip, myTransform);
     }
 
     private void UpdateForAmemusi()
@@ -267,6 +279,8 @@ public class Enemy : MonoBehaviour
         {
             fireFireWork.LaunchFireworks();
         }
+        AudioControl.Instance.SetSEVol(seFireWorkVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seFireWorkClip, myTransform);
         Destroy(gameObject);
     }
 

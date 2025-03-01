@@ -180,10 +180,31 @@ MonoBehaviour:
   crabCoefficient: 1
   waterOctopusInc: {fileID: 0}
   fireOctopusInc: {fileID: 0}
+  seOctopusVol: 1
+  seOctopusClip: {fileID: 8300000, guid: 29f47f2d449050f4399906596a5ad54c, type: 3}
+  mrFireWorksMoveSpeed: 2
+  mrFireWorksRotateSpeed: 2
+  waterFireWork: {fileID: 0}
+  fireFireWork: {fileID: 0}
+  seFireWorkVol: 1
+  seFireWorkClip: {fileID: 0}
   bulletDelayTime: 0.5
   bulletPrefab: {fileID: 0}
   bulletSpeed: 1
   bulletLifeTime: 5
+  basicColliderSize: {x: 1, y: 1}
+  basicColliderOffset: {x: 0, y: 0}
+  maxColliderSize: {x: 1, y: 1}
+  maxColliderOffset: {x: 0, y: 0}
+  changeSizeTime: 0.2
+  changeTimeForExtend: 0.7
+  changeTimeForShrink: 0.5
+  headFireTransform: {fileID: 0}
+  basicHeadFireSize: {x: 1, y: 1}
+  basicHeadFirePosition: {x: 0, y: 0}
+  maxHeadFireSize: {x: 1, y: 1}
+  maxHeadFirePosition: {x: 0, y: 0}
+  candraAnimator: {fileID: 0}
 --- !u!95 &748076411352453307
 Animator:
   serializedVersion: 5
