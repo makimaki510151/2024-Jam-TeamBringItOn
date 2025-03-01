@@ -16,6 +16,11 @@ public class Bread : MonoBehaviour
     [SerializeField, Tooltip("プレイヤーのレイヤー")]
     private LayerMask playerLayerMask = default;
 
+    [SerializeField]
+    private float seEatPanVol = 1.0f;
+    [SerializeField]
+    private AudioClip seEatPanClip = null;
+
     private int playerIndex = 0;
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -40,6 +45,8 @@ public class Bread : MonoBehaviour
                     BreadEatingCompetitionRoot.Instance.DoubleScore(playerIndex);
                     break;
             }
+            AudioControl.Instance.SetSEVol(seEatPanVol * MainGameRoot.Instance.dataScriptableObject.bgmVolSetting);
+            AudioControl.Instance.PlaySE(seEatPanClip);
             Destroy(gameObject);
         }
     }

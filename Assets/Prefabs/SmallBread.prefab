@@ -159,3 +159,5 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  seEatPanVol: 1
+  seEatPanClip: {fileID: 8300000, guid: d836404ee3f5d9749ba204287a881214, type: 3}
