@@ -3356,6 +3356,10 @@ MonoBehaviour:
   bgmTimeAttackClip: {fileID: 8300000, guid: 7607d0fc3cae2a040832100c65700e58, type: 3}
   seDecisionVol: 0.5
   seDecisionClip: {fileID: 8300000, guid: 44fcf8934c03ec343b42c02c1eb2a246, type: 3}
+  bgmWinnerVol: 1
+  bgmWinnerClip: {fileID: 0}
+  seGoalVol: 0.5
+  seGoalClip: {fileID: 8300000, guid: e986263fce901fb489514490fce6e2f3, type: 3}
 --- !u!114 &1989068095
 MonoBehaviour:
   m_ObjectHideFlags: 0

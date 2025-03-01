@@ -143,6 +143,16 @@ public class MainGameRoot : RootParent
     [SerializeField]
     private AudioClip seDecisionClip = null;
 
+    [SerializeField]
+    private float bgmWinnerVol = 1.0f;
+    [SerializeField]
+    private AudioClip bgmWinnerClip = null;
+
+    [SerializeField]
+    private float seGoalVol = 1.0f;
+    [SerializeField]
+    private AudioClip seGoalClip = null;
+
 
     private List<StockUI> stockUIsWater = new();
     private List<StockUI> stockUIsFire = new();
@@ -560,7 +570,13 @@ public class MainGameRoot : RootParent
     {
         timeUI.SetResultTime();
 
+        AudioControl.Instance.SetSEVol(seGoalVol * dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seGoalClip);
+
         yield return new WaitForSeconds(goalShowDelay);
+
+        AudioControl.Instance.SetBGMVol(bgmWinnerVol * dataScriptableObject.bgmVolSetting);
+        AudioControl.Instance.PlayBGM(bgmWinnerClip);
 
         goalAnimator.SetTrigger(isShowId);
 
