@@ -29,15 +29,26 @@ public class ModeSelectRoot : RootParent
     [SerializeField]
     private AudioClip bgmModeSelectClip = null;
 
+    //[SerializeField]
+    //private float seDecisionVol = 1.0f;
+    //[SerializeField]
+    //private AudioClip seDecisionClip = null;
+
     [SerializeField]
-    private float seDecisionVol = 1.0f;
+    private float seCursorVol = 1.0f;
     [SerializeField]
-    private AudioClip seDecisionClip = null;
+    private AudioClip seCursorClip = null;
+
+    [SerializeField]
+    private float seChoiceVol = 1.0f;
+    [SerializeField]
+    private AudioClip seChoiceClip = null;
 
     private bool isCoroutines = false;
     private AsyncOperation asyncLoad;
 
     private GameObject selectEndButtonObject;
+    private GameObject oldSelectButtonObject;
 
     public static ModeSelectRoot Instance { get; private set; }
 
@@ -67,15 +78,19 @@ public class ModeSelectRoot : RootParent
         {
             EventSystem.current.SetSelectedGameObject(selectEndButtonObject);
         }
+
+        if(eventSystem.currentSelectedGameObject != oldSelectButtonObject)
+        {
+            AudioControl.Instance.SetSEVol(seCursorVol * dataScriptableObject.seVolSetting);
+            AudioControl.Instance.PlaySE(seCursorClip);
+        }
+        oldSelectButtonObject = eventSystem.currentSelectedGameObject;
     }
 
     public void ButtonPlayTwo()
     {
         dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
         dataScriptableObject.cameraRotation = 0;
-
-        AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
-        AudioControl.Instance.PlaySE(seDecisionClip);
 
         LoadScene(2);
     }
@@ -85,9 +100,6 @@ public class ModeSelectRoot : RootParent
         dataScriptableObject.playType = DataScriptableObject.PlayType.One;
         dataScriptableObject.cameraRotation = 0;
 
-        AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
-        AudioControl.Instance.PlaySE(seDecisionClip);
-
         LoadScene(2);
     }
 
@@ -95,9 +107,6 @@ public class ModeSelectRoot : RootParent
     {
         dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
         dataScriptableObject.cameraRotation = 180;
-
-        AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
-        AudioControl.Instance.PlaySE(seDecisionClip);
 
         LoadScene(2);
     }
@@ -137,5 +146,8 @@ public class ModeSelectRoot : RootParent
         {
             otherMenu.SetSelectObject();
         }
+
+        AudioControl.Instance.SetSEVol(seChoiceVol * dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seChoiceClip);
     }
 }

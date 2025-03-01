@@ -55,6 +55,18 @@ public class OtherMenu : MonoBehaviour
     [SerializeField, Tooltip("ステージ（2P）選択の画像")]
     private List<GameObject> stageTwoObjects = new List<GameObject>();
 
+    [Header("音設定")]
+
+    [SerializeField]
+    private float seCursorVol = 1.0f;
+    [SerializeField]
+    private AudioClip seCursorClip = null;
+
+    [SerializeField]
+    private float seChoiceVol = 1.0f;
+    [SerializeField]
+    private AudioClip seChoiceClip = null;
+
     private int selectCounter = 0;
     private int selectIndexOne = 0;
     private int selectIndexTwo = 0;
@@ -232,6 +244,8 @@ public class OtherMenu : MonoBehaviour
                 }
                 break;
         }
+        AudioControl.Instance.SetSEVol(seCursorVol * ModeSelectRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seCursorClip);
     }
 
     /// <summary>
@@ -300,6 +314,8 @@ public class OtherMenu : MonoBehaviour
                 }
                 break;
         }
+        AudioControl.Instance.SetSEVol(seCursorVol * ModeSelectRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seCursorClip);
     }
 
     /// <summary>
@@ -392,6 +408,8 @@ public class OtherMenu : MonoBehaviour
                 }
                 break;
         }
+        AudioControl.Instance.SetSEVol(seChoiceVol * ModeSelectRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seChoiceClip);
     }
 
     /// <summary>
@@ -416,6 +434,8 @@ public class OtherMenu : MonoBehaviour
             selectCounter--;
             SetSelectObject();
         }
+        AudioControl.Instance.SetSEVol(seChoiceVol * ModeSelectRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seChoiceClip);
     }
 
     /// <summary>

@@ -2004,6 +2004,10 @@ MonoBehaviour:
   bgmModeSelectClip: {fileID: 8300000, guid: 51c7ebf763171e043bbf9bd57ef04904, type: 3}
   seDecisionVol: 0.4
   seDecisionClip: {fileID: 8300000, guid: 44fcf8934c03ec343b42c02c1eb2a246, type: 3}
+  seCursorVol: 0.5
+  seCursorClip: {fileID: 8300000, guid: 3145fb04d4ccab444916ea6ee0f2c0aa, type: 3}
+  seChoiceVol: 1
+  seChoiceClip: {fileID: 8300000, guid: 5aa6f791a7a5e764cae438741326cc59, type: 3}
 --- !u!1 &435634184
 GameObject:
   m_ObjectHideFlags: 0
@@ -4348,6 +4352,10 @@ MonoBehaviour:
   stageTwoObjects:
   - {fileID: 615429384}
   - {fileID: 1682959678}
+  seCursorVol: 0.5
+  seCursorClip: {fileID: 8300000, guid: 3145fb04d4ccab444916ea6ee0f2c0aa, type: 3}
+  seChoiceVol: 1
+  seChoiceClip: {fileID: 8300000, guid: 5aa6f791a7a5e764cae438741326cc59, type: 3}
 --- !u!1 &920553396
 GameObject:
   m_ObjectHideFlags: 0
