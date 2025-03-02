@@ -16,12 +16,18 @@ public class Bread : MonoBehaviour
     [SerializeField, Tooltip("プレイヤーのレイヤー")]
     private LayerMask playerLayerMask = default;
 
+    [SerializeField, Tooltip("取得エフェクト")]
+    private GameObject AcquisitionEffectPrefab = null;
+
+    [Header("音設定")]
+
     [SerializeField]
     private float seEatPanVol = 1.0f;
     [SerializeField]
     private AudioClip seEatPanClip = null;
 
     private int playerIndex = 0;
+    private Transform effectTransform;
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -45,6 +51,9 @@ public class Bread : MonoBehaviour
                     BreadEatingCompetitionRoot.Instance.DoubleScore(playerIndex);
                     break;
             }
+            effectTransform = Instantiate(AcquisitionEffectPrefab).transform;
+            effectTransform.position = transform.position;
+
             AudioControl.Instance.SetSEVol(seEatPanVol * MainGameRoot.Instance.dataScriptableObject.bgmVolSetting);
             AudioControl.Instance.PlaySE(seEatPanClip);
             Destroy(gameObject);

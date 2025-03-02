@@ -159,5 +159,6 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  AcquisitionEffectPrefab: {fileID: 1371176637328834955, guid: 303e8ac35ae3a9747a1b2cd0d033db24, type: 3}
   seEatPanVol: 1
   seEatPanClip: {fileID: 8300000, guid: d836404ee3f5d9749ba204287a881214, type: 3}
