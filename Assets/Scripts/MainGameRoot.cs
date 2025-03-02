@@ -180,6 +180,7 @@ public class MainGameRoot : RootParent
     private StageSetter stageSetter = null;
     private int winBread = 0;
     private Image iconImage = null;
+    private Transform goalUITransform = null;
 
     public static MainGameRoot Instance;
 
@@ -231,6 +232,7 @@ public class MainGameRoot : RootParent
 
     private void Start()
     {
+        goalUITransform = goalAnimator.gameObject.transform;
         isBreadEatingCompetitionMode = dataScriptableObject.isBreadMode;
         twoStockCount = 0;
 
@@ -343,6 +345,11 @@ public class MainGameRoot : RootParent
                 isWaitGoal = false;
                 BreadGoal();
             }
+        }
+
+        if (isResult)
+        {
+            goalUITransform.SetAsLastSibling();
         }
     }
 
