@@ -575,6 +575,8 @@ public class MainGameRoot : RootParent
 
         yield return new WaitForSeconds(goalShowDelay);
 
+        isResult = true;
+
         AudioControl.Instance.SetBGMVol(bgmWinnerVol * dataScriptableObject.bgmVolSetting);
         AudioControl.Instance.PlayBGM(bgmWinnerClip);
 
