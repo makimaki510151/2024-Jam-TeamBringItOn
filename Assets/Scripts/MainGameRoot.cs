@@ -80,9 +80,12 @@ public class MainGameRoot : RootParent
     public Transform goalTransformTwo = null;
 
     [SerializeField]
-    private RectTransform waterIconRectTransform = null;
+    private RectTransform iconOneRectTransform = null;
     [SerializeField]
-    private RectTransform fireIconRectTransform = null;
+    private RectTransform iconTwoRectTransform = null;
+
+    [SerializeField, Tooltip("アイコン画像")]
+    private List<Sprite> iconSprites = new List<Sprite>();
 
     [SerializeField, Tooltip("ゴールしてからアニメーションを開始するまでの時間")]
     private float goalShowDelay = 1.0f;
@@ -176,6 +179,7 @@ public class MainGameRoot : RootParent
     private bool isWaitGoal = false;
     private StageSetter stageSetter = null;
     private int winBread = 0;
+    private Image iconImage = null;
 
     public static MainGameRoot Instance;
 
@@ -249,6 +253,12 @@ public class MainGameRoot : RootParent
         goalRangeOne = goalTransformOne.position.x;
         goalRangeTwo = goalTransformTwo.position.x;
 
+        // アイコン画像を変更
+        iconImage = iconOneRectTransform.gameObject.GetComponent<Image>();
+        iconImage.sprite = iconSprites[dataScriptableObject.characterOneNumber];
+        iconImage = iconTwoRectTransform.gameObject.GetComponent<Image>();
+        iconImage.sprite = iconSprites[dataScriptableObject.characterTwoNumber];
+
         Time.timeScale = 0;
 
         if (dataScriptableObject.playType == DataScriptableObject.PlayType.Two)
@@ -266,7 +276,7 @@ public class MainGameRoot : RootParent
             playerTwoRigidbody2D.gameObject.SetActive(false);
             oneStockCount = 5;
             isPlayerOne = true;
-            fireIconRectTransform.gameObject.SetActive(false);
+            iconOneRectTransform.gameObject.SetActive(false);
         }
     }
 
@@ -300,15 +310,15 @@ public class MainGameRoot : RootParent
 
         tempFloat = playerOneRigidbody2D.position.x / goalRangeOne;
         tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
-        var posW = waterIconRectTransform.position;
+        var posW = iconOneRectTransform.position;
         posW.x = tempVector3.x;
-        waterIconRectTransform.position = posW;
+        iconOneRectTransform.position = posW;
 
         tempFloat = playerTwoRigidbody2D.position.x / goalRangeTwo;
         tempVector3 = new Vector3(1820 * tempFloat + 50, 540, 0);
-        var posF = fireIconRectTransform.position;
+        var posF = iconTwoRectTransform.position;
         posF.x = tempVector3.x;
-        fireIconRectTransform.position = posF;
+        iconTwoRectTransform.position = posF;
 
         JudgeRank();
 

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47dd1a2d441326a45b13de5f3bc33df6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayRightDistance: 1.95
+  rayRightDistance: 1.8
   rayRightNotGroundDistance: 0.8
   rayUpperRightDistance: 3
   rayUpperRightNotGroundDistance: 1

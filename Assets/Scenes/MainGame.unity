@@ -1013,7 +1013,7 @@ GameObject:
   - component: {fileID: 580813611}
   - component: {fileID: 580813610}
   m_Layer: 0
-  m_Name: FireIcon
+  m_Name: IconTwo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2783,7 +2783,7 @@ GameObject:
   - component: {fileID: 1484808688}
   - component: {fileID: 1484808687}
   m_Layer: 0
-  m_Name: WaterIcon
+  m_Name: IconOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3337,8 +3337,12 @@ MonoBehaviour:
   canvasObject: {fileID: 152205687}
   goalTransformOne: {fileID: 0}
   goalTransformTwo: {fileID: 0}
-  waterIconRectTransform: {fileID: 1484808686}
-  fireIconRectTransform: {fileID: 580813609}
+  iconOneRectTransform: {fileID: 1484808686}
+  iconTwoRectTransform: {fileID: 580813609}
+  iconSprites:
+  - {fileID: 21300000, guid: 71e5752ce2fa92d4d9abf900f05be01f, type: 3}
+  - {fileID: 21300000, guid: 520c4c99eb866ab42ba2a8d99dbc8089, type: 3}
+  - {fileID: 21300000, guid: 964456b1e7351da46b0f221adc6a4ab9, type: 3}
   goalShowDelay: 1
   goModeSelectDelay: 9
   goalAnimator: {fileID: 525952122}
