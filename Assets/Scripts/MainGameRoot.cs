@@ -156,7 +156,6 @@ public class MainGameRoot : RootParent
     [SerializeField]
     private AudioClip seGoalClip = null;
 
-
     private List<StockUI> stockUIsWater = new();
     private List<StockUI> stockUIsFire = new();
 
@@ -181,6 +180,7 @@ public class MainGameRoot : RootParent
     private int winBread = 0;
     private Image iconImage = null;
     private Transform goalUITransform = null;
+    private GameObject[] breadsObjects = new GameObject[2];
 
     public static MainGameRoot Instance;
 
@@ -232,8 +232,27 @@ public class MainGameRoot : RootParent
 
     private void Start()
     {
+        // パン食い競争モードがオンなら、パンを表示する
+        if (dataScriptableObject.isBreadMode)
+        {
+            isBreadEatingCompetitionMode = true;
+            breadsObjects = stageSetter.GetBreadsObjects();
+            for(int i = 0; i < breadsObjects.Length; i++)
+            {
+                breadsObjects[i].gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            isBreadEatingCompetitionMode = false;
+            breadsObjects = stageSetter.GetBreadsObjects();
+            for (int i = 0; i < breadsObjects.Length; i++)
+            {
+                breadsObjects[i].gameObject.SetActive(false);
+            }
+        }
+
         goalUITransform = goalAnimator.gameObject.transform;
-        isBreadEatingCompetitionMode = dataScriptableObject.isBreadMode;
         twoStockCount = 0;
 
         cameraPosWater = (Vector2)cameraOneTransform.position - playerOneRigidbody2D.position;

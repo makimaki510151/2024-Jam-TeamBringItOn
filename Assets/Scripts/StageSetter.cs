@@ -24,6 +24,7 @@ public class StageSetter : MonoBehaviour
     private GameObject characterOneObject = null;
     private GameObject characterTwoObject = null;
     private BackGround backGround = null;
+    private GameObject[] breadsObjects = new GameObject[2];
 
     public void StageSetting()
     {
@@ -45,6 +46,7 @@ public class StageSetter : MonoBehaviour
             }
         }
         MainGameRoot.Instance.goalTransformOne = stageObject.transform.Find("Goal").transform;
+        breadsObjects[0] = stageObject.transform.Find("BreadsObject").gameObject;
 
         stageObject = Instantiate(stages[dataScriptableObject.stageTwoNumber]);
         stageObject.transform.position = stagePositions[1];
@@ -61,7 +63,8 @@ public class StageSetter : MonoBehaviour
             }
         }
         MainGameRoot.Instance.goalTransformTwo = stageObject.transform.Find("Goal").transform;
-        if(dataScriptableObject.playerAmountNumber == 0)
+        breadsObjects[1] = stageObject.transform.Find("BreadsObject").gameObject;
+        if (dataScriptableObject.playerAmountNumber == 0)
         {
             Instantiate(nonPlayerControllerPrefab).transform.parent = characterTwoObject.transform;
         }
@@ -75,5 +78,10 @@ public class StageSetter : MonoBehaviour
     public GameObject GetCharacterTwo()
     {
         return characterTwoObject;
+    }
+
+    public GameObject[] GetBreadsObjects()
+    {
+        return breadsObjects;
     }
 }
