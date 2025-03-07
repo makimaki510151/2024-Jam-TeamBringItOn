@@ -102,6 +102,11 @@ public class MainGameRoot : RootParent
     static readonly int isAttributeNessId = Animator.StringToHash("isAttributeNess");
     static readonly int isDrawId = Animator.StringToHash("isDraw");
 
+    [SerializeField, Tooltip("紙吹雪")]
+    private Confetti confetti = null;
+
+    private Transform confettiTransform = null;
+    
     private bool isResult = false;  // リザルトが表示されたらフラグをオン
     private bool isPlayerOne = false;
 
@@ -253,6 +258,7 @@ public class MainGameRoot : RootParent
         }
 
         goalUITransform = goalAnimator.gameObject.transform;
+        confettiTransform = confetti.gameObject.transform;
         twoStockCount = 0;
 
         cameraPosWater = (Vector2)cameraOneTransform.position - playerOneRigidbody2D.position;
@@ -369,6 +375,7 @@ public class MainGameRoot : RootParent
         if (isResult)
         {
             goalUITransform.SetAsLastSibling();
+            confettiTransform.SetAsLastSibling();
         }
     }
 
@@ -617,6 +624,7 @@ public class MainGameRoot : RootParent
         AudioControl.Instance.PlayBGM(bgmWinnerClip);
 
         goalAnimator.SetTrigger(isShowId);
+        confetti.Show();
 
         yield return new WaitForSeconds(goModeSelectDelay);
 
