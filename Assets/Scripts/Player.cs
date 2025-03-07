@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
     private float maxDistance = 0.625f;
 
     [SerializeField, Tooltip("“G‚ðÁ–Å‚³‚¹‚éƒqƒbƒg”")]
-    private int hitenemyCountDestroy = 3;
+    private int hitEnemyCountDestroy = 3;
 
     [Header("‰¹ŠÖŒW")]
     [SerializeField]
@@ -509,7 +509,7 @@ public class Player : MonoBehaviour
                 {
                     hitEnemyCount++;
                     // ƒqƒbƒg”‚ªŽw’è‚µ‚½”ˆÈã‚È‚çA‚»‚Ì“G‚ðÁ–Å‚³‚¹‚é
-                    if(hitEnemyCount >= hitenemyCountDestroy)
+                    if(hitEnemyCount >= hitEnemyCountDestroy)
                     {
                         Destroy(enemyObject);
                         enemyObject = null;

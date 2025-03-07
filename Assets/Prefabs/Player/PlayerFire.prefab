@@ -376,7 +376,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   maxDistance: 0.625
-  hitenemyCountDestroy: 3
+  hitEnemyCountDestroy: 2
   seParryVol: 1
   seParryClip: {fileID: 8300000, guid: a77d17f255c5a3d43aa0fb519953c3a1, type: 3}
   seJumpVol: 0.5
