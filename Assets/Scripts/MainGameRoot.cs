@@ -103,9 +103,10 @@ public class MainGameRoot : RootParent
     static readonly int isDrawId = Animator.StringToHash("isDraw");
 
     [SerializeField, Tooltip("紙吹雪")]
-    private Confetti confetti = null;
+    private List<Confetti> confettis = new List<Confetti>();
 
-    private Transform confettiTransform = null;
+    private Confetti confetti;
+    private Transform confettiTransform;
     
     private bool isResult = false;  // リザルトが表示されたらフラグをオン
     private bool isPlayerOne = false;
@@ -246,6 +247,7 @@ public class MainGameRoot : RootParent
             {
                 breadsObjects[i].gameObject.SetActive(true);
             }
+            confetti = confettis[1];
         }
         else
         {
@@ -255,6 +257,7 @@ public class MainGameRoot : RootParent
             {
                 breadsObjects[i].gameObject.SetActive(false);
             }
+            confetti = confettis[0];
         }
 
         goalUITransform = goalAnimator.gameObject.transform;
