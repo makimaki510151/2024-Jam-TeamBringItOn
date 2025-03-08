@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class StockUI : MonoBehaviour
@@ -16,6 +17,28 @@ public class StockUI : MonoBehaviour
     [SerializeField]
     private float yPosGap = 3.5f;
 
+    [Header("パリィ砲設定")]
+
+    [SerializeField, Tooltip("パリィ砲の移動時間")]
+    private float parryShotTime = 0.1f;
+
+    private float parryShotTimer = 0;
+
+    [SerializeField, Tooltip("パリィ砲本体1P")]
+    private GameObject parryShotOnePrefab = null;
+
+    [SerializeField, Tooltip("パリィ砲本体2P")]
+    private GameObject parryShotTwoPrefab = null;
+
+    [SerializeField, Tooltip("パリィ砲エンド1P")]
+    private GameObject parryShotEndOnePrefab = null;
+
+    [SerializeField, Tooltip("パリィ砲エンド2P")]
+    private GameObject parryShotEndTwoPrefab = null;
+
+    [SerializeField, Tooltip("パリィ砲フラッシュ")]
+    private GameObject parryShotFlashPrefab = null;
+
     [Header("音関係")]
     [SerializeField]
     private float seParryStockVol = 1.0f;
@@ -31,19 +54,27 @@ public class StockUI : MonoBehaviour
     public Player.PlayCharacter character = Player.PlayCharacter.One;
 
     private RectTransform myRectTransform;
+    private Image myImage;
 
     private Vector3 targetPos = Vector3.zero;
     private Vector3 stratPos = Vector3.zero;
     private bool myDie = false;
     private float tempFloat = 0f;
+    private bool isShot = false;
+    private Player.PlayCharacter playCharacter;
+    private Transform canvasTransform;
+    private RectTransform prefabRectTransform;
+    private GameObject parryShotObject;
 
     void Start()
     {
         myRectTransform = GetComponent<RectTransform>();
+        myImage = GetComponent<Image>();
 
         stratPos = myRectTransform.position;
         myDie = MainGameRoot.Instance.GetStockDie(character);
         targetPos = MainGameRoot.Instance.GetStockUIPos(character, this);
+        canvasTransform = GameObject.Find("Canvas").transform;
     }
 
     // Update is called once per frame
@@ -65,9 +96,47 @@ public class StockUI : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (isShot)
+        {
+            parryShotTimer += Time.deltaTime;
+            if(parryShotTimer >= parryShotTime)
+            {
+                Destroy(parryShotObject);
+
+                if(playCharacter == Player.PlayCharacter.One)
+                {
+                    prefabRectTransform = Instantiate(parryShotEndOnePrefab, targetPos, Quaternion.identity).GetComponent<RectTransform>();
+                    prefabRectTransform.transform.SetParent(canvasTransform, false);
+                }
+                else
+                {
+                    prefabRectTransform = Instantiate(parryShotEndTwoPrefab, targetPos, Quaternion.identity).GetComponent<RectTransform>();
+                    prefabRectTransform.transform.SetParent(canvasTransform, false);
+                }
+                prefabRectTransform.position = myRectTransform.position;
+                prefabRectTransform = Instantiate(parryShotFlashPrefab, targetPos, Quaternion.identity).GetComponent<RectTransform>();
+                prefabRectTransform.transform.SetParent(canvasTransform, false);
+                prefabRectTransform.position = myRectTransform.position;
+
+                if (playCharacter == Player.PlayCharacter.One)
+                {
+                    targetPos = MainGameRoot.Instance.cameraTwo.ScreenToWorldPoint(targetPos);
+                }
+                else
+                {
+                    targetPos = MainGameRoot.Instance.cameraOne.ScreenToWorldPoint(targetPos);
+                }
+                Instantiate(myEnemy, targetPos, Quaternion.identity);
+                Destroy(gameObject);
+            }
+
+            tempFloat = parryShotTimer / parryShotTime;
+            myRectTransform.position = Vector3.Lerp(stratPos, targetPos, tempFloat);
+        }
     }
 
-    public void StockShot(Vector3 vector3)
+    public void StockShot(Vector3 vector3, Player.PlayCharacter character)
     {
         AudioControl.Instance.SetSEVol(seParryLauncherVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seParryLauncherClip);
@@ -76,7 +145,29 @@ public class StockUI : MonoBehaviour
         // カンシャクダマ以外なら、ランダムで縦位置を変更する
         if (myEnemy.GetComponent<Enemy>().AiType != Enemy.EnemyAiType.MrFireWorks) vector3.y += Random.Range(0, yPosGap);
         else vector3.y -= 0.3f;
-        Instantiate(myEnemy, vector3, Quaternion.identity);
-        Destroy(gameObject);
+        targetPos = vector3;
+        isShot = true;
+        stratPos = myRectTransform.position;
+        myRectTransform.rotation = Quaternion.identity;
+        myImage.enabled = false;
+
+        playCharacter = character;
+        if (playCharacter == Player.PlayCharacter.One)
+        {
+            targetPos = MainGameRoot.Instance.cameraTwo.WorldToScreenPoint(vector3);
+            prefabRectTransform = Instantiate(parryShotOnePrefab, stratPos, Quaternion.identity).GetComponent<RectTransform>();
+            prefabRectTransform.transform.SetParent(myRectTransform.transform, false);
+        }
+        else
+        {
+            targetPos = MainGameRoot.Instance.cameraOne.WorldToScreenPoint(vector3);
+            prefabRectTransform = Instantiate(parryShotTwoPrefab, stratPos, Quaternion.identity).GetComponent<RectTransform>();
+            prefabRectTransform.transform.SetParent(myRectTransform.transform, false);
+        }
+        parryShotObject = prefabRectTransform.gameObject;
+        prefabRectTransform.position = myRectTransform.position;
+        prefabRectTransform = Instantiate(parryShotFlashPrefab, stratPos, Quaternion.identity).GetComponent<RectTransform>();
+        prefabRectTransform.transform.SetParent(canvasTransform, false);
+        prefabRectTransform.position = myRectTransform.position;
     }
 }

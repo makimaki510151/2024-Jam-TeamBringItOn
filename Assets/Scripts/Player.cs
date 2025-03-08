@@ -445,6 +445,7 @@ public class Player : MonoBehaviour
             {
                 KnockBackPlayer(collision);
             }
+            Destroy(collision.gameObject);
         }
         // “G‚Éƒqƒbƒg
         else if (collision.CompareTag("Enemy"))

@@ -701,7 +701,7 @@ public class MainGameRoot : RootParent
                 {
                     oneStockCount--;
                     tempVector3 = cameraTwo.ScreenToWorldPoint(stockShotPosFire.position);
-                    stockUIsWater[oneStockCount].StockShot(tempVector3);
+                    stockUIsWater[oneStockCount].StockShot(tempVector3, playCharacter);
                     stockUIsWater.Remove(stockUIsWater[oneStockCount]);
                 }
                 break;
@@ -711,7 +711,7 @@ public class MainGameRoot : RootParent
                 {
                     twoStockCount--;
                     tempVector3 = cameraOne.ScreenToWorldPoint(stockShotPosWater.position);
-                    stockUIsFire[twoStockCount].StockShot(tempVector3);
+                    stockUIsFire[twoStockCount].StockShot(tempVector3, playCharacter);
                     stockUIsFire.Remove(stockUIsFire[twoStockCount]);
                 }
                 break;

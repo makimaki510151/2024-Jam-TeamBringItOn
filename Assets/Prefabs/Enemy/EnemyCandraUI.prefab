@@ -92,6 +92,12 @@ MonoBehaviour:
   rotateValue: 60
   myEnemy: {fileID: 364177027436032744, guid: 2d515d3153cda71499c60c365be43bc6, type: 3}
   yPosGap: 3.5
+  parryShotTime: 1
+  parryShotOnePrefab: {fileID: 1087345357870015761, guid: e3a952a44c4364b4a9387fcbecd912c2, type: 3}
+  parryShotTwoPrefab: {fileID: 767523461903690829, guid: 172884f7bbff16d4c8642c76610bb6b9, type: 3}
+  parryShotEndOnePrefab: {fileID: 8313136847623697001, guid: abe2cea0ad2f71f4690d4418bc470a59, type: 3}
+  parryShotEndTwoPrefab: {fileID: 5749361921486621899, guid: 2558a05aa5f762e41a031bfe925cb1ac, type: 3}
+  parryShotFlashPrefab: {fileID: 4459695962473308679, guid: 0e684bfda27cd004d88eda3291c13b81, type: 3}
   seParryStockVol: 0.5
   seParryStockClip: {fileID: 8300000, guid: 9acf5bb8e0958dd4bbb53e1eaf7d80f7, type: 3}
   seParryLauncherVol: 0.5

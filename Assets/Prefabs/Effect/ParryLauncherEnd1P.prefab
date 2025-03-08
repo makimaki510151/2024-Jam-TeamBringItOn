@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3819474327776154137}
   - component: {fileID: 247408200789488908}
   - component: {fileID: 2076637559699958210}
+  - component: {fileID: 5391672099270444805}
   m_Layer: 0
   m_Name: ParryLauncherEnd1P
   m_TagString: Untagged
@@ -97,3 +98,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5391672099270444805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313136847623697001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac137929b4005445ab53b4884f5316e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showAnim: {fileID: 7400000, guid: 5d9ba025e88158241ae82773664e985d, type: 2}
