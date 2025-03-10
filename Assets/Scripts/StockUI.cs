@@ -65,6 +65,7 @@ public class StockUI : MonoBehaviour
     private Transform canvasTransform;
     private RectTransform prefabRectTransform;
     private GameObject parryShotObject;
+    private Transform enemyTransform;
 
     void Start()
     {
@@ -127,7 +128,8 @@ public class StockUI : MonoBehaviour
                 {
                     targetPos = MainGameRoot.Instance.cameraOne.ScreenToWorldPoint(targetPos);
                 }
-                Instantiate(myEnemy, targetPos, Quaternion.identity);
+                enemyTransform = Instantiate(myEnemy, targetPos, Quaternion.identity).transform;
+                MainGameRoot.Instance.AddEnemyInEnemysTransform(enemyTransform, playCharacter);
                 Destroy(gameObject);
             }
 

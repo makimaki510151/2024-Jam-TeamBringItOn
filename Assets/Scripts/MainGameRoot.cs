@@ -114,6 +114,9 @@ public class MainGameRoot : RootParent
     [SerializeField, Tooltip("タイムUI")]
     private TimeUI timeUI = null;
 
+    [SerializeField, Tooltip("敵をまとめるオブジェクト")]
+    private Transform[] enemysTransforms = new Transform[2];
+
     [Header("パン食い競争設定")]
 
     [SerializeField, Tooltip("パン食い競争スクリプト")]
@@ -187,6 +190,7 @@ public class MainGameRoot : RootParent
     private Image iconImage = null;
     private Transform goalUITransform = null;
     private GameObject[] breadsObjects = new GameObject[2];
+    private bool[] isGoals = new bool[2];
 
     public static MainGameRoot Instance;
 
@@ -239,10 +243,10 @@ public class MainGameRoot : RootParent
     private void Start()
     {
         // パン食い競争モードがオンなら、パンを表示する
+        breadsObjects = stageSetter.GetBreadsObjects();
         if (dataScriptableObject.isBreadMode)
         {
             isBreadEatingCompetitionMode = true;
-            breadsObjects = stageSetter.GetBreadsObjects();
             for(int i = 0; i < breadsObjects.Length; i++)
             {
                 breadsObjects[i].gameObject.SetActive(true);
@@ -252,18 +256,19 @@ public class MainGameRoot : RootParent
         else
         {
             isBreadEatingCompetitionMode = false;
-            breadsObjects = stageSetter.GetBreadsObjects();
             for (int i = 0; i < breadsObjects.Length; i++)
             {
                 breadsObjects[i].gameObject.SetActive(false);
             }
             confetti = confettis[0];
         }
-
+        enemysTransforms = stageSetter.GetEnemysTransforms();
         goalUITransform = goalAnimator.gameObject.transform;
         confettiTransform = confetti.gameObject.transform;
         twoStockCount = 0;
 
+        isGoals[0] = false;
+        isGoals[1] = false;
         cameraPosWater = (Vector2)cameraOneTransform.position - playerOneRigidbody2D.position;
         cameraPosFire = (Vector2)cameraTwoTransform.position - playerTwoRigidbody2D.position;
         cameraOne = cameraOneTransform.GetComponent<Camera>();
@@ -375,10 +380,36 @@ public class MainGameRoot : RootParent
             }
         }
 
+        // リザルト中はゴール画像を一番前に出し、敵を消去する
         if (isResult)
         {
             goalUITransform.SetAsLastSibling();
             confettiTransform.SetAsLastSibling();
+            for(int i = 0; i < enemysTransforms.Length; i++)
+            {
+                foreach(Transform child in enemysTransforms[i])
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+        // 各自がゴールしたとき、敵を消去する
+        else
+        {
+            if (isGoals[0])
+            {
+                foreach (Transform child in enemysTransforms[0])
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+            if (isGoals[1])
+            {
+                foreach (Transform child in enemysTransforms[1])
+                {
+                    Destroy(child.gameObject);
+                }
+            }
         }
     }
 
@@ -563,6 +594,7 @@ public class MainGameRoot : RootParent
                         goalAnimator.SetTrigger(isAttributeNessId);
                         break;
                 }
+                isGoals[0] = true;
             }
             // 2Pがゴールしたら、2PゴールUIを表示する
             else
@@ -579,6 +611,7 @@ public class MainGameRoot : RootParent
                         goalAnimator.SetTrigger(isAttributeNessId);
                         break;
                 }
+                isGoals[1] = true;
             }
 
             StartCoroutine(OnGoalPlayer());
@@ -592,6 +625,7 @@ public class MainGameRoot : RootParent
                 waitUIs[0].SetActive(true);
                 waitUIAnimators[0].SetTrigger(isShowIdForWaitUI);
                 breadEatingCompetitionRoot.SetTimeOver(0);
+                isGoals[0] = true;
             }
             // 2Pがゴールしたら、2PゴールUIを表示する
             else
@@ -599,6 +633,7 @@ public class MainGameRoot : RootParent
                 waitUIs[1].SetActive(true);
                 waitUIAnimators[1].SetTrigger(isShowIdForWaitUI);
                 breadEatingCompetitionRoot.SetTimeOver(1);
+                isGoals[1] = true;
             }
             goalCount++;
             if(goalCount >= 2 && isWaitGoal)
@@ -715,6 +750,18 @@ public class MainGameRoot : RootParent
                     stockUIsFire.Remove(stockUIsFire[twoStockCount]);
                 }
                 break;
+        }
+    }
+
+    public void AddEnemyInEnemysTransform(Transform enemy,  Player.PlayCharacter character)
+    {
+        if(character == Player.PlayCharacter.One)
+        {
+            enemy.SetParent(enemysTransforms[1]);
+        }
+        else
+        {
+            enemy.SetParent(enemysTransforms[0]);
         }
     }
 }
