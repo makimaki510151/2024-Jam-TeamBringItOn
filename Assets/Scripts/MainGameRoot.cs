@@ -652,8 +652,11 @@ public class MainGameRoot : RootParent
     {
         timeUI.SetResultTime();
 
-        AudioControl.Instance.SetSEVol(seGoalVol * dataScriptableObject.seVolSetting);
-        AudioControl.Instance.PlaySE(seGoalClip);
+        if (!isResult)
+        {
+            AudioControl.Instance.SetSEVol(seGoalVol * dataScriptableObject.seVolSetting);
+            AudioControl.Instance.PlaySE(seGoalClip);
+        }
 
         yield return new WaitForSeconds(goalShowDelay);
 
