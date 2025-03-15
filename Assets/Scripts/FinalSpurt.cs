@@ -12,7 +12,7 @@ public class FinalSpurt : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !MainGameRoot.Instance.isResult)
         {
             AudioControl.Instance.SetBGMVol(bgmMainGameLastSpurtVol * MainGameRoot.Instance.dataScriptableObject.bgmVolSetting);
             AudioControl.Instance.PlayBGM(bgmMainGameLastSpurtClip);

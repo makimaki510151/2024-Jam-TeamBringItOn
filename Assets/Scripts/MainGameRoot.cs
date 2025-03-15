@@ -108,7 +108,7 @@ public class MainGameRoot : RootParent
     private Confetti confetti;
     private Transform confettiTransform;
     
-    private bool isResult = false;  // リザルトが表示されたらフラグをオン
+    public bool isResult { get; private set; }  // リザルトが表示されたらフラグをオン
     private bool isPlayerOne = false;
 
     [SerializeField, Tooltip("タイムUI")]
@@ -244,6 +244,8 @@ public class MainGameRoot : RootParent
 
     private void Start()
     {
+        isResult = false;
+
         // パン食い競争モードがオンなら、パンを表示する
         breadsObjects = stageSetter.GetBreadsObjects();
         if (dataScriptableObject.isBreadMode)
