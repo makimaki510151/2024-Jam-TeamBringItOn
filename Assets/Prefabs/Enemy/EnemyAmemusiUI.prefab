@@ -92,7 +92,8 @@ MonoBehaviour:
   rotateValue: 60
   myEnemy: {fileID: 3973799897711254523, guid: fef2ee45d0af51e42ae336b205808c6f, type: 3}
   yPosGap: 3.5
-  parryShotTime: 0.7
+  parryShotTime: 0.5
+  parryShotInitialVelocity: {x: -1000, y: 0}
   parryShotOnePrefab: {fileID: 1087345357870015761, guid: e3a952a44c4364b4a9387fcbecd912c2, type: 3}
   parryShotTwoPrefab: {fileID: 767523461903690829, guid: 172884f7bbff16d4c8642c76610bb6b9, type: 3}
   parryShotEndOnePrefab: {fileID: 8313136847623697001, guid: abe2cea0ad2f71f4690d4418bc470a59, type: 3}

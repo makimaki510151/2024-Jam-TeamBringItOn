@@ -22,7 +22,8 @@ public class StockUI : MonoBehaviour
     [SerializeField, Tooltip("パリィ砲の移動時間")]
     private float parryShotTime = 0.1f;
 
-    private float parryShotTimer = 0;
+    [SerializeField, Tooltip("パリィ砲の初速度")]
+    private Vector2 parryShotInitialVelocity = Vector2.zero;
 
     [SerializeField, Tooltip("パリィ砲本体1P")]
     private GameObject parryShotOnePrefab = null;
@@ -66,6 +67,12 @@ public class StockUI : MonoBehaviour
     private RectTransform prefabRectTransform;
     private GameObject parryShotObject;
     private Transform enemyTransform;
+    private Vector3 pos;
+    private Vector3 acceleration;
+    private Vector3 velocity;
+    private float deltaTime;
+    private Vector3 diff;
+    private Vector3 Vector3_zero = Vector3.zero;
 
     void Start()
     {
@@ -81,10 +88,12 @@ public class StockUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        deltaTime = Time.deltaTime;
+
         if (stockTimer < stockTime)
         {
             myRectTransform.Rotate(0, 0, rotateValue);
-            stockTimer += Time.deltaTime;
+            stockTimer += deltaTime;
             tempFloat = stockTimer / stockTime;
             myRectTransform.position = Vector3.Lerp(stratPos, targetPos, tempFloat);
             if(stockTimer >= stockTime)
@@ -100,12 +109,23 @@ public class StockUI : MonoBehaviour
 
         if (isShot)
         {
-            parryShotTimer += Time.deltaTime;
-            if(parryShotTimer >= parryShotTime)
+            // レーザー追尾
+            // velocity 速度
+            // period   時間
+            // diff     距離
+            // acceleration 加速度
+            acceleration = Vector3_zero;
+
+            var diff = targetPos - pos;
+            acceleration += (diff - velocity * parryShotTime) * 2f
+                             / (parryShotTime * parryShotTime);
+
+            parryShotTime -= deltaTime;
+            if(parryShotTime < 0f)
             {
                 Destroy(parryShotObject);
 
-                if(playCharacter == Player.PlayCharacter.One)
+                if (playCharacter == Player.PlayCharacter.One)
                 {
                     prefabRectTransform = Instantiate(parryShotEndOnePrefab, targetPos, Quaternion.identity).GetComponent<RectTransform>();
                     prefabRectTransform.transform.SetParent(canvasTransform, false);
@@ -133,8 +153,9 @@ public class StockUI : MonoBehaviour
                 Destroy(gameObject);
             }
 
-            tempFloat = parryShotTimer / parryShotTime;
-            myRectTransform.position = Vector3.Lerp(stratPos, targetPos, tempFloat);
+            velocity += acceleration * deltaTime;
+            pos += velocity * deltaTime;
+            myRectTransform.position = pos;
         }
     }
 
@@ -171,5 +192,7 @@ public class StockUI : MonoBehaviour
         prefabRectTransform = Instantiate(parryShotFlashPrefab, stratPos, Quaternion.identity).GetComponent<RectTransform>();
         prefabRectTransform.transform.SetParent(canvasTransform, false);
         prefabRectTransform.position = myRectTransform.position;
+        pos = myRectTransform.position;
+        velocity = parryShotInitialVelocity;
     }
 }
