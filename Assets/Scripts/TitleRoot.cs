@@ -17,6 +17,10 @@ public class TitleRoot : RootParent
     private GameObject settingFirstObject = null;
     [SerializeField]
     private GameObject mainFirstObject = null;
+
+    [SerializeField]
+    private SettingUI settingUI = null;
+
     [Header("‰¹ŠÖŒW")]
     [SerializeField]
     private float bgmTitleVol = 1.0f;
@@ -77,8 +81,8 @@ public class TitleRoot : RootParent
     }
     public void ButtonSetting()
     {
-        settingObject.SetActive(true);
-        for(int i = 0; i < mainButtons.Count; i++)
+        settingUI.Show();
+        for (int i = 0; i < mainButtons.Count; i++)
         {
             mainButtons[i].interactable = false;
         }
@@ -88,6 +92,7 @@ public class TitleRoot : RootParent
 
     public void SettingClose()
     {
+        settingUI.Hide();
         for (int i = 0; i < mainButtons.Count; i++)
         {
             mainButtons[i].interactable = true;

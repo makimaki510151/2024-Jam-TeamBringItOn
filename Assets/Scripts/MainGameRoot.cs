@@ -41,7 +41,11 @@ public class MainGameRoot : RootParent
     private Button firstSelectButton = null;
 
     [SerializeField]
+    private SettingUI settingUI = null;
+
+    [SerializeField]
     private GameObject settingUIObject = null;
+
     [SerializeField, Tooltip("オプションで選択するボタン")]
     private Button settingSelectButton = null;
 
@@ -283,6 +287,7 @@ public class MainGameRoot : RootParent
         playerOne = playerOneRigidbody2D.gameObject.GetComponent<Player>();
         playerTwo = playerTwoRigidbody2D.gameObject.GetComponent<Player>();
         pauseUIObject = pauseUI.gameObject;
+        settingUIObject = settingUI.gameObject;
         for(int i = 0; i < waitUIs.Count; i++)
         {
             waitUIAnimators.Add(waitUIs[i].GetComponent<Animator>());
@@ -450,19 +455,23 @@ public class MainGameRoot : RootParent
         isPause = false;
         pauseUI.Hide();
     }
+
     public void ButtonSetting()
     {
-        settingUIObject.SetActive(true);
-        pauseUIObject.SetActive(false);
+        settingUI.Show();
+        pauseUI.Hide();
         isSetting = true;
         settingSelectButton.Select();
     }
+
     public void SettingClose()
     {
+        settingUI.Hide();
+        pauseUI.Show();
         isSetting = false;
-        pauseUIObject.SetActive(true);
         firstSelectButton.Select();
     }
+
     public void ButtonTitle()
     {
         if (isCoroutines) return;

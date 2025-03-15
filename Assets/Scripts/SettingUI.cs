@@ -8,6 +8,12 @@ public class SettingUI : MonoBehaviour
     [SerializeField]
     private Slider bgmSlider = null;
 
+    [SerializeField, Tooltip("設定アニメーター")]
+    private Animator settingAnimator = null;
+
+    static readonly int isShowId = Animator.StringToHash("isShow");
+    static readonly int isHideId = Animator.StringToHash("isHide");
+
     [Header("音関係")]
     [SerializeField]
     private float seDecisionVol = 1.0f;
@@ -103,7 +109,6 @@ public class SettingUI : MonoBehaviour
 
     public void ButtonReturn()
     {
-        gameObject.SetActive(false);
         switch (sceneType)
         {
             case SceneType.Title:
@@ -113,5 +118,15 @@ public class SettingUI : MonoBehaviour
                 MainGameRoot.Instance.SettingClose();
                 break;
         }
+    }
+
+    public void Show()
+    {
+        settingAnimator.SetTrigger(isShowId);
+    }
+
+    public void Hide()
+    {
+        settingAnimator.SetTrigger(isHideId);
     }
 }
