@@ -33,7 +33,10 @@ public class MainGameRoot : RootParent
     private float lerpNum = 0.9f;
 
     [SerializeField]
+    private PauseUI pauseUI = null;
+
     private GameObject pauseUIObject = null;
+
     [SerializeField, Tooltip("ç≈èâÇ…ëIëÇ∑ÇÈÉ{É^Éì")]
     private Button firstSelectButton = null;
 
@@ -204,7 +207,7 @@ public class MainGameRoot : RootParent
                 {
                     Time.timeScale = 0.0f;
                     isPause = true;
-                    pauseUIObject.SetActive(true);
+                    pauseUI.Show();
                     pauseUIObject.transform.SetAsLastSibling();
                     settingUIObject.transform.SetAsLastSibling();
                     firstSelectButton.Select();
@@ -279,6 +282,7 @@ public class MainGameRoot : RootParent
         cameraTwo = cameraTwoTransform.GetComponent<Camera>();
         playerOne = playerOneRigidbody2D.gameObject.GetComponent<Player>();
         playerTwo = playerTwoRigidbody2D.gameObject.GetComponent<Player>();
+        pauseUIObject = pauseUI.gameObject;
         for(int i = 0; i < waitUIs.Count; i++)
         {
             waitUIAnimators.Add(waitUIs[i].GetComponent<Animator>());
@@ -444,7 +448,7 @@ public class MainGameRoot : RootParent
         Time.timeScale = 1.0f;
 
         isPause = false;
-        pauseUIObject.SetActive(false);
+        pauseUI.Hide();
     }
     public void ButtonSetting()
     {

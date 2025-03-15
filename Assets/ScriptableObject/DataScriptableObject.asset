@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SeVolSetting: 0.5
   BgmVolSetting: 0.5
-  isTutorial: 1
+  isTutorial: 0
