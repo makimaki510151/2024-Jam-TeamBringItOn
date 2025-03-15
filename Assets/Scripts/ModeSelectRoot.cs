@@ -155,12 +155,12 @@ public class ModeSelectRoot : RootParent
         
         if(menuNumber == 4)
         {
-            AudioControl.Instance.SetBGMVol(bgmAreaSelectVol * dataScriptableObject.seVolSetting);
+            AudioControl.Instance.SetBGMVol(bgmAreaSelectVol * dataScriptableObject.bgmVolSetting);
             AudioControl.Instance.PlayBGM(bgmAreaSelectClip);
         }
         else
         {
-            AudioControl.Instance.SetBGMVol(bgmModeSelectVol * dataScriptableObject.seVolSetting);
+            AudioControl.Instance.SetBGMVol(bgmModeSelectVol * dataScriptableObject.bgmVolSetting);
             AudioControl.Instance.PlayBGM(bgmModeSelectClip);
         }
 
