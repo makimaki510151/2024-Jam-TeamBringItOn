@@ -105,6 +105,7 @@ public class ModeSelectRoot : RootParent
     {
         dataScriptableObject.playType = DataScriptableObject.PlayType.One;
         dataScriptableObject.cameraRotation = 0;
+        dataScriptableObject.isBreadMode = false;
 
         LoadScene(2);
     }
