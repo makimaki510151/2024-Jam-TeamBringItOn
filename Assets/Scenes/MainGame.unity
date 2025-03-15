@@ -420,6 +420,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 775fea8dc1adaea458b8fa1d02e92821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &38567189 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3257604948989239335, guid: 62bf8a2136b479247bfd19bfcd0664bd, type: 3}
+  m_PrefabInstance: {fileID: 38567185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &121084439
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,17 +902,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4528659530822121651, guid: fa0a27d6966c15f4297962123e60ef61, type: 3}
   m_PrefabInstance: {fileID: 341153040}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &419622781 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1118871911737675381, guid: 62bf8a2136b479247bfd19bfcd0664bd, type: 3}
-  m_PrefabInstance: {fileID: 38567185}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &525952121 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7335343845565514131, guid: 1917b616e9c877f49924ac486ebe9c62, type: 3}
@@ -2866,7 +2866,7 @@ MonoBehaviour:
   firstSelectButton: {fileID: 746010451}
   settingUI: {fileID: 38567188}
   settingUIObject: {fileID: 38567187}
-  settingSelectButton: {fileID: 419622781}
+  settingSelectButton: {fileID: 38567189}
   oneStocks:
   - {fileID: 4834270572853966514}
   - {fileID: 4834270572853966515}
