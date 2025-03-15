@@ -17,6 +17,9 @@ public class DataScriptableObject : ScriptableObject, ISerializationCallbackRece
     [NonSerialized]
     public float bgmVolSetting;
 
+    [NonSerialized]
+    public bool isVoiceSetting = true;
+
     public enum PlayType
     {
         Two,

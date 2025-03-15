@@ -272,7 +272,7 @@ public class Player : MonoBehaviour
                 AudioControl.Instance.SetSEVol(seJumpVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
                 AudioControl.Instance.PlaySE(seJumpClip, myTransform);
                 AudioControl.Instance.SetSEVol(seVoiceJumpVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-                AudioControl.Instance.PlaySE(seVoiceJumpClip, myTransform);
+                if(MainGameRoot.Instance.dataScriptableObject.isVoiceSetting) AudioControl.Instance.PlaySE(seVoiceJumpClip, myTransform);
                 myRigidbody2D.AddForce(myTransform.up * jumpPower, ForceMode2D.Impulse);
                 isJump = false;
             }
@@ -471,7 +471,7 @@ public class Player : MonoBehaviour
                 AudioControl.Instance.SetSEVol(seParryVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
                 AudioControl.Instance.PlaySE(seParryClip, myTransform);
                 AudioControl.Instance.SetSEVol(seVoiceParryVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-                AudioControl.Instance.PlaySE(seVoiceParryClip, myTransform);
+                if (MainGameRoot.Instance.dataScriptableObject.isVoiceSetting) AudioControl.Instance.PlaySE(seVoiceParryClip, myTransform);
             }
             // 無敵時間でないなら、ノックバック処理を行う
             else if (invincibleTimer <= 0)
@@ -552,7 +552,7 @@ public class Player : MonoBehaviour
         AudioControl.Instance.SetSEVol(seDamageVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seDamageClip, myTransform);
         AudioControl.Instance.SetSEVol(seVoiceDamageVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-        AudioControl.Instance.PlaySE(seVoiceDamageClip, myTransform);
+        if (MainGameRoot.Instance.dataScriptableObject.isVoiceSetting) AudioControl.Instance.PlaySE(seVoiceDamageClip, myTransform);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -567,7 +567,7 @@ public class Player : MonoBehaviour
     {
         speedBuffItemCount += buffPower;
         AudioControl.Instance.SetSEVol(seVoiceItemVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-        AudioControl.Instance.PlaySE(seVoiceItemClip, myTransform);
+        if (MainGameRoot.Instance.dataScriptableObject.isVoiceSetting) AudioControl.Instance.PlaySE(seVoiceItemClip, myTransform);
     }
     public void SkateboardTime()
     {
@@ -577,7 +577,7 @@ public class Player : MonoBehaviour
         parryTimer = skateboardTime;
         myAnimator.SetBool(isSkateId, true);
         AudioControl.Instance.SetSEVol(seVoiceItemVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-        AudioControl.Instance.PlaySE(seVoiceItemClip, myTransform);
+        if (MainGameRoot.Instance.dataScriptableObject.isVoiceSetting) AudioControl.Instance.PlaySE(seVoiceItemClip, myTransform);
     }
 
     public void SetParryTime(bool isHigher)

@@ -8,6 +8,23 @@ public class SettingUI : MonoBehaviour
     [SerializeField]
     private Slider bgmSlider = null;
 
+    [SerializeField]
+    private Button voiceButton = null;
+
+    private Image voiceButtonImage = null;
+
+    [SerializeField]
+    private Sprite voiceButtonOffSprite = null;
+
+    [SerializeField]
+    private Sprite voiceButtonOnSprite = null;
+
+    [SerializeField]
+    private Sprite voiceButtonOffSelectSprite = null;
+
+    [SerializeField]
+    private Sprite voiceButtonOnSelectSprite = null;
+
     [SerializeField, Tooltip("設定アニメーター")]
     private Animator settingAnimator = null;
 
@@ -20,103 +37,99 @@ public class SettingUI : MonoBehaviour
     [SerializeField]
     private AudioClip seDecisionClip = null;
 
-
-    enum SceneType
-    {
-        Title,
-        MainGame
-    }
-
-    [SerializeField]
-    private SceneType sceneType = SceneType.Title;
+    private DataScriptableObject dataScriptableObject;
     private float tempFloat = 0f;
+    SpriteState spriteState;
 
     private void Start()
     {
-        switch (sceneType)
+        if (TitleRoot.Instance)
         {
-            case SceneType.Title:
-                seSlider.value = TitleRoot.Instance.dataScriptableObject.seVolSetting;
-                bgmSlider.value = TitleRoot.Instance.dataScriptableObject.bgmVolSetting;
-                break;
-            case SceneType.MainGame:
-                seSlider.value = MainGameRoot.Instance.dataScriptableObject.seVolSetting;
-                bgmSlider.value = MainGameRoot.Instance.dataScriptableObject.bgmVolSetting;
-                break;
+            dataScriptableObject = TitleRoot.Instance.dataScriptableObject;
         }
+        else
+        {
+            dataScriptableObject = MainGameRoot.Instance.dataScriptableObject;
+        }
+
+        voiceButtonImage = voiceButton.GetComponent<Image>();
+        if (dataScriptableObject.isVoiceSetting)
+        {
+            voiceButtonImage.sprite = voiceButtonOnSprite;
+            spriteState = voiceButton.spriteState;
+            spriteState.selectedSprite = voiceButtonOnSelectSprite;
+            voiceButton.spriteState = spriteState;
+        }
+        else
+        {
+            voiceButtonImage.sprite = voiceButtonOffSprite;
+            spriteState = voiceButton.spriteState;
+            spriteState.selectedSprite = voiceButtonOffSelectSprite;
+            voiceButton.spriteState = spriteState;
+        }
+        seSlider.value = dataScriptableObject.seVolSetting;
+        bgmSlider.value = dataScriptableObject.bgmVolSetting;
     }
 
     public void SeChange()
     {
-        switch (sceneType)
-        {
-            case SceneType.Title:
-                TitleRoot.Instance.dataScriptableObject.seVolSetting = seSlider.value;
-                break;
-            case SceneType.MainGame:
-                MainGameRoot.Instance.dataScriptableObject.seVolSetting = seSlider.value;
-                break;
-        }
+        dataScriptableObject.seVolSetting = seSlider.value;
     }
+
     public void BgmChange()
     {
         tempFloat = AudioControl.Instance.GetBGMVol();
         if (tempFloat > 0f)
         {
-            switch (sceneType)
-            {
-                case SceneType.Title:
-                    tempFloat /= TitleRoot.Instance.dataScriptableObject.bgmVolSetting;
-                    break;
-                case SceneType.MainGame:
-                    tempFloat /= MainGameRoot.Instance.dataScriptableObject.bgmVolSetting;
-                    break;
-            }
+            tempFloat /= dataScriptableObject.bgmVolSetting;
         }
         else if (bgmSlider.value > 0)
         {
             tempFloat = 1;
         }
-        switch (sceneType)
-        {
-            case SceneType.Title:
-                TitleRoot.Instance.dataScriptableObject.bgmVolSetting = bgmSlider.value;
-                tempFloat *= TitleRoot.Instance.dataScriptableObject.bgmVolSetting;
-                break;
-            case SceneType.MainGame:
-                MainGameRoot.Instance.dataScriptableObject.bgmVolSetting = bgmSlider.value;
-                tempFloat *= MainGameRoot.Instance.dataScriptableObject.bgmVolSetting;
-                break;
-        }
+        dataScriptableObject.bgmVolSetting = bgmSlider.value;
+        tempFloat *= dataScriptableObject.bgmVolSetting;
 
         AudioControl.Instance.SetBGMVol(tempFloat);
     }
 
     public void ButtonPreview()
     {
-        switch (sceneType)
+        AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seDecisionClip);
+    }
+
+    public void ButtonVoice()
+    {
+        if (dataScriptableObject.isVoiceSetting)
         {
-            case SceneType.Title:
-                AudioControl.Instance.SetSEVol(seDecisionVol * TitleRoot.Instance.dataScriptableObject.seVolSetting);
-                AudioControl.Instance.PlaySE(seDecisionClip);
-                break;
-            case SceneType.MainGame:
-                AudioControl.Instance.SetSEVol(seDecisionVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-                AudioControl.Instance.PlaySE(seDecisionClip);
-                break;
+            dataScriptableObject.isVoiceSetting = false;
+
+            voiceButtonImage.sprite = voiceButtonOffSprite;
+            spriteState = voiceButton.spriteState;
+            spriteState.selectedSprite = voiceButtonOffSelectSprite;
+            voiceButton.spriteState = spriteState;
+        }
+        else
+        {
+            dataScriptableObject.isVoiceSetting = true;
+
+            voiceButtonImage.sprite = voiceButtonOnSprite;
+            spriteState = voiceButton.spriteState;
+            spriteState.selectedSprite = voiceButtonOnSelectSprite;
+            voiceButton.spriteState = spriteState;
         }
     }
 
     public void ButtonReturn()
     {
-        switch (sceneType)
+        if (TitleRoot.Instance)
         {
-            case SceneType.Title:
-                TitleRoot.Instance.SettingClose();
-                break;
-            case SceneType.MainGame:
-                MainGameRoot.Instance.SettingClose();
-                break;
+            TitleRoot.Instance.SettingClose();
+        }
+        else
+        {
+            MainGameRoot.Instance.SettingClose();
         }
     }
 
