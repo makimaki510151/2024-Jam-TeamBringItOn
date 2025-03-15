@@ -3487,6 +3487,9 @@ MonoBehaviour:
   - {fileID: 8642012908811377458}
   - {fileID: 272656322}
   timeUI: {fileID: 1634582793}
+  enemysTransforms:
+  - {fileID: 0}
+  - {fileID: 0}
   breadEatingCompetitionRoot: {fileID: 1989068095}
   isBreadEatingCompetitionMode: 1
   breadEatingCompetitionTimeLimit: 20
@@ -3573,6 +3576,7 @@ MonoBehaviour:
   stages:
   - {fileID: 5371523249022123950, guid: 70d62e6b17d795a4193683c2eef49306, type: 3}
   - {fileID: 3260253847088386122, guid: 45ddaba0bf090d545a11387b246465c4, type: 3}
+  tutorialStage: {fileID: 5371523249022123950, guid: 120f824ba64e53c43908ae45999cb4a8, type: 3}
   characterPosition: {x: 0, y: 0.5}
   stagePositions:
   - {x: 0, y: 6}

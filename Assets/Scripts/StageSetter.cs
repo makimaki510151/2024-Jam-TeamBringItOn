@@ -10,6 +10,9 @@ public class StageSetter : MonoBehaviour
     [SerializeField, Tooltip("ステージ")]
     private List<GameObject> stages = new List<GameObject>();
 
+    [SerializeField, Tooltip("チュートリアルステージ")]
+    private GameObject tutorialStage = null;
+
     [SerializeField, Tooltip("キャラクターの初期位置")]
     private Vector2 characterPosition = Vector2.zero;
 
@@ -32,7 +35,14 @@ public class StageSetter : MonoBehaviour
         dataScriptableObject = MainGameRoot.Instance.dataScriptableObject;
 
         // ステージ、キャラクターの設置
-        stageObject = Instantiate(stages[dataScriptableObject.stageOneNumber]);
+        if (dataScriptableObject.isTutorial)
+        {
+            stageObject = Instantiate(tutorialStage);
+        }
+        else
+        {
+            stageObject = Instantiate(stages[dataScriptableObject.stageOneNumber]);
+        }
         stageObject.transform.position = stagePositions[0];
         characterOneObject = Instantiate(characters[dataScriptableObject.characterOneNumber]);
         characterOneObject.transform.parent = stageObject.transform;

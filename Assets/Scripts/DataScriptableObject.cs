@@ -53,6 +53,9 @@ public class DataScriptableObject : ScriptableObject, ISerializationCallbackRece
     [NonSerialized]
     public int stageTwoNumber = 0;
 
+    //[NonSerialized]
+    public bool isTutorial = false;
+
     public void OnAfterDeserialize()
     {
         // Editor上では再生中に変更したScriptableObject内の値が実行終了時に消えない。
