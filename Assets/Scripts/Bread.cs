@@ -54,7 +54,7 @@ public class Bread : MonoBehaviour
             effectTransform = Instantiate(AcquisitionEffectPrefab).transform;
             effectTransform.position = transform.position;
 
-            AudioControl.Instance.SetSEVol(seEatPanVol * MainGameRoot.Instance.dataScriptableObject.bgmVolSetting);
+            AudioControl.Instance.SetSEVol(seEatPanVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
             AudioControl.Instance.PlaySE(seEatPanClip);
             Destroy(gameObject);
         }

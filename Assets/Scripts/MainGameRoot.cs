@@ -206,6 +206,7 @@ public class MainGameRoot : RootParent
                     isPause = true;
                     pauseUIObject.SetActive(true);
                     pauseUIObject.transform.SetAsLastSibling();
+                    settingUIObject.transform.SetAsLastSibling();
                     firstSelectButton.Select();
                 }
                 else
