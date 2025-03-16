@@ -322,9 +322,12 @@ public class MainGameRoot : RootParent
         if (dataScriptableObject.playType == DataScriptableObject.PlayType.One)
         {
             playerTwoRigidbody2D.gameObject.SetActive(false);
-            oneStockCount = 5;
-            isPlayerOne = true;
             iconOneRectTransform.gameObject.SetActive(false);
+            if(!dataScriptableObject.isTutorial)
+            {
+                oneStockCount = 5;
+                isPlayerOne = true;
+            }
         }
     }
 
