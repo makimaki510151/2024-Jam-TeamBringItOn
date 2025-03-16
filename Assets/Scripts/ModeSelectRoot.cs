@@ -66,6 +66,7 @@ public class ModeSelectRoot : RootParent
 
     void Start()
     {
+        dataScriptableObject.isTutorial = false;
         menuCount = menuObjects.Count;
         ShowMenu(0);
 
@@ -114,6 +115,14 @@ public class ModeSelectRoot : RootParent
     {
         dataScriptableObject.playType = DataScriptableObject.PlayType.Two;
         dataScriptableObject.cameraRotation = 180;
+
+        LoadScene(2);
+    }
+
+    public void ButtonTutorial()
+    {
+        dataScriptableObject.playType = DataScriptableObject.PlayType.One;
+        dataScriptableObject.isTutorial = true;
 
         LoadScene(2);
     }
