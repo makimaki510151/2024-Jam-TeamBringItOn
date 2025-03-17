@@ -123,6 +123,7 @@ public class ModeSelectRoot : RootParent
     {
         dataScriptableObject.playType = DataScriptableObject.PlayType.One;
         dataScriptableObject.isTutorial = true;
+        dataScriptableObject.isBreadMode = false;
 
         LoadScene(2);
     }

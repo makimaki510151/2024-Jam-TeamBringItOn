@@ -38,6 +38,7 @@ public class TitleRoot : RootParent
     public static TitleRoot Instance;
     private AsyncOperation asyncLoad;
     private bool isCoroutines = false;
+    private const string InitialLoadingConfirmationId = "InitialLoadingConfirmation";
 
     public override void Awake() 
     {  
@@ -72,7 +73,19 @@ public class TitleRoot : RootParent
         AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seDecisionClip);
 
-        StartCoroutine(LoadYourAsyncScene("ModeSelect"));
+        if(PlayerPrefs.GetInt(InitialLoadingConfirmationId, 0) == 0)
+        {
+            PlayerPrefs.SetInt(InitialLoadingConfirmationId, 1);
+            dataScriptableObject.playType = DataScriptableObject.PlayType.One;
+            dataScriptableObject.isTutorial = true;
+            dataScriptableObject.isBreadMode = false;
+
+            StartCoroutine(LoadYourAsyncScene(2));
+        }
+        else
+        {
+            StartCoroutine(LoadYourAsyncScene(1));
+        }
     }
 
     public void ButtonGamedEnd()
@@ -99,9 +112,9 @@ public class TitleRoot : RootParent
         }
         EventSystem.current.SetSelectedGameObject(mainFirstObject);
     }
-    IEnumerator LoadYourAsyncScene(string name)
+    IEnumerator LoadYourAsyncScene(int buildNumber)
     {
-        asyncLoad = SceneManager.LoadSceneAsync(name);
+        asyncLoad = SceneManager.LoadSceneAsync(buildNumber);
 
         while (!asyncLoad.isDone)
         {
