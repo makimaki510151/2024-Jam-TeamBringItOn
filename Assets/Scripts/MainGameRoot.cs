@@ -475,6 +475,12 @@ public class MainGameRoot : RootParent
         firstSelectButton.Select();
     }
 
+    public void ButtonRetry()
+    {
+        AudioControl.Instance.StopBGM();
+        StartCoroutine(LoadYourAsyncScene(2));
+    }
+
     public void ButtonTitle()
     {
         if (isCoroutines) return;
@@ -484,7 +490,7 @@ public class MainGameRoot : RootParent
         AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seDecisionClip);
 
-        StartCoroutine(LoadYourAsyncScene("Title"));
+        StartCoroutine(LoadYourAsyncScene(0));
     }
     public void ButtonModeSelect()
     {
@@ -495,11 +501,11 @@ public class MainGameRoot : RootParent
         AudioControl.Instance.SetSEVol(seDecisionVol * dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seDecisionClip);
 
-        StartCoroutine(LoadYourAsyncScene("ModeSelect"));
+        StartCoroutine(LoadYourAsyncScene(1));
     }
-    IEnumerator LoadYourAsyncScene(string name)
+    IEnumerator LoadYourAsyncScene(int buildNumber)
     {
-        asyncLoad = SceneManager.LoadSceneAsync(name);
+        asyncLoad = SceneManager.LoadSceneAsync(buildNumber);
 
         while (!asyncLoad.isDone)
         {

@@ -3308,6 +3308,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 152205688}
     m_Modifications:
+    - target: {fileID: 957392219962869408, guid: a1529e08165184f49a56badd322452fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 957392219962869408, guid: a1529e08165184f49a56badd322452fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 957392219962869408, guid: a1529e08165184f49a56badd322452fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1989068094}
+    - target: {fileID: 957392219962869408, guid: a1529e08165184f49a56badd322452fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 957392219962869408, guid: a1529e08165184f49a56badd322452fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ButtonRetry
+      objectReference: {fileID: 0}
+    - target: {fileID: 957392219962869408, guid: a1529e08165184f49a56badd322452fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainGameRoot, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 957392219962869408, guid: a1529e08165184f49a56badd322452fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1349075339248760057, guid: a1529e08165184f49a56badd322452fe, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
