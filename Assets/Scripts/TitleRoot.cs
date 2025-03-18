@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public class TitleRoot : RootParent
 {
     [SerializeField]
-    private GameObject settingObject = null;
-    [SerializeField]
     private List<Button> mainButtons = new();
     [SerializeField]
     private EventSystem eventSystem = null;
@@ -20,6 +18,19 @@ public class TitleRoot : RootParent
 
     [SerializeField]
     private SettingUI settingUI = null;
+
+    [SerializeField]
+    private Animator TitleUIAnimator = null;
+
+    static readonly int isShowButtonId = Animator.StringToHash("isShowButton");
+
+    [SerializeField, Tooltip("タイトルアニメーション")]
+    private AnimationClip titleAnimationClip = null;
+
+    [SerializeField, Tooltip("ボタン表示アニメーション")]
+    private AnimationClip showButtonAnimationClip = null;
+
+    private float titleAnimationTimer = 0;
 
     [Header("音関係")]
     [SerializeField]
@@ -39,6 +50,8 @@ public class TitleRoot : RootParent
     private AsyncOperation asyncLoad;
     private bool isCoroutines = false;
     private const string InitialLoadingConfirmationId = "InitialLoadingConfirmation";
+    private bool isTitleAnimation = true;
+    private bool isWait = true;
 
     public override void Awake() 
     {  
@@ -53,15 +66,46 @@ public class TitleRoot : RootParent
 
     private void Update()
     {
-        if(selectEndButtonObject != eventSystem.currentSelectedGameObject && eventSystem.currentSelectedGameObject != null)
+        if (isTitleAnimation)
         {
-            selectEndButtonObject = eventSystem.currentSelectedGameObject;
+            EventSystem.current.SetSelectedGameObject(null);
+
+            titleAnimationTimer += Time.deltaTime;
+            if(titleAnimationTimer >= titleAnimationClip.length || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Fire1"))
+            {
+                StartCoroutine(OnEndTitleAnimation());
+            }
         }
-        
-        if(eventSystem.currentSelectedGameObject == null) 
+        else
         {
-            EventSystem.current.SetSelectedGameObject(selectEndButtonObject);
+            if(!isWait)
+            {
+                if (selectEndButtonObject != eventSystem.currentSelectedGameObject && eventSystem.currentSelectedGameObject != null)
+                {
+                    selectEndButtonObject = eventSystem.currentSelectedGameObject;
+                }
+
+                if (eventSystem.currentSelectedGameObject == null)
+                {
+                    EventSystem.current.SetSelectedGameObject(selectEndButtonObject);
+                }
+            }
+            else
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
         }
+    }
+
+    IEnumerator OnEndTitleAnimation()
+    {
+        isTitleAnimation = false;
+        TitleUIAnimator.SetTrigger(isShowButtonId);
+
+        yield return new WaitForSeconds(showButtonAnimationClip.length);
+
+        EventSystem.current.SetSelectedGameObject(mainFirstObject);
+        isWait = false;
     }
 
     public void ButtonNext()
