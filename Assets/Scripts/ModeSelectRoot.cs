@@ -23,6 +23,9 @@ public class ModeSelectRoot : RootParent
     [SerializeField, Tooltip("その他メニュースクリプト")]
     private OtherMenu otherMenu = null;
 
+    [SerializeField, Tooltip("ComingSoonUIスクリプト")]
+    private ComingSoonUI comingSoonUI = null;
+
     [Header("音関係")]
 
     [SerializeField]
@@ -126,6 +129,11 @@ public class ModeSelectRoot : RootParent
         dataScriptableObject.isBreadMode = false;
 
         LoadScene(2);
+    }
+
+    public void ButtonComingSoon()
+    {
+        comingSoonUI.Show();
     }
 
     public void LoadScene(int buildNumber)

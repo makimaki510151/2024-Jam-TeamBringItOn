@@ -335,7 +335,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 35966817}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 427475805}
+        m_TargetAssemblyTypeName: ModeSelectRoot, Assembly-CSharp
+        m_MethodName: ButtonComingSoon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &35966817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,7 +940,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 154282187}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 427475805}
+        m_TargetAssemblyTypeName: ModeSelectRoot, Assembly-CSharp
+        m_MethodName: ButtonComingSoon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &154282187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1899,7 +1923,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 386768548}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 427475805}
+        m_TargetAssemblyTypeName: ModeSelectRoot, Assembly-CSharp
+        m_MethodName: ButtonComingSoon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &386768548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2000,6 +2036,7 @@ MonoBehaviour:
   - {fileID: 852307677}
   - {fileID: 1344196594}
   otherMenu: {fileID: 911646970}
+  comingSoonUI: {fileID: 1345287007}
   bgmModeSelectVol: 0.4
   bgmModeSelectClip: {fileID: 8300000, guid: 51c7ebf763171e043bbf9bd57ef04904, type: 3}
   bgmAreaSelectVol: 0.3
@@ -4377,7 +4414,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 949111445}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 427475805}
+        m_TargetAssemblyTypeName: ModeSelectRoot, Assembly-CSharp
+        m_MethodName: ButtonComingSoon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &949111445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5952,6 +6001,7 @@ RectTransform:
   - {fileID: 920553397}
   - {fileID: 1943629318}
   - {fileID: 1785799872}
+  - {fileID: 1345287003}
   m_Father: {fileID: 427475804}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6154,6 +6204,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1344196592}
   m_CullTransparentMesh: 1
+--- !u!224 &1345287003 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+  m_PrefabInstance: {fileID: 2537567110790217730}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1345287007 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1352628911909492215, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+  m_PrefabInstance: {fileID: 2537567110790217730}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dbf368184c9c2498385a9bb943e397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1355554448
 GameObject:
   m_ObjectHideFlags: 0
@@ -7867,7 +7933,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1643764878}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 427475805}
+        m_TargetAssemblyTypeName: ModeSelectRoot, Assembly-CSharp
+        m_MethodName: ButtonComingSoon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1643764878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10283,6 +10361,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129231842}
   m_CullTransparentMesh: 1
+--- !u!1001 &2537567110790217730
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1336986570}
+    m_Modifications:
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 610792523395249165, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7295325803832321157, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
+      propertyPath: m_Name
+      value: ComingSoonUI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5ee8cd96d6233564fb2004f60949f1d9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
