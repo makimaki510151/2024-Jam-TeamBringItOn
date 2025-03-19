@@ -159,6 +159,7 @@ public class Player : MonoBehaviour
 
     static readonly int isParryId = Animator.StringToHash("isParry");
     static readonly int isParrySuccessId = Animator.StringToHash("isParrySuccess");
+    static readonly int isGroundedId = Animator.StringToHash("isGrounded");
     static readonly int isDamageId = Animator.StringToHash("isDamage");
     static readonly int isSkateId = Animator.StringToHash("isSkate");
 
@@ -209,6 +210,7 @@ public class Player : MonoBehaviour
         if (isGround)
         {
             isJump = true;
+            myAnimator.SetBool(isGroundedId, false);
         }
         else
         {
@@ -258,6 +260,10 @@ public class Player : MonoBehaviour
         if (hit.collider)
         {
             IsGroundTrue();
+        }
+        else
+        {
+            myAnimator.SetBool(isGroundedId, false);
         }
 
         // 移動処理
@@ -534,7 +540,7 @@ public class Player : MonoBehaviour
         isGround = true;
         isParryCancel = false;
         isParryHit = false;
-        myAnimator.SetBool(isDamageId, false);
+        myAnimator.SetBool(isGroundedId, true);
     }
 
     private void KnockBackPlayer(Collider2D collider)
@@ -543,7 +549,7 @@ public class Player : MonoBehaviour
         myRigidbody2D.AddForce(-myTransform.right * knockbackLeft, ForceMode2D.Impulse);
         myRigidbody2D.AddForce(myTransform.up * knockbackUp, ForceMode2D.Impulse);
         invincibleTimer = invincibleTime;
-        myAnimator.SetBool(isDamageId, true);
+        myAnimator.SetTrigger(isDamageId);
 
         // エフェクト処理
         damageEffectTransform = Instantiate(damageEffectPrafab).transform;
