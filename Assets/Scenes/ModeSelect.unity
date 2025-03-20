@@ -2041,6 +2041,8 @@ MonoBehaviour:
   bgmModeSelectClip: {fileID: 8300000, guid: 51c7ebf763171e043bbf9bd57ef04904, type: 3}
   bgmAreaSelectVol: 0.3
   bgmAreaSelectClip: {fileID: 8300000, guid: 9e3d7d6340b15c04f9d33274b72f476a, type: 3}
+  bgmOtherSelectVol: 0.4
+  bgmOtherSelectClip: {fileID: 8300000, guid: 758a77a9264ac8741bebcf9239ce360f, type: 3}
   seCursorVol: 0.5
   seCursorClip: {fileID: 8300000, guid: 3145fb04d4ccab444916ea6ee0f2c0aa, type: 3}
   seChoiceVol: 1

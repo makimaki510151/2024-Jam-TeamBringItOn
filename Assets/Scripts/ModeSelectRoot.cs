@@ -38,6 +38,11 @@ public class ModeSelectRoot : RootParent
     [SerializeField]
     private AudioClip bgmAreaSelectClip = null;
 
+    [SerializeField]
+    private float bgmOtherSelectVol = 1.0f;
+    [SerializeField]
+    private AudioClip bgmOtherSelectClip = null;
+
     //[SerializeField]
     //private float seDecisionVol = 1.0f;
     //[SerializeField]
@@ -176,6 +181,11 @@ public class ModeSelectRoot : RootParent
         {
             AudioControl.Instance.SetBGMVol(bgmAreaSelectVol * dataScriptableObject.bgmVolSetting);
             AudioControl.Instance.PlayBGM(bgmAreaSelectClip);
+        }
+        else if (menuNumber == 2)
+        {
+            AudioControl.Instance.SetBGMVol(bgmOtherSelectVol * dataScriptableObject.bgmVolSetting);
+            AudioControl.Instance.PlayBGM(bgmOtherSelectClip);
         }
         else
         {
