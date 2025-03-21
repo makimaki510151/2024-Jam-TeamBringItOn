@@ -229,6 +229,14 @@ public class MainGameRoot : RootParent
         }
     }
 
+    public void OnRetry(InputAction.CallbackContext context)
+    {
+        if (context.started && isPause)
+        {
+            Retry();
+        }
+    }
+
     public void OnResult(InputAction.CallbackContext context)
     {
         // リザルト中にボタンが押されたら、モードセレクトシーンへ移行する
@@ -475,12 +483,6 @@ public class MainGameRoot : RootParent
         firstSelectButton.Select();
     }
 
-    public void ButtonRetry()
-    {
-        AudioControl.Instance.StopBGM();
-        StartCoroutine(LoadYourAsyncScene(2));
-    }
-
     public void ButtonTitle()
     {
         if (isCoroutines) return;
@@ -503,6 +505,13 @@ public class MainGameRoot : RootParent
 
         StartCoroutine(LoadYourAsyncScene(1));
     }
+
+    private void Retry()
+    {
+        AudioControl.Instance.StopBGM();
+        StartCoroutine(LoadYourAsyncScene(2));
+    }
+
     IEnumerator LoadYourAsyncScene(int buildNumber)
     {
         asyncLoad = SceneManager.LoadSceneAsync(buildNumber);

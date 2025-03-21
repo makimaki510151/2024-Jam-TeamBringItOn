@@ -80,6 +80,15 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Retry"",
+                    ""type"": ""Button"",
+                    ""id"": ""06314ca9-8341-4fe0-967c-5fc6d6500e96"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -225,6 +234,39 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""Result"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d19230f5-c482-4707-8fb0-eb169058e45b"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Retry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7cf4c33c-753b-4a1e-9141-5e7cff8fc818"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Retry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fcd477c1-86f6-4d98-bc27-3eb66ceb5f77"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Retry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -300,6 +342,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_Love_TwoShot = m_Love.FindAction("TwoShot", throwIfNotFound: true);
         m_Love_Pause = m_Love.FindAction("Pause", throwIfNotFound: true);
         m_Love_Result = m_Love.FindAction("Result", throwIfNotFound: true);
+        m_Love_Retry = m_Love.FindAction("Retry", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -367,6 +410,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Love_TwoShot;
     private readonly InputAction m_Love_Pause;
     private readonly InputAction m_Love_Result;
+    private readonly InputAction m_Love_Retry;
     public struct LoveActions
     {
         private @PlayerAction m_Wrapper;
@@ -377,6 +421,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         public InputAction @TwoShot => m_Wrapper.m_Love_TwoShot;
         public InputAction @Pause => m_Wrapper.m_Love_Pause;
         public InputAction @Result => m_Wrapper.m_Love_Result;
+        public InputAction @Retry => m_Wrapper.m_Love_Retry;
         public InputActionMap Get() { return m_Wrapper.m_Love; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -404,6 +449,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Result.started += instance.OnResult;
             @Result.performed += instance.OnResult;
             @Result.canceled += instance.OnResult;
+            @Retry.started += instance.OnRetry;
+            @Retry.performed += instance.OnRetry;
+            @Retry.canceled += instance.OnRetry;
         }
 
         private void UnregisterCallbacks(ILoveActions instance)
@@ -426,6 +474,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Result.started -= instance.OnResult;
             @Result.performed -= instance.OnResult;
             @Result.canceled -= instance.OnResult;
+            @Retry.started -= instance.OnRetry;
+            @Retry.performed -= instance.OnRetry;
+            @Retry.canceled -= instance.OnRetry;
         }
 
         public void RemoveCallbacks(ILoveActions instance)
@@ -496,5 +547,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         void OnTwoShot(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnResult(InputAction.CallbackContext context);
+        void OnRetry(InputAction.CallbackContext context);
     }
 }
