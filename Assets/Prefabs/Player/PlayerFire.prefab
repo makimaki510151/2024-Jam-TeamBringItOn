@@ -384,13 +384,13 @@ MonoBehaviour:
   seDamageVol: 1
   seDamageClip: {fileID: 8300000, guid: 2756d85f54cc16240b94cb0ad5588e87, type: 3}
   seVoiceJumpVol: 1
-  seVoiceJumpClip: {fileID: 0}
+  seVoiceJumpClip: {fileID: 8300000, guid: d5b058efe1f01d548a4009c8eeaa83f9, type: 3}
   seVoiceDamageVol: 1
-  seVoiceDamageClip: {fileID: 0}
+  seVoiceDamageClip: {fileID: 8300000, guid: de098597b5380fe4ab32a62a5f9bd72f, type: 3}
   seVoiceParryVol: 1
-  seVoiceParryClip: {fileID: 0}
+  seVoiceParryClip: {fileID: 8300000, guid: 094888ce5eb8c184ea3b848c602ec873, type: 3}
   seVoiceItemVol: 1
-  seVoiceItemClip: {fileID: 0}
+  seVoiceItemClip: {fileID: 8300000, guid: d63c476218d32074caa267a14bd61b50, type: 3}
 --- !u!61 &2655867290183432144
 BoxCollider2D:
   m_ObjectHideFlags: 0
