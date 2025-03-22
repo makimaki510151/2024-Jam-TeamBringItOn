@@ -215,14 +215,14 @@ MonoBehaviour:
   seJumpClip: {fileID: 8300000, guid: 85e0d8e17884d80429032dfe41b7bf72, type: 3}
   seDamageVol: 1
   seDamageClip: {fileID: 8300000, guid: 2756d85f54cc16240b94cb0ad5588e87, type: 3}
-  seVoiceJumpVol: 1
-  seVoiceJumpClip: {fileID: 0}
-  seVoiceDamageVol: 1
-  seVoiceDamageClip: {fileID: 0}
-  seVoiceParryVol: 1
-  seVoiceParryClip: {fileID: 0}
-  seVoiceItemVol: 1
-  seVoiceItemClip: {fileID: 0}
+  seVoiceJumpVol: 0.75
+  seVoiceJumpClip: {fileID: 8300000, guid: 107671508d1776d41b977070dde8291d, type: 3}
+  seVoiceDamageVol: 0.5
+  seVoiceDamageClip: {fileID: 8300000, guid: 19f49fd82b9096d428857e99735cbff2, type: 3}
+  seVoiceParryVol: 0.5
+  seVoiceParryClip: {fileID: 8300000, guid: a96954525cb070f4d916e721949aeccb, type: 3}
+  seVoiceItemVol: 0.75
+  seVoiceItemClip: {fileID: 8300000, guid: b862aae28d3b7e840aff8871d2812fb1, type: 3}
 --- !u!61 &4274571922432793070
 BoxCollider2D:
   m_ObjectHideFlags: 0
