@@ -12,7 +12,7 @@ public class Skateboard : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Player>().SkateboardTime();
-            AudioControl.Instance.SetSEVol(pickSkateboardSEVol);
+            AudioControl.Instance.SetSEVol(pickSkateboardSEVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
             AudioControl.Instance.PlaySE(pickSkateboardSE);
             Destroy(gameObject);
         }
