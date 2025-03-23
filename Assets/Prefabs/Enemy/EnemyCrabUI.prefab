@@ -99,7 +99,7 @@ MonoBehaviour:
   parryShotEndOnePrefab: {fileID: 8313136847623697001, guid: abe2cea0ad2f71f4690d4418bc470a59, type: 3}
   parryShotEndTwoPrefab: {fileID: 5749361921486621899, guid: 2558a05aa5f762e41a031bfe925cb1ac, type: 3}
   parryShotFlashPrefab: {fileID: 4459695962473308679, guid: 0e684bfda27cd004d88eda3291c13b81, type: 3}
-  parryStockSize: {x: 80, y: 80}
+  parryStockSize: {x: 90, y: 90}
   seParryStockVol: 0.5
   seParryStockClip: {fileID: 8300000, guid: 9acf5bb8e0958dd4bbb53e1eaf7d80f7, type: 3}
   seParryLauncherVol: 0.5
