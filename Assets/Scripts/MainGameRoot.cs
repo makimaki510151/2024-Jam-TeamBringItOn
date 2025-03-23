@@ -522,7 +522,7 @@ public class MainGameRoot : RootParent
         }
     }
 
-    public Vector3 GetStockUIPos(Player.PlayCharacter enemyCharacter, StockUI myStock)
+    public RectTransform GetStockUIPos(Player.PlayCharacter enemyCharacter, StockUI myStock)
     {
         switch (enemyCharacter)
         {
@@ -531,15 +531,15 @@ public class MainGameRoot : RootParent
                 {
                     oneStockCount++;
                     stockUIsWater.Add(myStock);
-                    return oneStocks[oneStockCount - 1].position;
+                    return oneStocks[oneStockCount - 1];
                 }
                 else if (isPlayerOne)
                 {
-                    return oneStockOver.position;
+                    return oneStockOver;
                 }
                 else
                 {
-                    return oneStockOver.position;
+                    return oneStockOver;
                     //StockEnemyShot(enemyCharacter);
                     //waterStockCount++;
                     //stockUIsWater.Add(myStock);
@@ -551,15 +551,15 @@ public class MainGameRoot : RootParent
                 {
                     twoStockCount++;
                     stockUIsFire.Add(myStock);
-                    return twoStocks[twoStockCount - 1].position;
+                    return twoStocks[twoStockCount - 1];
                 }
                 else if (isPlayerOne)
                 {
-                    return twoStockOver.position;
+                    return twoStockOver;
                 }
                 else
                 {
-                    return twoStockOver.position;
+                    return twoStockOver;
                     //StockEnemyShot(enemyCharacter);
                     //twoStockCount++;
                     //stockUIsFire.Add(myStock);
