@@ -2909,15 +2909,15 @@ MonoBehaviour:
   - {fileID: 722642319}
   - {fileID: 1610927756}
   resultUI: {fileID: 2144765358}
-  bgmMainGameVol: 0.5
+  bgmMainGameVol: 0.3
   bgmMainGameClip: {fileID: 8300000, guid: 73cf519304a75e940b031d39a32453cc, type: 3}
   bgmTimeAttackVol: 0.3
   bgmTimeAttackClip: {fileID: 8300000, guid: 7607d0fc3cae2a040832100c65700e58, type: 3}
-  seDecisionVol: 0.5
+  seDecisionVol: 0.4
   seDecisionClip: {fileID: 8300000, guid: 44fcf8934c03ec343b42c02c1eb2a246, type: 3}
-  bgmWinnerVol: 0.5
+  bgmWinnerVol: 0.3
   bgmWinnerClip: {fileID: 8300000, guid: 06a2a2ff5a4365e43965ffc131de33e5, type: 3}
-  seGoalVol: 0.5
+  seGoalVol: 0.4
   seGoalClip: {fileID: 8300000, guid: e986263fce901fb489514490fce6e2f3, type: 3}
 --- !u!114 &1989068095
 MonoBehaviour:
