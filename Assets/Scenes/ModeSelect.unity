@@ -4335,6 +4335,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d329ced17ff2548b47644a7cc9c4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookUpButtonObjects:
+  - {fileID: 1643764876}
+  - {fileID: 852307675}
+  lookUpAngles:
+  - 20
+  - 0
+  headTransform: {fileID: 2069629636}
 --- !u!1 &949111442
 GameObject:
   m_ObjectHideFlags: 0
@@ -9420,13 +9427,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069629635}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.17364816, w: 0.9848078}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 920553397}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -344, y: -107}

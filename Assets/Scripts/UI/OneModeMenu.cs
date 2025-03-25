@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class OneModeMenu : MonoBehaviour
 {
-    public void ShowStoryMenu()
-    {
+    [SerializeField, Tooltip("Œ©ã‚°‚éƒ{ƒ^ƒ“")]
+    private List<GameObject> lookUpButtonObjects = new List<GameObject>();
 
-    }
+    [SerializeField, Tooltip("“ª‚ÌŠp“x")]
+    private List<float> lookUpAngles = new List<float>();
+
+    [SerializeField, Tooltip("–³‘®‚Ì¸‚Ì“ª")]
+    private Transform headTransform = null;
+
+    private Vector3 headAngle = Vector3.zero;
 
     public void ShowTimeAttackMenu()
     {
@@ -20,5 +26,19 @@ public class OneModeMenu : MonoBehaviour
     public void ReturnMenu()
     {
         ModeSelectRoot.Instance.ShowMenu(0);
+    }
+
+    void Update()
+    {
+        for(int i = 0; i < lookUpButtonObjects.Count; i++)
+        {
+            if (lookUpButtonObjects[i] == ModeSelectRoot.Instance.EventSystem.currentSelectedGameObject.gameObject)
+            {
+                headAngle = headTransform.eulerAngles;
+                headAngle.z = lookUpAngles[i];
+                headTransform.eulerAngles = headAngle;
+                break;
+            }
+        }
     }
 }
