@@ -2,7 +2,7 @@
     "name": "OtherMenu",
     "maps": [
         {
-            "name": "P0Love",
+            "name": "Menu",
             "id": "a83cf545-c7ac-4ebc-81c1-c1615f6aa035",
             "actions": [
                 {
@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Return",
+                    "type": "Button",
+                    "id": "311aa919-8c08-42f0-83c6-cb83abd99cfe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -47,8 +56,19 @@
                 },
                 {
                     "name": "",
-                    "id": "2e0a53fe-ebda-4fe3-9771-8da0fa832127",
-                    "path": "<Gamepad>/leftStick/right",
+                    "id": "5d651b1a-b4fb-4381-a174-b0b525d56d24",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "01ac9570-661e-49fe-ac46-686fde7e0600",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -69,97 +89,7 @@
                 },
                 {
                     "name": "",
-                    "id": "f50a55df-9df5-46af-ab39-18f6af73092e",
-                    "path": "<Gamepad>/leftStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "25087aa0-4af5-4e75-aa5c-1c7a5af1f8b5",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Confirm",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9da39c4f-0ceb-4967-8a97-197edd9df064",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Confirm",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "P1Love",
-            "id": "0bf353c2-3801-4034-96fb-1a2a836918af",
-            "actions": [
-                {
-                    "name": "Next",
-                    "type": "Button",
-                    "id": "7774ad15-e595-48eb-94b3-acdb794deca2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Back",
-                    "type": "Button",
-                    "id": "f82d9afa-90d6-44ed-aab5-478ef47d0e53",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Confirm",
-                    "type": "Button",
-                    "id": "c64d1819-638b-469e-8c6d-b9a6baf33bf0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "07a50292-f345-42d9-add0-dd92e32973a5",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Next",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f15de98d-335e-4736-8e60-9aea78041d45",
-                    "path": "<Gamepad>/rightStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Next",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "aa72535d-b481-49ac-8a80-8a64aafe52f0",
+                    "id": "b880d4f9-d013-44ed-9eb1-b79b044fcb43",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
@@ -170,8 +100,8 @@
                 },
                 {
                     "name": "",
-                    "id": "c9f9a364-452c-42b1-9387-0b754ad386f2",
-                    "path": "<Gamepad>/rightStick/left",
+                    "id": "50056cc9-9e8c-4433-8bf6-9fca4df04045",
+                    "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -181,7 +111,7 @@
                 },
                 {
                     "name": "",
-                    "id": "4869bfac-8b8b-42bd-86b3-2edd497c4bed",
+                    "id": "25087aa0-4af5-4e75-aa5c-1c7a5af1f8b5",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
@@ -192,80 +122,34 @@
                 },
                 {
                     "name": "",
-                    "id": "01638d30-49a6-4f85-93bd-b59cacffd03c",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Confirm",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Rival",
-            "id": "b77ce4a3-61a5-490f-8063-1caff61dd24e",
-            "actions": [
-                {
-                    "name": "Next",
-                    "type": "Button",
-                    "id": "dd9502f5-c6a2-4ad6-b460-34bd332da394",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Back",
-                    "type": "Button",
-                    "id": "1bbf446a-36b3-48db-bb56-00322e5ab9bc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Confirm",
-                    "type": "Button",
-                    "id": "91f05a4a-1f23-4ff8-9997-cef9c41855ce",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "c77c9ecb-8f66-4c4d-aaa1-afd96caa3cce",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Next",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5700ee2e-5467-461e-ad83-200d04d9a9b2",
-                    "path": "<Gamepad>/leftStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9d8a02b7-4842-4eba-aa02-0eeac4801f4d",
+                    "id": "9da39c4f-0ceb-4967-8a97-197edd9df064",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3662ea5a-76c9-4f40-a2cc-a23e980187ff",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Return",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6eb022d0-eb64-40af-9404-04d2ccd67468",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Return",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

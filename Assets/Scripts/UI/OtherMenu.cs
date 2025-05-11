@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class OtherMenu : MonoBehaviour
 {
     [SerializeField, Tooltip("決定ボタン")]
-    private List<Button> confirmButtons = new List<Button>();
+    private List<GameObject> confirmButtons = new List<GameObject>();
 
     [SerializeField, Tooltip("選択ボタン")]
     private List<GameObject> changeButtons = new List<GameObject>();
@@ -55,6 +56,21 @@ public class OtherMenu : MonoBehaviour
     [SerializeField, Tooltip("ステージ（2P）選択の画像")]
     private List<GameObject> stageTwoObjects = new List<GameObject>();
 
+    [Header("アニメーション設定")]
+
+    // 0:1P右
+    // 1:1P左
+    // 2:1P決定
+    // 3:1P戻る
+    // 4:2P右
+    // 5:2P左
+    // 6:2P決定
+    // 7:2P戻る
+    [SerializeField, Tooltip("ボタンアニメーション")]
+    private List<Animator> buttonAnimator = new List<Animator>();
+
+    static readonly int isSelectId = Animator.StringToHash("isSelect");
+
     [Header("音設定")]
 
     [SerializeField]
@@ -76,6 +92,73 @@ public class OtherMenu : MonoBehaviour
     private Vector2 pos = Vector2.zero;
     private bool isFinish = false;
     private bool isFade = false;
+    private int playerNum = 0;
+
+    #region PlayerInput
+    public void OnNext(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            if (playerNum == 0)
+            {
+                buttonAnimator[0].SetTrigger(isSelectId);
+            }
+            else
+            {
+                buttonAnimator[4].SetTrigger(isSelectId);
+            }
+            NextSelectObject();
+        }
+    }
+
+    public void OnBack(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            if (playerNum == 0)
+            {
+                buttonAnimator[1].SetTrigger(isSelectId);
+            }
+            else
+            {
+                buttonAnimator[5].SetTrigger(isSelectId);
+            }
+            BackSelectObject();
+        }
+    }
+
+    public void OnConfirm(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            if (playerNum == 0)
+            {
+                buttonAnimator[2].SetTrigger(isSelectId);
+            }
+            else
+            {
+                buttonAnimator[6].SetTrigger(isSelectId);
+            }
+            ConfirmSelectObject();
+        }
+    }
+
+    public void OnReturn(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            if (playerNum == 0)
+            {
+                buttonAnimator[3].SetTrigger(isSelectId);
+            }
+            else
+            {
+                buttonAnimator[7].SetTrigger(isSelectId);
+            }
+            ReturnSelectObject();
+        }
+    }
+    #endregion
 
     void Update()
     {
@@ -181,8 +264,7 @@ public class OtherMenu : MonoBehaviour
     /// <summary>
     /// 次の選択肢に変更します
     /// </summary>
-    /// <param name="player">プレイヤー</param>
-    public void NextSelectObject(int player)
+    public void NextSelectObject()
     {
         switch(selectCounter)
         {
@@ -211,7 +293,7 @@ public class OtherMenu : MonoBehaviour
             //    break;
             // キャラクター
             case 1:
-                if(player == 0)
+                if(playerNum == 0)
                 {
                     characterOneObjects[selectIndexOne].SetActive(false);
                     selectIndexOne++;
@@ -228,7 +310,7 @@ public class OtherMenu : MonoBehaviour
                 break;
             // ステージ
             case 2:
-                if (player == 0)
+                if (playerNum == 0)
                 {
                     stageOneObjects[selectIndexOne].SetActive(false);
                     selectIndexOne++;
@@ -251,8 +333,7 @@ public class OtherMenu : MonoBehaviour
     /// <summary>
     /// 前の選択肢に変更します
     /// </summary>
-    /// <param name="player"></param>
-    public void BackSelectObject(int player)
+    public void BackSelectObject()
     {
         switch(selectCounter)
         {
@@ -281,7 +362,7 @@ public class OtherMenu : MonoBehaviour
             //    break;
             // キャラクター
             case 1:
-                if (player == 0)
+                if (playerNum == 0)
                 {
                     characterOneObjects[selectIndexOne].SetActive(false);
                     selectIndexOne--;
@@ -298,7 +379,7 @@ public class OtherMenu : MonoBehaviour
                 break;
             // ステージ
             case 2:
-                if (player == 0)
+                if (playerNum == 0)
                 {
                     stageOneObjects[selectIndexOne].SetActive(false);
                     selectIndexOne--;
@@ -321,8 +402,7 @@ public class OtherMenu : MonoBehaviour
     /// <summary>
     /// 決定ボタン
     /// </summary>
-    /// <param name="player">プレイヤー</param>
-    public void ConfirmSelectObject(int player)
+    public void ConfirmSelectObject()
     {
         switch(selectCounter)
         {
@@ -356,7 +436,7 @@ public class OtherMenu : MonoBehaviour
             //    break;
             // キャラクター
             case 1:
-                if(player == 0)
+                if(playerNum == 0)
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber = selectIndexOne;
                     waitUI.SetActive(true);
@@ -372,19 +452,21 @@ public class OtherMenu : MonoBehaviour
                 if (waitCounter >= 2)
                 {
                     waitCounter = 0;
-                    confirmButtons[0].Select();
+                    //confirmButtons[0].Select();
                     selectCounter++;
                     SetSelectObject();
+                    playerNum = 0;
                 }
                 // まだ設定が終わっていなかったら、2人目の選択に移行する
                 else
                 {
-                    confirmButtons[1].Select();
+                    //confirmButtons[1].Select();
+                    playerNum = 1;
                 }
                 break;
             // ステージ
             case 2:
-                if (player == 0)
+                if (playerNum == 0)
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.stageOneNumber = selectIndexOne;
                     waitUI.SetActive(true);
@@ -404,7 +486,8 @@ public class OtherMenu : MonoBehaviour
                 // まだ設定が終わっていなかったら、2人目の選択に移行する
                 else
                 {
-                    confirmButtons[1].Select();
+                    //confirmButtons[1].Select();
+                    playerNum = 1;
                 }
                 break;
         }
@@ -427,13 +510,14 @@ public class OtherMenu : MonoBehaviour
         {
             waitCounter = 0;
             waitUI.SetActive(false);
-            confirmButtons[0].Select();
+            //confirmButtons[0].Select();
         }
         else
         {
             selectCounter--;
             SetSelectObject();
         }
+        playerNum = 0;
         AudioControl.Instance.SetSEVol(seChoiceVol * ModeSelectRoot.Instance.dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seChoiceClip);
     }
@@ -445,7 +529,7 @@ public class OtherMenu : MonoBehaviour
     {
         errorUI.SetActive(false);
         SetSelectObject();
-        confirmButtons[0].Select();
+        //confirmButtons[0].Select();
     }
 
     /// <summary>

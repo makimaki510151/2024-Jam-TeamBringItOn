@@ -170,9 +170,12 @@ public class ModeSelectRoot : RootParent
             menuObjects[i].SetActive(false);
         }
         menuObjects[menuNumber].SetActive(true);
-        firstSelectMenuButtons[menuNumber].Select();
+        if(menuNumber != 2)
+        {
+            firstSelectMenuButtons[menuNumber].Select();
+        }
 
-        if(menuNumber == 2)
+        if (menuNumber == 2)
         {
             otherMenu.SetSelectObject();
         }
