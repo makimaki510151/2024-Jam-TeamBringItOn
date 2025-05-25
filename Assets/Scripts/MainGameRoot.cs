@@ -149,6 +149,9 @@ public class MainGameRoot : RootParent
 
     private int goalCount = 0;
 
+    [SerializeField, Tooltip("ƒ{ƒX")]
+    private BossUnit bossUnit = null;
+
     [Header("‰¹ŠÖŒW")]
     [SerializeField]
     private float bgmMainGameVol = 1.0f;
@@ -812,5 +815,11 @@ public class MainGameRoot : RootParent
         {
             enemy.SetParent(enemysTransforms[0]);
         }
+    }
+
+    public void ApplyDamageBoss(int damage = 1)
+    {
+        if (bossUnit == null) return;
+        bossUnit.ApplyDamage(damage);
     }
 }

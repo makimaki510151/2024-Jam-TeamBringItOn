@@ -119,6 +119,11 @@ public class StockUI : MonoBehaviour
         }
         else if (myDie)
         {
+            if (MainGameRoot.Instance.dataScriptableObject.isBoss)
+            {
+                MainGameRoot.Instance.ApplyDamageBoss();
+            }
+
             Destroy(gameObject);
         }
 

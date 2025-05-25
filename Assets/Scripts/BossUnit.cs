@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BossUnit : MonoBehaviour
 {
+    [SerializeField, Tooltip("ヒットポイント")]
+    private int hitPoint = 12;
+
     [SerializeField, Tooltip("ずらす値")]
     private Vector2 shiftPosition = Vector2.zero;
 
@@ -28,5 +31,16 @@ public class BossUnit : MonoBehaviour
         var pos = myTransform.position;
         pos.x = playerTransform.position.x + shiftPosition.x;
         myTransform.position = pos;
+    }
+
+    public void ApplyDamage(int damage = 1)
+    {
+        hitPoint -= damage;
+        Debug.Log(hitPoint);
+        if(hitPoint <= 0)
+        {
+            //kuria
+            Destroy(gameObject);
+        }
     }
 }

@@ -2304,6 +2304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b712c21e7be074e4993ea7948a01a7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitPoint: 12
   shiftPosition: {x: 15, y: 1}
   bossStockPosRect: {fileID: 4834270572853966518}
 --- !u!1 &1440525293
@@ -3010,6 +3011,7 @@ MonoBehaviour:
   - {fileID: 722642319}
   - {fileID: 1610927756}
   resultUI: {fileID: 2144765358}
+  bossUnit: {fileID: 1348811877}
   bgmMainGameVol: 0.3
   bgmMainGameClip: {fileID: 8300000, guid: 73cf519304a75e940b031d39a32453cc, type: 3}
   bgmTimeAttackVol: 0.3
