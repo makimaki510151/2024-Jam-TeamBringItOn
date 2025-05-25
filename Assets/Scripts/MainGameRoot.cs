@@ -58,6 +58,9 @@ public class MainGameRoot : RootParent
     [SerializeField]
     private RectTransform twoStockOver = null;
 
+    [SerializeField, Tooltip("ボスストック位置")]
+    private RectTransform bossStockPosRect = null;
+
     [SerializeField]
     private RectTransform stockShotPosWater = null;
     [SerializeField]
@@ -255,6 +258,8 @@ public class MainGameRoot : RootParent
         stageSetter.StageSetting();
         playerOneRigidbody2D = stageSetter.GetCharacterOne().GetComponent<Rigidbody2D>();
         playerTwoRigidbody2D = stageSetter.GetCharacterTwo().GetComponent<Rigidbody2D>();
+        cameraOne = cameraOneTransform.GetComponent<Camera>();
+        cameraTwo = cameraTwoTransform.GetComponent<Camera>();
     }
 
     private void Start()
@@ -290,8 +295,6 @@ public class MainGameRoot : RootParent
         isGoals[1] = false;
         cameraPosWater = (Vector2)cameraOneTransform.position - playerOneRigidbody2D.position;
         cameraPosFire = (Vector2)cameraTwoTransform.position - playerTwoRigidbody2D.position;
-        cameraOne = cameraOneTransform.GetComponent<Camera>();
-        cameraTwo = cameraTwoTransform.GetComponent<Camera>();
         playerOne = playerOneRigidbody2D.gameObject.GetComponent<Player>();
         playerTwo = playerTwoRigidbody2D.gameObject.GetComponent<Player>();
         pauseUIObject = pauseUI.gameObject;
@@ -527,6 +530,10 @@ public class MainGameRoot : RootParent
         switch (enemyCharacter)
         {
             case Player.PlayCharacter.One:
+                if (dataScriptableObject.isBoss)
+                {
+                    return bossStockPosRect;
+                }
                 if (oneStockCount < 5)
                 {
                     oneStockCount++;
@@ -572,6 +579,10 @@ public class MainGameRoot : RootParent
         switch (enemyCharacter)
         {
             case Player.PlayCharacter.One:
+                if (dataScriptableObject.isBoss)
+                {
+                    return true;
+                }
                 if (oneStockCount < 5)
                 {
                     return false;

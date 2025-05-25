@@ -15,3 +15,4 @@ MonoBehaviour:
   SeVolSetting: 0.5
   BgmVolSetting: 0.5
   isTutorial: 0
+  isBoss: 1

@@ -435,6 +435,7 @@ public class Player : MonoBehaviour
         {
             IsGroundTrue();
         }
+        // ギミックブロック
         else if (collision.CompareTag("GimmickGround"))
         {
             groundType = collision.GetComponent<GimmickGround>().GroundType;

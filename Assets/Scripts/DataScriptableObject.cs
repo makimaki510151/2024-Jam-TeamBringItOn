@@ -59,6 +59,9 @@ public class DataScriptableObject : ScriptableObject, ISerializationCallbackRece
     //[NonSerialized]
     public bool isTutorial = false;
 
+    //[NonSerialized]
+    public bool isBoss = false;
+
     public void OnAfterDeserialize()
     {
         // Editor上では再生中に変更したScriptableObject内の値が実行終了時に消えない。
