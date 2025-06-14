@@ -827,6 +827,18 @@ public class MainGameRoot : RootParent
 
     public void KilledBoss()
     {
+        StartCoroutine(OnKilledBoss());
+    }
+
+    IEnumerator OnKilledBoss()
+    {
+        Time.timeScale = 0f;
+
+        // 指定した時間だけ停止
+        yield return new WaitForSecondsRealtime(0.75f);
+
+        // ヒットストップの終了
+        Time.timeScale = 1f;
         GoalPlayer(Player.PlayCharacter.One);
     }
 }

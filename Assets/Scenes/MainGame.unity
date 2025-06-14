@@ -2304,9 +2304,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b712c21e7be074e4993ea7948a01a7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoint: 12
-  shiftPosition: {x: 15, y: 1}
+  maxHitPoint: 12
+  maxShiftPosition: {x: 15, y: 1}
+  minShiftPosition: {x: 7, y: 1}
   bossStockPosRect: {fileID: 4834270572853966518}
+  seKilledVol: 1
+  seKilledClip: {fileID: 8300000, guid: dc531d71cfdad0048b248efa45734e76, type: 3}
 --- !u!1 &1440525293
 GameObject:
   m_ObjectHideFlags: 0
