@@ -662,6 +662,8 @@ public class MainGameRoot : RootParent
                 }
                 isGoals[1] = true;
             }
+            playerOne.SetGoal();
+            playerTwo.SetGoal();
 
             StartCoroutine(OnGoalPlayer());
         }
@@ -817,9 +819,14 @@ public class MainGameRoot : RootParent
         }
     }
 
-    public void ApplyDamageBoss(int damage = 1)
+    public void ApplyDamageBoss(int damage)
     {
         if (bossUnit == null) return;
         bossUnit.ApplyDamage(damage);
+    }
+
+    public void KilledBoss()
+    {
+        GoalPlayer(Player.PlayCharacter.One);
     }
 }

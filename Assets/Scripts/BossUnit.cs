@@ -33,13 +33,13 @@ public class BossUnit : MonoBehaviour
         myTransform.position = pos;
     }
 
-    public void ApplyDamage(int damage = 1)
+    public void ApplyDamage(int damage)
     {
         hitPoint -= damage;
         Debug.Log(hitPoint);
         if(hitPoint <= 0)
         {
-            //kuria
+            MainGameRoot.Instance.KilledBoss();
             Destroy(gameObject);
         }
     }

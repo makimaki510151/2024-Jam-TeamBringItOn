@@ -234,6 +234,11 @@ public class Player : MonoBehaviour
         MainGameRoot.Instance.StockEnemyShot(character);
     }
 
+    public void SetGoal()
+    {
+        isGoal = true;
+    }
+
     void Start()
     {
         // コンポーネント取得
@@ -531,7 +536,6 @@ public class Player : MonoBehaviour
         {
             if (!isGoal)
             {
-                isGoal = true;
                 MainGameRoot.Instance.GoalPlayer(character);
             }
         }
