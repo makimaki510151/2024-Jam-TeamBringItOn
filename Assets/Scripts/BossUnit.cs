@@ -21,6 +21,14 @@ public class BossUnit : MonoBehaviour
     [SerializeField]
     private AudioClip seKilledClip = null;
 
+    private enum BossState
+    {
+        Spawning,
+        Charge,
+        Dead,
+    }
+    private BossState bossState = BossState.Spawning;
+
     private Transform playerTransform = null;
 
     private Transform myTransform;
@@ -51,12 +59,18 @@ public class BossUnit : MonoBehaviour
     public void ApplyDamage(int damage)
     {
         hitPoint -= damage;
-        if(!isDead && hitPoint <= 0)
+        // スポーン状態のときHPが0になったら、突進状態に移行する
+        if(bossState == BossState.Spawning && hitPoint <= 0)
         {
-            isDead = true;
+            bossState = BossState.Charge;
             AudioControl.Instance.SetSEVol(seKilledVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
             AudioControl.Instance.PlaySE(seKilledClip, myTransform);
             MainGameRoot.Instance.KilledBoss();
+        }
+        // 突進状態のときなら、死亡状態に移行する
+        else if(bossState == BossState.Charge)
+        {
+            bossState -= BossState.Dead;
         }
     }
 }
