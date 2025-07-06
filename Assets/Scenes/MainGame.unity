@@ -2311,6 +2311,13 @@ MonoBehaviour:
   bossStockPosRect: {fileID: 4834270572853966518}
   acceleration: 2
   chargeReadyTime: 3
+  spawnEnemys:
+  - {fileID: 7393781246745687302, guid: a9153ce654f3f8741925ee9d59f9fe96, type: 3}
+  - {fileID: 2933105722399360539, guid: 043004aea93e1474380c660c921fd64f, type: 3}
+  spawnDelays:
+  - 1
+  - 8
+  spawnPositionRange: {x: -1.2, y: 1.2}
   seKilledVol: 1
   seKilledClip: {fileID: 8300000, guid: dc531d71cfdad0048b248efa45734e76, type: 3}
   bossState: 0

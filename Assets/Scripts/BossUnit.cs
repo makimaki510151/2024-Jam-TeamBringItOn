@@ -22,6 +22,15 @@ public class BossUnit : MonoBehaviour
     [SerializeField, Tooltip("ìÀêièÄîıéûä‘")]
     private float chargeReadyTime = 3;
 
+    [SerializeField, Tooltip("ê∂ê¨Ç∑ÇÈìG")]
+    private List<GameObject> spawnEnemys = new List<GameObject>();
+
+    [SerializeField, Tooltip("ê∂ê¨ïpìx")]
+    private List<float> spawnDelays = new List<float>();
+
+    [SerializeField, Tooltip("ê∂ê¨à íu")]
+    private Vector2 spawnPositionRange = Vector2.zero;
+
     [SerializeField]
     private float seKilledVol = 1.0f;
     [SerializeField]
@@ -48,12 +57,25 @@ public class BossUnit : MonoBehaviour
     private float elapsed = 0;
     private Vector2 readyPosition = Vector2.zero;
     private float result = 0;
+    private List<float> spawnElapseds = new List<float>();
 
     void Start()
     {
         myTransform = transform;
         myCollider2D = GetComponent<Collider2D>();
         playerTransform = MainGameRoot.Instance.playerOneRigidbody2D.transform;
+        for(int i = 0; i < spawnEnemys.Count; i++)
+        {
+            spawnElapseds.Add(0);
+        }
+        if(spawnDelays.Count < spawnElapseds.Count)
+        {
+            var diff = spawnElapseds.Count - spawnDelays.Count;
+            for(int i = 0;i < diff; i++)
+            {
+                spawnDelays.Add(1);
+            }
+        }
 
         hitPoint = maxHitPoint;
         shiftPosition = maxShiftPosition;
@@ -69,6 +91,19 @@ public class BossUnit : MonoBehaviour
         {
             case BossState.Spawning:
                 shiftPosition = Vector2.Lerp(minShiftPosition, maxShiftPosition, (float)hitPoint / maxHitPoint);
+                for(int i = 0; i < spawnEnemys.Count; i++)
+                {
+                    spawnElapseds[i] += Time.deltaTime;
+                    if (spawnElapseds[i] >= spawnDelays[i])
+                    {
+                        spawnElapseds[i] = 0;
+                        var enemy = Instantiate(spawnEnemys[i]);
+                        enemy.transform.position = myTransform.position;
+                        var randPos = enemy.transform.position;
+                        randPos.y += Random.Range(spawnPositionRange.x, spawnPositionRange.y);
+                        enemy.transform.position = randPos;
+                    }
+                }
                 break;
             case BossState.ChargeReady:
                 elapsed += Time.deltaTime;
