@@ -539,6 +539,23 @@ public class Player : MonoBehaviour
                 MainGameRoot.Instance.GoalPlayer(character);
             }
         }
+        // ボスにヒット
+        else if (collision.CompareTag("Boss"))
+        {
+            var boss = collision.GetComponent<BossUnit>();
+
+            // パリィ中なら、キルする
+            if (isParry)
+            {
+                boss.Kill();
+            }
+            // そうでないなら、ノックバックする
+            else
+            {
+                KnockBackPlayer(collision);
+                boss.HitPlayer();
+            }
+        }
     }
     private void IsGroundTrue()
     {

@@ -16,6 +16,12 @@ public class BossUnit : MonoBehaviour
     [SerializeField, Tooltip("ストック位置")]
     private RectTransform bossStockPosRect = null;
 
+    [SerializeField, Tooltip("加速度")]
+    private float acceleration = 0;
+
+    [SerializeField, Tooltip("突進準備時間")]
+    private float chargeReadyTime = 3;
+
     [SerializeField]
     private float seKilledVol = 1.0f;
     [SerializeField]
@@ -24,21 +30,29 @@ public class BossUnit : MonoBehaviour
     private enum BossState
     {
         Spawning,
+        ChargeReady,
         Charge,
         Dead,
     }
+    [SerializeField]
     private BossState bossState = BossState.Spawning;
 
     private Transform playerTransform = null;
+    private Collider2D myCollider2D = null;
 
     private Transform myTransform;
     private bool isDead = false;
     private Vector2 shiftPosition = Vector2.zero;
     private int hitPoint = 0;
+    private float velocity = 0;
+    private float elapsed = 0;
+    private Vector2 readyPosition = Vector2.zero;
+    private float result = 0;
 
     void Start()
     {
         myTransform = transform;
+        myCollider2D = GetComponent<Collider2D>();
         playerTransform = MainGameRoot.Instance.playerOneRigidbody2D.transform;
 
         hitPoint = maxHitPoint;
@@ -49,9 +63,31 @@ public class BossUnit : MonoBehaviour
 
     void Update()
     {
-        shiftPosition = Vector2.Lerp(minShiftPosition, maxShiftPosition, (float)hitPoint / maxHitPoint);
-
         var pos = myTransform.position;
+
+        switch (bossState)
+        {
+            case BossState.Spawning:
+                shiftPosition = Vector2.Lerp(minShiftPosition, maxShiftPosition, (float)hitPoint / maxHitPoint);
+                break;
+            case BossState.ChargeReady:
+                elapsed += Time.deltaTime;
+                shiftPosition = Vector2.Lerp(readyPosition, maxShiftPosition, elapsed / chargeReadyTime);
+                // 指定した時間が経ったら、突進状態に移行する
+                if (elapsed >= chargeReadyTime)
+                {
+                    elapsed = 0;
+                    Debug.Log("突進");
+                    bossState = BossState.Charge;
+                }
+                break;
+            case BossState.Charge:
+                velocity += acceleration * Time.deltaTime;
+                result += velocity * Time.deltaTime;
+                shiftPosition = Vector2.Lerp(maxShiftPosition, Vector2.zero, result);
+                break;
+        }
+
         pos.x = playerTransform.position.x + shiftPosition.x;
         myTransform.position = pos;
     }
@@ -59,18 +95,35 @@ public class BossUnit : MonoBehaviour
     public void ApplyDamage(int damage)
     {
         hitPoint -= damage;
-        // スポーン状態のときHPが0になったら、突進状態に移行する
+        // スポーン状態のときHPが0になったら、突進準備状態に移行する
         if(bossState == BossState.Spawning && hitPoint <= 0)
         {
-            bossState = BossState.Charge;
-            AudioControl.Instance.SetSEVol(seKilledVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
-            AudioControl.Instance.PlaySE(seKilledClip, myTransform);
-            MainGameRoot.Instance.KilledBoss();
+            Debug.Log("突進準備");
+            bossState = BossState.ChargeReady;
+            readyPosition = myTransform.position - playerTransform.position;
         }
-        // 突進状態のときなら、死亡状態に移行する
-        else if(bossState == BossState.Charge)
-        {
-            bossState -= BossState.Dead;
-        }
+    }
+
+    /// <summary>
+    /// 自身をキルする
+    /// </summary>
+    public void Kill()
+    {
+        bossState -= BossState.Dead;
+        myCollider2D.enabled = false;
+        AudioControl.Instance.SetSEVol(seKilledVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seKilledClip, myTransform);
+        MainGameRoot.Instance.KilledBoss();
+    }
+
+    /// <summary>
+    /// プレイヤーに衝突した
+    /// </summary>
+    public void HitPlayer()
+    {
+        velocity = 0;
+        result = 0;
+        readyPosition = myTransform.position - playerTransform.position;
+        bossState = BossState.ChargeReady;
     }
 }
