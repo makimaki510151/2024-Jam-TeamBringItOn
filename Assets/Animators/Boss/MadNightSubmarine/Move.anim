@@ -24,8 +24,8 @@ AnimationClip:
         outSlope: {x: 0, y: 0, z: -360}
         tangentMode: 0
         weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 1
         value: {x: 0, y: 0, z: -360}
@@ -33,12 +33,12 @@ AnimationClip:
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
-        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
-        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: MadNightSubmarinescrewA
+    path: Model/MadNightSubmarinescrewA
   m_PositionCurves:
   - curve:
       serializedVersion: 2
@@ -73,7 +73,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: MadNightSubmarineperiscope
+    path: Model/MadNightSubmarineperiscope
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves:
@@ -100,7 +100,7 @@ AnimationClip:
     - time: 0.9
       value: {fileID: 21300000, guid: b336e63631958014b9b8d724683e2012, type: 3}
     attribute: m_Sprite
-    path: MadNightSubmarinescrewB1
+    path: Model/MadNightSubmarinescrewB1
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -112,7 +112,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2650880836
+      path: 159260009
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -121,7 +121,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 3527762697
+      path: 757642571
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -130,7 +130,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 3523166643
+      path: 1238502617
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -187,7 +187,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: MadNightSubmarineperiscope
+    path: Model/MadNightSubmarineperiscope
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -226,7 +226,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: MadNightSubmarineperiscope
+    path: Model/MadNightSubmarineperiscope
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -247,7 +247,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: MadNightSubmarineperiscope
+    path: Model/MadNightSubmarineperiscope
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -262,13 +262,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: MadNightSubmarinescrewA
+    path: Model/MadNightSubmarinescrewA
     classID: 4
     script: {fileID: 0}
     flags: 16
@@ -283,13 +283,13 @@ AnimationClip:
         outSlope: 0
         tangentMode: 136
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: MadNightSubmarinescrewA
+    path: Model/MadNightSubmarinescrewA
     classID: 4
     script: {fileID: 0}
     flags: 16
@@ -319,7 +319,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: MadNightSubmarinescrewA
+    path: Model/MadNightSubmarinescrewA
     classID: 4
     script: {fileID: 0}
     flags: 16
@@ -332,7 +332,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: MadNightSubmarinescrewA
+    path: Model/MadNightSubmarinescrewA
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -344,7 +344,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: MadNightSubmarinescrewA
+    path: Model/MadNightSubmarinescrewA
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -356,7 +356,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: MadNightSubmarinescrewA
+    path: Model/MadNightSubmarinescrewA
     classID: 4
     script: {fileID: 0}
     flags: 0

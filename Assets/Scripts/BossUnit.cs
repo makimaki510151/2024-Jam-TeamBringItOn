@@ -31,6 +31,11 @@ public class BossUnit : MonoBehaviour
     [SerializeField, Tooltip("生成位置")]
     private Vector2 spawnPositionRange = Vector2.zero;
 
+    [SerializeField, Tooltip("アニメーター")]
+    private Animator myAnimator = null;
+
+    static readonly int isDamageId = Animator.StringToHash("isDamage");
+
     [SerializeField]
     private float seKilledVol = 1.0f;
     [SerializeField]
@@ -137,6 +142,7 @@ public class BossUnit : MonoBehaviour
             bossState = BossState.ChargeReady;
             readyPosition = myTransform.position - playerTransform.position;
         }
+        myAnimator.SetTrigger(isDamageId);
     }
 
     /// <summary>
