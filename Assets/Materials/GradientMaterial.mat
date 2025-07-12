@@ -61,13 +61,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BottomAlpha: 1
+    - _BottomAlpha: 0.6
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FadeRange: 0.25
-    - _FadeStart: 0
+    - _FadeRange: 0.15
+    - _FadeStart: 0.1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
