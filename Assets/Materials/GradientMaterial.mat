@@ -55,6 +55,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _OverlayTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -66,8 +70,14 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FadeBottom: 0
+    - _FadeBottomRange: 0.2
+    - _FadeEdge: 0.3
     - _FadeRange: 0.15
     - _FadeStart: 0.1
+    - _FadeStrength: 0.584
+    - _FadeTop: 1
+    - _FadeTopRange: 0.2
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -79,6 +89,8 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TopAlpha: 0
+    - _TransparentCenter: 0.5
+    - _TransparentRange: 0.6
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:

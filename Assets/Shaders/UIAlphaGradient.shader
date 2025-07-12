@@ -1,18 +1,19 @@
-Shader "UI/AlphaGradient"
+ï»¿Shader "UI/AlphaGradient"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
-        _Color ("Color Tint", Color) = (1,1,1,1)
-        _TopAlpha ("Top Alpha", Range(0,1)) = 1
-        _BottomAlpha ("Bottom Alpha", Range(0,1)) = 0
-        _FadeStart ("Fade Start (0=bottom, 1=top)", Range(0,1)) = 0.0
-        _FadeRange ("Fade Range", Range(0.01,1)) = 0.5
+        _MainTex ("Main Texture", 2D) = "white" {}         // èƒŒæ™¯ç”»åƒ
+        _OverlayTex ("Overlay Texture", 2D) = "white" {}   // é‡ã­ã‚‹ç”»åƒ
+        _Color ("Tint", Color) = (1,1,1,1)
+
+        _TransparentCenter ("Transparent Center", Range(0,1)) = 0.5
+        _TransparentRange ("Transparent Range", Range(0.01,1)) = 0.3
+        _FadeEdge ("Fade Edge Width", Range(0.01,1)) = 0.2
     }
 
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
+        Tags { "Queue"="Transparent" "RenderType"="Transparent" }
         LOD 100
 
         Blend SrcAlpha OneMinusSrcAlpha
@@ -27,13 +28,14 @@ Shader "UI/AlphaGradient"
             #include "UnityCG.cginc"
 
             sampler2D _MainTex;
+            sampler2D _OverlayTex;
             float4 _MainTex_ST;
-            fixed4 _Color;
+            float4 _OverlayTex_ST;
 
-            float _TopAlpha;
-            float _BottomAlpha;
-            float _FadeStart;
-            float _FadeRange;
+            float4 _Color;
+            float _TransparentCenter;
+            float _TransparentRange;
+            float _FadeEdge;
 
             struct appdata
             {
@@ -47,26 +49,34 @@ Shader "UI/AlphaGradient"
                 float4 vertex : SV_POSITION;
             };
 
-            v2f vert (appdata v)
+            v2f vert(appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex); // UV ã¯ Main/Overlay å…±é€š
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
-                fixed4 texColor = tex2D(_MainTex, i.uv) * _Color;
+                float2 uv = i.uv;
 
-                // ƒOƒ‰ƒf[ƒVƒ‡ƒ“‚Ì‰e‹¿”ÍˆÍ‚ğŒvZ
-                float fadeT = saturate((1.0 - i.uv.y - _FadeStart) / _FadeRange);
+                // èƒŒæ™¯ãƒ»ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤ãƒ†ã‚¯ã‚¹ãƒãƒ£å–å¾—
+                fixed4 baseCol = tex2D(_MainTex, uv);
+                fixed4 overlayCol = tex2D(_OverlayTex, uv);
 
-                // ƒAƒ‹ƒtƒ@’l‚ğƒOƒ‰ƒf[ƒVƒ‡ƒ“‚Å•âŠÔ
-                float alpha = lerp(_BottomAlpha, _TopAlpha, fadeT);
-                texColor.a *= alpha;
+                // é€æ˜åº¦ã®å…±é€šè¨ˆç®—ï¼ˆä¸­å¿ƒãŒé€æ˜ï¼‰
+                float dist = abs(uv.y - _TransparentCenter);
+                float inner = _TransparentRange / 2.0;
+                float outer = inner + _FadeEdge;
+                float fadeAlpha = saturate((dist - inner) / _FadeEdge); // 0=é€æ˜, 1=ä¸é€æ˜
 
-                return texColor;
+                // èƒŒæ™¯ + ã‚ªãƒ¼ãƒãƒ¼ãƒ¬ã‚¤åˆæˆï¼ˆä¸¡æ–¹ã«ãƒ•ã‚§ãƒ¼ãƒ‰ã‚’é©ç”¨ï¼‰
+                fixed4 finalCol = baseCol + overlayCol;
+                finalCol *= _Color;
+                finalCol.a *= fadeAlpha;
+
+                return finalCol;
             }
             ENDCG
         }
