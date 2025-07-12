@@ -49,6 +49,9 @@ public class MainGameRoot : RootParent
     [SerializeField, Tooltip("オプションで選択するボタン")]
     private Button settingSelectButton = null;
 
+    [SerializeField, Tooltip("パリィストック")]
+    private GameObject parryStock = null;
+
     [SerializeField]
     private List<RectTransform> oneStocks = new();
     [SerializeField]
@@ -149,7 +152,11 @@ public class MainGameRoot : RootParent
 
     private int goalCount = 0;
 
+    [Header("ボス")]
+
     [SerializeField, Tooltip("ボス")]
+    private GameObject bossPrefab = null;
+
     private BossUnit bossUnit = null;
 
     [Header("音関係")]
@@ -342,6 +349,13 @@ public class MainGameRoot : RootParent
                 oneStockCount = 5;
                 isPlayerOne = true;
             }
+        }
+
+        // ボス戦なら、いろいろやる
+        if (dataScriptableObject.isBoss)
+        {
+            bossUnit = Instantiate(bossPrefab).GetComponent<BossUnit>();
+            parryStock.SetActive(false);
         }
     }
 
