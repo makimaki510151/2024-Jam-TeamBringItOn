@@ -60,7 +60,7 @@ public class WaterSpecial : PlayerSpecial
                 var pos = go.transform.position;
                 pos = transform.position;
                 pos.x -= 2;
-                pos.y = shotPosY + Random.Range(0, 4.0f);
+                pos.y = shotPosY + Random.Range(0, 3.0f);
                 go.transform.position = pos;
                 TorpedoController torped = go.GetComponent<TorpedoController>();
                 torped.Init(player);

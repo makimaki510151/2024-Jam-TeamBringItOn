@@ -395,8 +395,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 8937252802067332123}
   torpedoPrefab: {fileID: 7393781246745687302, guid: 0a33ed1790df3ed41b365d462cfa3357, type: 3}
-  shotNum: 10
+  shotNum: 20
   shotTime: 3
+  shotPosY: 0
 --- !u!1 &2110931664351060974
 GameObject:
   m_ObjectHideFlags: 0
