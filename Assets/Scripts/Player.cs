@@ -84,6 +84,11 @@ public class Player : MonoBehaviour
     private float frozenTimer = 0;
     public bool isFrozen { get; private set; }
 
+    [Header("必殺の一撃設定")]
+
+    [SerializeField, Tooltip("必殺の一撃")]
+    private PlayerSpecial playerSpecial = null;
+
     [Header("その他設定")]
 
     [SerializeField, Tooltip("ダメージエフェクト")]
@@ -171,6 +176,7 @@ public class Player : MonoBehaviour
     private bool isTransparent = false;     // 点滅用
     private bool isSolidColor = false;
     private bool isGoal = false;
+    public bool isReadySpecial { get; set; }
     public bool isHigherPlayer { get; private set; }
 
     private GameObject enemyObject = null;
@@ -239,6 +245,11 @@ public class Player : MonoBehaviour
         isGoal = true;
     }
 
+    public void ActiveSpecial()
+    {
+        playerSpecial.StartSpecial();
+    }
+
     void Start()
     {
         // コンポーネント取得
@@ -254,6 +265,8 @@ public class Player : MonoBehaviour
         iceTransform.localScale = vector2zero;
         isGround = false;
         isHigherPlayer = true;
+
+        playerSpecial.Init();
     }
 
     void Update()

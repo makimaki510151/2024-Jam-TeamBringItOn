@@ -85,14 +85,17 @@ public class StockUI : MonoBehaviour
     {
         myRectTransform = GetComponent<RectTransform>();
         myImage = GetComponent<Image>();
+        canvasTransform = GameObject.Find("Canvas").transform;
 
         nomalSize.x = myRectTransform.sizeDelta.x;
         nomalSize.y = myRectTransform.sizeDelta.y;
-        startPos = myRectTransform.position;
-        myDie = MainGameRoot.Instance.GetStockDie(character);
-        targetRectTransform = MainGameRoot.Instance.GetStockUIPos(character, this);
-        targetPos = targetRectTransform.position;
-        canvasTransform = GameObject.Find("Canvas").transform;
+        if (!isShot)
+        {
+            startPos = myRectTransform.position;
+            myDie = MainGameRoot.Instance.GetStockDie(character);
+            targetRectTransform = MainGameRoot.Instance.GetStockUIPos(character, this);
+            targetPos = targetRectTransform.position;
+        }
     }
 
     // Update is called once per frame
@@ -181,6 +184,9 @@ public class StockUI : MonoBehaviour
 
     public void StockShot(Vector3 vector3, Player.PlayCharacter character)
     {
+        if (myRectTransform == null) myRectTransform = GetComponent<RectTransform>();
+        if(myImage == null) myImage = GetComponent<Image>();
+
         AudioControl.Instance.SetSEVol(seParryLauncherVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
         AudioControl.Instance.PlaySE(seParryLauncherClip);
 
@@ -195,6 +201,7 @@ public class StockUI : MonoBehaviour
         myImage.enabled = false;
 
         Vector2 myPosition = myRectTransform.position;
+        if(canvasTransform == null) canvasTransform = GameObject.Find("Canvas").transform;
         transform.SetParent(canvasTransform, false);
         myRectTransform.position = myPosition;
 

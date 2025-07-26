@@ -77,10 +77,9 @@ public class MainGameRoot : RootParent
     [SerializeField, Tooltip("ボスストック位置")]
     private RectTransform bossStockPosRect = null;
 
-    [SerializeField]
-    private RectTransform stockShotPosWater = null;
-    [SerializeField]
-    private RectTransform stockShotPosFire = null;
+    public RectTransform stockShotPosWater = null;
+
+    public RectTransform stockShotPosFire = null;
     //[SerializeField]
     //private GameObject stageWaterEnemysObject = null;
     //[SerializeField]
@@ -575,6 +574,10 @@ public class MainGameRoot : RootParent
                 if (oneStockCount < MAX_STOCK)
                 {
                     oneStockCount++;
+                    if (oneStockCount >= MAX_STOCK)
+                    {
+                        playerOne.isReadySpecial = true;
+                    }
                     SetStockNum(character);
                     stockUIsWater.Add(myStock);
                     // UIが空いていれば、枠内に入れる
@@ -598,6 +601,10 @@ public class MainGameRoot : RootParent
                 if (twoStockCount < MAX_STOCK)
                 {
                     twoStockCount++;
+                    if (twoStockCount >= MAX_STOCK)
+                    {
+                        playerTwo.isReadySpecial = true;
+                    }
                     SetStockNum(character);
                     stockUIsFire.Add(myStock);
                     // UIが空いていれば、枠内に入れる
@@ -845,22 +852,56 @@ public class MainGameRoot : RootParent
             case Player.PlayCharacter.One:
                 if (oneStockCount > 0)
                 {
-                    oneStockCount--;
-                    SetStockNum(character);
-                    tempVector3 = cameraTwo.ScreenToWorldPoint(stockShotPosFire.position);
-                    stockUIsWater[oneStockCount].StockShot(tempVector3, character);
-                    stockUIsWater.Remove(stockUIsWater[oneStockCount]);
+                    // 最大まで溜まっていれば、必殺の一撃を使用する
+                    if(oneStockCount >= MAX_STOCK)
+                    {
+                        for(int i = 0; i < MAX_STOCK; i++)
+                        {
+                            Destroy(stockUIsWater[i].gameObject);
+                        }
+                        oneStockCount = 0;
+                        SetStockNum(Player.PlayCharacter.One);
+                        stockUIsWater.Clear();
+
+                        playerOne.ActiveSpecial();
+                    }
+                    // 溜まっていなければ、敵を飛ばす
+                    else
+                    {
+                        oneStockCount--;
+                        SetStockNum(character);
+                        tempVector3 = cameraTwo.ScreenToWorldPoint(stockShotPosFire.position);
+                        stockUIsWater[oneStockCount].StockShot(tempVector3, character);
+                        stockUIsWater.Remove(stockUIsWater[oneStockCount]);
+                    }
                 }
                 break;
             case Player.PlayCharacter.Two:
             default:
                 if (twoStockCount > 0)
                 {
-                    twoStockCount--;
-                    SetStockNum(character);
-                    tempVector3 = cameraOne.ScreenToWorldPoint(stockShotPosWater.position);
-                    stockUIsFire[twoStockCount].StockShot(tempVector3, character);
-                    stockUIsFire.Remove(stockUIsFire[twoStockCount]);
+                    // 最大まで溜まっていれば、必殺の一撃を使用する
+                    if (twoStockCount >= MAX_STOCK)
+                    {
+                        for (int i = 0; i < MAX_STOCK; i++)
+                        {
+                            Destroy(stockUIsFire[i].gameObject);
+                        }
+                        twoStockCount = 0;
+                        SetStockNum(Player.PlayCharacter.Two);
+                        stockUIsFire.Clear();
+
+                        playerTwo.ActiveSpecial();
+                    }
+                    // 溜まっていなければ、敵を飛ばす
+                    else
+                    {
+                        twoStockCount--;
+                        SetStockNum(character);
+                        tempVector3 = cameraOne.ScreenToWorldPoint(stockShotPosWater.position);
+                        stockUIsFire[twoStockCount].StockShot(tempVector3, character);
+                        stockUIsFire.Remove(stockUIsFire[twoStockCount]);
+                    }
                 }
                 break;
         }

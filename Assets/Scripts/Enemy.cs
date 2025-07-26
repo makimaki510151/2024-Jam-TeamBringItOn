@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using static UnityEditor.SceneView;
 
 public class Enemy : MonoBehaviour
 {
@@ -356,6 +358,38 @@ public class Enemy : MonoBehaviour
                 tempObject = Instantiate(myUI, tempVector3, Quaternion.identity);
                 tempObject.GetComponent<StockUI>().character = playCharacter;
                 tempObject.transform.SetParent(MainGameRoot.Instance.GetCanvas().GetComponent<RectTransform>());
+                Destroy(gameObject);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// íºê⁄ÉpÉäÉBñCÇ…Ç∑ÇÈ
+    /// </summary>
+    public void DirectShot(Player.PlayCharacter playCharacter)
+    {
+        StockUI stock;
+
+        switch (playCharacter)
+        {
+            case Player.PlayCharacter.One:
+                tempVector3 = MainGameRoot.Instance.cameraOne.WorldToScreenPoint(myTransform.position);
+                tempObject = Instantiate(myUI, tempVector3, Quaternion.identity);
+                stock = tempObject.GetComponent<StockUI>();
+                stock.character = playCharacter;
+                tempObject.transform.SetParent(MainGameRoot.Instance.GetCanvas().GetComponent<RectTransform>());
+                tempVector3 = MainGameRoot.Instance.cameraTwo.ScreenToWorldPoint(MainGameRoot.Instance.stockShotPosFire.position);
+                stock.StockShot(tempVector3, playCharacter);
+                Destroy(gameObject);
+                break;
+            case Player.PlayCharacter.Two:
+                tempVector3 = MainGameRoot.Instance.cameraTwo.WorldToScreenPoint(myTransform.position);
+                tempObject = Instantiate(myUI, tempVector3, Quaternion.identity);
+                stock = tempObject.GetComponent<StockUI>();
+                stock.character = playCharacter;
+                tempObject.transform.SetParent(MainGameRoot.Instance.GetCanvas().GetComponent<RectTransform>());
+                tempVector3 = MainGameRoot.Instance.cameraOne.ScreenToWorldPoint(MainGameRoot.Instance.stockShotPosWater.position);
+                stock.StockShot(tempVector3, playCharacter);
                 Destroy(gameObject);
                 break;
         }
