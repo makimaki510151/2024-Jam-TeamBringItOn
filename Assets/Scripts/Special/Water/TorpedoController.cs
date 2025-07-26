@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class TorpedoController : MonoBehaviour
 {
@@ -21,7 +18,7 @@ public class TorpedoController : MonoBehaviour
         this.player = player;
         myRigidbody2D = GetComponent<Rigidbody2D>();
         myTransform = transform;
-        mySpriteRenderer = GetComponent<SpriteRenderer>();
+        mySpriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void Shot()

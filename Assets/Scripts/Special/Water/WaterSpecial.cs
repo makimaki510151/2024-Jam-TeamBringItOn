@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WaterSpecial : PlayerSpecial
@@ -61,6 +59,7 @@ public class WaterSpecial : PlayerSpecial
                 var go = Instantiate(torpedoPrefab);
                 var pos = go.transform.position;
                 pos = transform.position;
+                pos.x -= 2;
                 pos.y = shotPosY + Random.Range(0, 4.0f);
                 go.transform.position = pos;
                 TorpedoController torped = go.GetComponent<TorpedoController>();
