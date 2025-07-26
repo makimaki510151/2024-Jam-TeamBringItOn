@@ -33,6 +33,7 @@ public class WaterSpecial : PlayerSpecial
     public override void StartSpecial()
     {
         base.StartSpecial();
+        MainGameRoot.Instance.ShowSpecialAnimator(player.character, 0);
     }
 
     public override void EndSpecial()
@@ -40,6 +41,7 @@ public class WaterSpecial : PlayerSpecial
         base.EndSpecial();
         shotElapsed = 0;
         shotIntervalElapsed = 0;
+        MainGameRoot.Instance.EndSpecialAnimator(player.character, 0);
     }
 
     void Update()

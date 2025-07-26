@@ -173,6 +173,17 @@ public class MainGameRoot : RootParent
 
     private BossUnit bossUnit = null;
 
+    [Header("必殺の一撃")]
+
+    [SerializeField, Tooltip("アニメーター")]
+    private List<Animator> specialAnimatorsOne = new List<Animator>();
+
+    [SerializeField, Tooltip("アニメーター")]
+    private List<Animator> specialAnimatorsTwo = new List<Animator>();
+
+    static readonly int isSpecialShowId = Animator.StringToHash("isShow");
+    static readonly int isSpecialEndId = Animator.StringToHash("isEnd");
+
     [Header("音関係")]
     [SerializeField]
     private float bgmMainGameVol = 1.0f;
@@ -940,5 +951,27 @@ public class MainGameRoot : RootParent
         // ヒットストップの終了
         Time.timeScale = 1f;
         GoalPlayer(Player.PlayCharacter.One);
+    }
+
+    /// <summary>
+    /// 必殺の一撃アニメーションを開始する
+    /// </summary>
+    public void ShowSpecialAnimator(Player.PlayCharacter character, int index)
+    {
+        // 0 : 水の精
+        // 1 : 火の精
+        List<Animator> animators = character == Player.PlayCharacter.One ? specialAnimatorsOne : specialAnimatorsTwo;
+        animators[index].SetTrigger(isSpecialShowId);
+    }
+
+    /// <summary>
+    /// 必殺の一撃アニメーションを終了する
+    /// </summary>
+    public void EndSpecialAnimator(Player.PlayCharacter character, int index)
+    {
+        // 0 : 水の精
+        // 1 : 火の精
+        List<Animator> animators = character == Player.PlayCharacter.One ? specialAnimatorsOne : specialAnimatorsTwo;
+        animators[index].SetTrigger(isSpecialEndId);
     }
 }

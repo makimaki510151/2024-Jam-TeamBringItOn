@@ -108,9 +108,6 @@ public class Player : MonoBehaviour
     private float isGroundTimer = 0.5f;
     private float isGroundTime = 0;
 
-    [SerializeField, Tooltip("アニメーター")]
-    private Animator myAnimator = null;
-
     [SerializeField]
     private float skateboardBuffPower = 1.3f;
     private float skateboardBuffContainer = 1;
@@ -125,6 +122,11 @@ public class Player : MonoBehaviour
 
     [SerializeField, Tooltip("敵を消滅させるヒット数")]
     private int hitEnemyCountDestroy = 3;
+
+    [Header("アニメーション設定")]
+
+    [SerializeField, Tooltip("キャラクターアニメーター")]
+    private Animator myAnimator = null;
 
     [Header("音関係")]
     [SerializeField]
