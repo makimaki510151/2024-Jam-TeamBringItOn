@@ -10219,7 +10219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b712c21e7be074e4993ea7948a01a7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoint: 999
+  maxHitPoint: 30
   maxShiftPosition: {x: 15, y: 1.5}
   minShiftPosition: {x: 7, y: 1.5}
   bossStockPosRect: {fileID: 2951342041909332385}
