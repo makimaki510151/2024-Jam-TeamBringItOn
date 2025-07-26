@@ -1,15 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class MainGameRoot : RootParent
 {
+    private const int MAX_STOCK = 10;
+    private const int MAX_STOCK_UI = 5;
+
     [SerializeField]
     private EventSystem eventSystem = null;
     [SerializeField]
@@ -52,6 +57,8 @@ public class MainGameRoot : RootParent
     [SerializeField, Tooltip("パリィストック")]
     private GameObject parryStock = null;
 
+    [Header("パリィストック")]
+
     [SerializeField]
     private List<RectTransform> oneStocks = new();
     [SerializeField]
@@ -60,6 +67,12 @@ public class MainGameRoot : RootParent
     private List<RectTransform> twoStocks = new();
     [SerializeField]
     private RectTransform twoStockOver = null;
+
+    [SerializeField, Tooltip("1Pのパリィストック数")]
+    private TextMeshProUGUI oneStockNumText = null;
+
+    [SerializeField, Tooltip("2Pのパリィストック数")]
+    private TextMeshProUGUI twoStockNumText = null;
 
     [SerializeField, Tooltip("ボスストック位置")]
     private RectTransform bossStockPosRect = null;
@@ -91,6 +104,8 @@ public class MainGameRoot : RootParent
 
     public Transform goalTransformOne = null;
     public Transform goalTransformTwo = null;
+
+    [Header("アイコン")]
 
     [SerializeField]
     private RectTransform iconOneRectTransform = null;
@@ -351,6 +366,10 @@ public class MainGameRoot : RootParent
             }
         }
 
+        // パリィストック数を初期化
+        SetStockNum(Player.PlayCharacter.One);
+        SetStockNum(Player.PlayCharacter.Two);
+
         // ボス戦なら、いろいろやる
         if (dataScriptableObject.isBoss)
         {
@@ -542,52 +561,59 @@ public class MainGameRoot : RootParent
         }
     }
 
-    public RectTransform GetStockUIPos(Player.PlayCharacter enemyCharacter, StockUI myStock)
+    public RectTransform GetStockUIPos(Player.PlayCharacter character, StockUI myStock)
     {
-        switch (enemyCharacter)
+        switch (character)
         {
             case Player.PlayCharacter.One:
+                // ボス戦なら、ボスに飛ばす
                 if (dataScriptableObject.isBoss)
                 {
                     return bossStockPosRect;
                 }
-                if (oneStockCount < 5)
+                // ストックが空いているなら、ストックに入れる
+                if (oneStockCount < MAX_STOCK)
                 {
                     oneStockCount++;
+                    SetStockNum(character);
                     stockUIsWater.Add(myStock);
-                    return oneStocks[oneStockCount - 1];
+                    // UIが空いていれば、枠内に入れる
+                    if(oneStockCount <= MAX_STOCK_UI)
+                    {
+                        return oneStocks[oneStockCount - 1];
+                    }
+                    else
+                    {
+                        return oneStockOver;
+                    }
                 }
-                else if (isPlayerOne)
-                {
-                    return oneStockOver;
-                }
+                // ストックが空いていない
                 else
                 {
                     return oneStockOver;
-                    //StockEnemyShot(enemyCharacter);
-                    //waterStockCount++;
-                    //stockUIsWater.Add(myStock);
-                    //return waterStocks[waterStockCount - 1].position;
                 }
             case Player.PlayCharacter.Two:
             default:
-                if (twoStockCount < 5)
+                // ストックが空いているなら、ストックに入れる
+                if (twoStockCount < MAX_STOCK)
                 {
                     twoStockCount++;
+                    SetStockNum(character);
                     stockUIsFire.Add(myStock);
-                    return twoStocks[twoStockCount - 1];
+                    // UIが空いていれば、枠内に入れる
+                    if (twoStockCount <= MAX_STOCK_UI)
+                    {
+                        return twoStocks[twoStockCount - 1];
+                    }
+                    else
+                    {
+                        return twoStockOver;
+                    }
                 }
-                else if (isPlayerOne)
-                {
-                    return twoStockOver;
-                }
+                // ストックが空いていない
                 else
                 {
                     return twoStockOver;
-                    //StockEnemyShot(enemyCharacter);
-                    //twoStockCount++;
-                    //stockUIsFire.Add(myStock);
-                    //return fireStocks[twoStockCount - 1].position;
                 }
         }
     }
@@ -600,7 +626,7 @@ public class MainGameRoot : RootParent
                 {
                     return true;
                 }
-                if (oneStockCount < 5)
+                if (oneStockCount < MAX_STOCK)
                 {
                     return false;
                 }
@@ -610,7 +636,7 @@ public class MainGameRoot : RootParent
                 }
             case Player.PlayCharacter.Two:
             default:
-                if (twoStockCount < 5)
+                if (twoStockCount < MAX_STOCK)
                 {
                     return false;
                 }
@@ -632,6 +658,23 @@ public class MainGameRoot : RootParent
                 return twoStockCount;
         }
     }
+
+    /// <summary>
+    /// パリィストック数を設定する
+    /// </summary>
+    private void SetStockNum(Player.PlayCharacter character)
+    {
+        switch (character)
+        {
+            case Player.PlayCharacter.One:
+                oneStockNumText.SetText(oneStockCount.ToString());
+                break;
+            case Player.PlayCharacter.Two:
+                twoStockNumText.SetText(twoStockCount.ToString());
+                break;
+        }
+    }
+
     public GameObject GetCanvas()
     {
         return canvasObject;
@@ -790,21 +833,22 @@ public class MainGameRoot : RootParent
         StartCoroutine(OnGoalPlayer());
     }
 
-    public void StockEnemyShot(Player.PlayCharacter playCharacter)
+    public void StockEnemyShot(Player.PlayCharacter character)
     {
         if (isPlayerOne)
         {
             return;
         }
 
-        switch (playCharacter)
+        switch (character)
         {
             case Player.PlayCharacter.One:
                 if (oneStockCount > 0)
                 {
                     oneStockCount--;
+                    SetStockNum(character);
                     tempVector3 = cameraTwo.ScreenToWorldPoint(stockShotPosFire.position);
-                    stockUIsWater[oneStockCount].StockShot(tempVector3, playCharacter);
+                    stockUIsWater[oneStockCount].StockShot(tempVector3, character);
                     stockUIsWater.Remove(stockUIsWater[oneStockCount]);
                 }
                 break;
@@ -813,8 +857,9 @@ public class MainGameRoot : RootParent
                 if (twoStockCount > 0)
                 {
                     twoStockCount--;
+                    SetStockNum(character);
                     tempVector3 = cameraOne.ScreenToWorldPoint(stockShotPosWater.position);
-                    stockUIsFire[twoStockCount].StockShot(tempVector3, playCharacter);
+                    stockUIsFire[twoStockCount].StockShot(tempVector3, character);
                     stockUIsFire.Remove(stockUIsFire[twoStockCount]);
                 }
                 break;
