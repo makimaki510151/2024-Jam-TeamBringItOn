@@ -377,7 +377,6 @@ public class MainGameRoot : RootParent
             iconTwoRectTransform.gameObject.SetActive(false);
             if(!dataScriptableObject.isTutorial)
             {
-                oneStockCount = 5;
                 isPlayerOne = true;
             }
         }
@@ -584,6 +583,11 @@ public class MainGameRoot : RootParent
         switch (character)
         {
             case Player.PlayCharacter.One:
+                if (isPlayerOne)
+                {
+                    return oneStockOver;
+                }
+
                 // ボス戦なら、ボスに飛ばす
                 if (dataScriptableObject.isBoss)
                 {
