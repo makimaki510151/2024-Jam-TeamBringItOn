@@ -33,6 +33,11 @@ public class AttributeNessSpecial : PlayerSpecial
         groundPosY = transform.position.y;
     }
 
+    public override void SetSpecialAttackReadyUI(bool isActive)
+    {
+        MainGameRoot.Instance.SetSpecialAttackUI(player.character, 2, isActive);
+    }
+
     public override void StartSpecial()
     {
         base.StartSpecial();

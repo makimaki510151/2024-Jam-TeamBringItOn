@@ -7,6 +7,11 @@ public abstract class PlayerSpecial : MonoBehaviour
     [SerializeField, Tooltip("ÉvÉåÉCÉÑÅ[")]
     protected Player player;
 
+    [SerializeField]
+    private float seActivationVol = 1.0f;
+    [SerializeField]
+    private AudioClip seActivationClip = null;
+
     protected bool isActive = false;
 
     /// <summary>
@@ -14,7 +19,12 @@ public abstract class PlayerSpecial : MonoBehaviour
     /// </summary>
     public virtual void Init()
     {
+        SetSpecialAttackReadyUI(false);
+    }
 
+    public virtual void SetSpecialAttackReadyUI(bool isActive)
+    {
+        //MainGameRoot.Instance.SetSpecialAttackUI(player.character, 0, isActive);
     }
 
     /// <summary>
@@ -23,6 +33,9 @@ public abstract class PlayerSpecial : MonoBehaviour
     public virtual void StartSpecial()
     {
         isActive = true;
+        AudioControl.Instance.SetSEVol(seActivationVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+        AudioControl.Instance.PlaySE(seActivationClip, transform);
+        SetSpecialAttackReadyUI(true);
     }
 
     /// <summary>
@@ -31,5 +44,6 @@ public abstract class PlayerSpecial : MonoBehaviour
     public virtual void EndSpecial()
     {
         isActive = false;
+        SetSpecialAttackReadyUI(false);
     }
 }

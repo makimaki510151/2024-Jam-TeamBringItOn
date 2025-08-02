@@ -32,6 +32,11 @@ public class FireSpecial : PlayerSpecial
         groundPosY = transform.position.y;
     }
 
+    public override void SetSpecialAttackReadyUI(bool isActive)
+    {
+        MainGameRoot.Instance.SetSpecialAttackUI(player.character, 1, isActive);
+    }
+
     public override void StartSpecial()
     {
         base.StartSpecial();

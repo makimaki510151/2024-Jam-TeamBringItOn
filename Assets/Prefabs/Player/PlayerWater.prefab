@@ -201,9 +201,9 @@ MonoBehaviour:
   playerSpecial: {fileID: 2477424336299629217}
   damageEffectPrafab: {fileID: 6183618379449110894, guid: cae42cd967a5e6049a1039476d8080f5, type: 3}
   invincibleTime: 0.5
+  invincibleTimer: 0
   transparentColor: {r: 1, g: 1, b: 1, a: 0.25}
   isGroundTimer: 0.5
-  myAnimator: {fileID: 9107156088037239742}
   skateboardBuffPower: 1.9
   skateboardTime: 3
   groundLayerMask:
@@ -211,6 +211,7 @@ MonoBehaviour:
     m_Bits: 512
   maxDistance: 0.625
   hitEnemyCountDestroy: 2
+  myAnimator: {fileID: 9107156088037239742}
   seParryVol: 1
   seParryClip: {fileID: 8300000, guid: a77d17f255c5a3d43aa0fb519953c3a1, type: 3}
   seJumpVol: 0.5
@@ -394,6 +395,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8937252802067332123}
+  seActivationVol: 1
+  seActivationClip: {fileID: 8300000, guid: d45ccd5dbaaa5244b905ee9bc69e2201, type: 3}
   torpedoPrefab: {fileID: 7393781246745687302, guid: 0a33ed1790df3ed41b365d462cfa3357, type: 3}
   shotNum: 20
   shotTime: 3

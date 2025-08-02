@@ -30,6 +30,11 @@ public class WaterSpecial : PlayerSpecial
         shotPosY = transform.position.y;
     }
 
+    public override void SetSpecialAttackReadyUI(bool isActive)
+    {
+        MainGameRoot.Instance.SetSpecialAttackUI(player.character, 0, isActive);
+    }
+
     public override void StartSpecial()
     {
         base.StartSpecial();

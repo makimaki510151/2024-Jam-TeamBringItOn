@@ -667,4 +667,9 @@ public class Player : MonoBehaviour
             parryTime = parryTimeForLowerRank;
         }
     }
+
+    public void ShowSpecialAttackReadyUI()
+    {
+        playerSpecial.SetSpecialAttackReadyUI(true);
+    }
 }

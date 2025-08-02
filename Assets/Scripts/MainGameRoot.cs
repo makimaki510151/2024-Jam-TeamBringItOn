@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 public class MainGameRoot : RootParent
 {
-    private const int MAX_STOCK = 10;
+    public const int MAX_STOCK = 10;
     private const int MAX_STOCK_UI = 5;
 
     [SerializeField]
@@ -85,7 +85,7 @@ public class MainGameRoot : RootParent
     //[SerializeField]
     //private GameObject stageFireEnemysObject = null;
 
-    private int oneStockCount = 0;
+    public int oneStockCount { get; private set; }
     public int twoStockCount { get; private set; }
 
     [SerializeField]
@@ -178,8 +178,14 @@ public class MainGameRoot : RootParent
     [SerializeField, Tooltip("アニメーター")]
     private List<Animator> specialAnimatorsOne = new List<Animator>();
 
+    [SerializeField, Tooltip("準備UI")]
+    private List<GameObject> specialAttackReadyUIsOne = new List<GameObject>();
+
     [SerializeField, Tooltip("アニメーター")]
     private List<Animator> specialAnimatorsTwo = new List<Animator>();
+
+    [SerializeField, Tooltip("準備UI")]
+    private List<GameObject> specialAttackReadyUIsTwo = new List<GameObject>();
 
     static readonly int isSpecialShowId = Animator.StringToHash("isShow");
     static readonly int isSpecialEndId = Animator.StringToHash("isEnd");
@@ -484,6 +490,8 @@ public class MainGameRoot : RootParent
                 }
             }
         }
+
+        
     }
 
     /// <summary>
@@ -587,6 +595,7 @@ public class MainGameRoot : RootParent
                     oneStockCount++;
                     if (oneStockCount >= MAX_STOCK)
                     {
+                        playerOne.ShowSpecialAttackReadyUI();
                         playerOne.isReadySpecial = true;
                     }
                     SetStockNum(character);
@@ -614,6 +623,7 @@ public class MainGameRoot : RootParent
                     twoStockCount++;
                     if (twoStockCount >= MAX_STOCK)
                     {
+                        playerTwo.ShowSpecialAttackReadyUI();
                         playerTwo.isReadySpecial = true;
                     }
                     SetStockNum(character);
@@ -973,5 +983,16 @@ public class MainGameRoot : RootParent
         // 1 : 火の精
         List<Animator> animators = character == Player.PlayCharacter.One ? specialAnimatorsOne : specialAnimatorsTwo;
         animators[index].SetTrigger(isSpecialEndId);
+    }
+
+    /// <summary>
+    /// 必殺の一撃準備UIの表示/非表示を設定する
+    /// </summary>
+    public void SetSpecialAttackUI(Player.PlayCharacter character, int index, bool isActive)
+    {
+        // 0 : 水の精
+        // 1 : 火の精
+        List<GameObject> specialUIs = character == Player.PlayCharacter.One ? specialAttackReadyUIsOne : specialAttackReadyUIsTwo;
+        specialUIs[index].SetActive(isActive);
     }
 }

@@ -648,6 +648,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 9092141153582352126}
+  seActivationVol: 1
+  seActivationClip: {fileID: 8300000, guid: c7dfa3d7670b9bb48a4e1eccb54e1fb0, type: 3}
   playerAnimator: {fileID: 8206820067443990338}
   specialFireClip: {fileID: 7400000, guid: a7e901f34409db947b4c5fc5affa0e3d, type: 2}
   characterTransform: {fileID: 2172578983844062800}

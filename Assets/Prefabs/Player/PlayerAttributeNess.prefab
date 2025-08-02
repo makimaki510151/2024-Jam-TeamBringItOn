@@ -396,6 +396,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8937252802067332123}
+  seActivationVol: 1
+  seActivationClip: {fileID: 8300000, guid: a9924b0e874b5e54bb25564f98338abe, type: 3}
   playerAnimator: {fileID: 9107156088037239742}
   specialFireClip: {fileID: 7400000, guid: 1b1fea460220ce54d92a4d9151588c12, type: 2}
   characterTransform: {fileID: 8818876137138353153}
