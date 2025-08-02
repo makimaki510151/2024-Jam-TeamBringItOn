@@ -5057,8 +5057,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efaad1cbe3014bf42a25c437018a4930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  torpedSpeed: 10
   torpedEffect: {fileID: 1371176637328834955, guid: 92ba922516f4d4c42869bbc387803e7d, type: 3}
+  slowPhaseDuration: 1
+  accelerationDuration: 0.1
+  minSpeed: 3
+  maxSpeed: 15
 --- !u!1 &9132919483911625864
 GameObject:
   m_ObjectHideFlags: 0
