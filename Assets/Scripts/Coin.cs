@@ -21,7 +21,9 @@ public class Coin : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<Player>().BuffUp(coinPower);
+            var player = collision.GetComponent<Player>();
+            if(player.isSpecialBan) return;
+            player.BuffUp(coinPower);
             effectTransform = Instantiate(AcquisitionEffectPrefab).transform;
             effectTransform.position = transform.position;
             AudioControl.Instance.SetSEVol(pickCoinSEVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);

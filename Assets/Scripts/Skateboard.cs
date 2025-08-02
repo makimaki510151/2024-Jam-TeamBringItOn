@@ -11,7 +11,9 @@ public class Skateboard : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<Player>().SkateboardTime();
+            var player = collision.GetComponent<Player>();
+            if (player.isSpecialBan) return;
+            player.SkateboardTime();
             AudioControl.Instance.SetSEVol(pickSkateboardSEVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
             AudioControl.Instance.PlaySE(pickSkateboardSE);
             Destroy(gameObject);

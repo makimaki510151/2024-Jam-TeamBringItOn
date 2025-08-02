@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
 
     [SerializeField, Tooltip("無敵時間")]
     private float invincibleTime = 0.5f;
-    private float invincibleTimer = 0;
+    public float invincibleTimer = 0;
 
     [SerializeField, Tooltip("無敵中の色")]
     private Color transparentColor = new(1, 1, 1, 0.25f);
@@ -180,6 +180,7 @@ public class Player : MonoBehaviour
     private bool isGoal = false;
     public bool isReadySpecial { get; set; }
     public bool isHigherPlayer { get; private set; }
+    public bool isSpecialBan { get; set; }
 
     private GameObject enemyObject = null;
     private int hitEnemyCount = 0;
@@ -214,6 +215,8 @@ public class Player : MonoBehaviour
 
     public void SetJump()
     {
+        if (isSpecialBan) return;
+
         // 接地しているならフラグをオン
         if (isGround)
         {
@@ -250,6 +253,18 @@ public class Player : MonoBehaviour
     public void ActiveSpecial()
     {
         playerSpecial.StartSpecial();
+    }
+
+    /// <summary>
+    /// ぜんぶなおせ！！！！！
+    /// </summary>
+    public void AllHeal()
+    {
+        isParry = false;
+        isParryCancel = false;
+        FinishSkateboard();
+        HealSolid();
+        HealFrozen();
     }
 
     void Start()
@@ -412,11 +427,7 @@ public class Player : MonoBehaviour
 
             if (skateboardTimer <= 0)
             {
-                skateboardTimer = 0;
-                skateboardBuffContainer = 1;
-                if (!isSolidColor) mySpriteRenderer.color = colorWhite;
-                else mySpriteRenderer.color = solidColor;
-                myAnimator.SetBool(isSkateId, false);
+                FinishSkateboard();
             }
         }
 
@@ -426,9 +437,7 @@ public class Player : MonoBehaviour
             solidColorTimer += deltaTime;
             if(solidColorTimer >= solidColorTime)
             {
-                solidColorTimer = 0;
-                isSolidColor = false;
-                mySpriteRenderer.color = colorWhite;
+                HealSolid();
             }
         }
 
@@ -439,17 +448,40 @@ public class Player : MonoBehaviour
             iceTransform.localScale = Vector2.Lerp(maxSizeIce, vector2zero, frozenTimer / frozenTime);
             if (frozenTimer >= frozenTime)
             {
-                isFrozen = false;
-                frozenTimer = 0;
-                speed = maxSpeed;
-                jumpPower = normalJumpPower;
-                iceTransform.localScale = vector2zero;
+                HealFrozen();
             }
         }
     }
 
+    private void FinishSkateboard()
+    {
+        skateboardTimer = 0;
+        skateboardBuffContainer = 1;
+        if (!isSolidColor) mySpriteRenderer.color = colorWhite;
+        else mySpriteRenderer.color = solidColor;
+        myAnimator.SetBool(isSkateId, false);
+    }
+
+    private void HealSolid()
+    {
+        solidColorTimer = 0;
+        isSolidColor = false;
+        mySpriteRenderer.color = colorWhite;
+    }
+
+    private void HealFrozen()
+    {
+        isFrozen = false;
+        frozenTimer = 0;
+        speed = maxSpeed;
+        jumpPower = normalJumpPower;
+        iceTransform.localScale = vector2zero;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isSpecialBan) return;
+
         // 地面にヒット
         if (collision.CompareTag("Ground"))
         {
