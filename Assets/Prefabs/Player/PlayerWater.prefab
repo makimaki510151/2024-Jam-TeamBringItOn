@@ -398,8 +398,8 @@ MonoBehaviour:
   seActivationVol: 1
   seActivationClip: {fileID: 8300000, guid: d45ccd5dbaaa5244b905ee9bc69e2201, type: 3}
   torpedoPrefab: {fileID: 7393781246745687302, guid: 0a33ed1790df3ed41b365d462cfa3357, type: 3}
-  shotNum: 20
-  shotTime: 3
+  shotNum: 30
+  shotTime: 4
   shotPosY: 0
 --- !u!1 &2110931664351060974
 GameObject:

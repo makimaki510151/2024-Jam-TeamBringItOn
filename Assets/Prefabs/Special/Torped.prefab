@@ -5058,6 +5058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   torpedSpeed: 10
+  torpedEffect: {fileID: 1371176637328834955, guid: 92ba922516f4d4c42869bbc387803e7d, type: 3}
 --- !u!1 &9132919483911625864
 GameObject:
   m_ObjectHideFlags: 0

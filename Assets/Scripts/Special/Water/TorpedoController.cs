@@ -7,6 +7,9 @@ public class TorpedoController : MonoBehaviour
     [SerializeField, Tooltip("移動速度")]
     private float torpedSpeed = 1.0f;
 
+    [SerializeField, Tooltip("エフェクト")]
+    private GameObject torpedEffect = null;
+
     Player player;
     Rigidbody2D myRigidbody2D;
     Transform myTransform;
@@ -47,6 +50,7 @@ public class TorpedoController : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             collision.GetComponent<Enemy>().DirectShot(player.character);
+            Instantiate(torpedEffect).transform.position = transform.position;
             Destroy(gameObject);
         }
     }
