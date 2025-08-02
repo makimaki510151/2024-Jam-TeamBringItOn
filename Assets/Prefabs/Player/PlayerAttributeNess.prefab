@@ -227,6 +227,8 @@ MonoBehaviour:
   seVoiceParryClip: {fileID: 8300000, guid: a96954525cb070f4d916e721949aeccb, type: 3}
   seVoiceItemVol: 0.75
   seVoiceItemClip: {fileID: 8300000, guid: b862aae28d3b7e840aff8871d2812fb1, type: 3}
+  seVoiceSpecialVol: 1
+  seVoiceSpecialClip: {fileID: 8300000, guid: 777efe912ae61094dad7ec08bfcd20a9, type: 3}
 --- !u!61 &4274571922432793070
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -164,6 +164,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip seVoiceItemClip = null;
 
+    [SerializeField]
+    private float seVoiceSpecialVol = 1.0f;
+    [SerializeField]
+    private AudioClip seVoiceSpecialClip = null;
+
     static readonly int isParryId = Animator.StringToHash("isParry");
     static readonly int isParrySuccessId = Animator.StringToHash("isParrySuccess");
     static readonly int isGroundedId = Animator.StringToHash("isGrounded");
@@ -253,6 +258,8 @@ public class Player : MonoBehaviour
     public void ActiveSpecial()
     {
         playerSpecial.StartSpecial();
+        AudioControl.Instance.SetSEVol(seVoiceSpecialVol * MainGameRoot.Instance.dataScriptableObject.seVolSetting);
+        if (MainGameRoot.Instance.dataScriptableObject.isVoiceSetting) AudioControl.Instance.PlaySE(seVoiceSpecialClip, myTransform);
     }
 
     /// <summary>
