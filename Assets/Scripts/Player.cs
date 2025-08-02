@@ -583,6 +583,7 @@ public class Player : MonoBehaviour
         {
             if (!isGoal)
             {
+                
                 MainGameRoot.Instance.GoalPlayer(character);
             }
         }

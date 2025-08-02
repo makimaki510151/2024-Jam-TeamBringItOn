@@ -1,7 +1,4 @@
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using UnityEngine.UI;
-using static UnityEditor.SceneView;
 
 public class Enemy : MonoBehaviour
 {
