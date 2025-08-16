@@ -84,8 +84,12 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OverlayIntensity: 5
+    - _OverlayScrollSpeedBottom: -0.2
+    - _OverlayScrollSpeedTop: 0.2
     - _OverlaySpeedBottom: -0.2
     - _OverlaySpeedTop: 0.2
+    - _OverlayStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -96,6 +100,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 1, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.15686275, b: 0.15686275, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

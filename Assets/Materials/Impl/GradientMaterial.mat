@@ -84,6 +84,9 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OverlayIntensity: 3
+    - _OverlayScrollSpeedBottom: -0.2
+    - _OverlayScrollSpeedTop: 0.2
     - _OverlaySpeedBottom: -0.2
     - _OverlaySpeedTop: 0.2
     - _Parallax: 0.02

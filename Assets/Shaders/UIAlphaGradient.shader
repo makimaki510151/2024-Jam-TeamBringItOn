@@ -10,8 +10,9 @@
         _TransparentRange ("Transparent Range", Range(0.01,1)) = 0.3
         _FadeEdge ("Fade Edge Width", Range(0.01,1)) = 0.2
 
-        _OverlaySpeedTop ("Overlay Speed Top", Float) = -0.2   // 上装飾のスクロール（下方向）
-        _OverlaySpeedBottom ("Overlay Speed Bottom", Float) = 0.2 // 下装飾のスクロール（上方向）
+        _OverlayScrollSpeedTop ("Overlay Scroll Speed Top", Float) = -0.2
+        _OverlayScrollSpeedBottom ("Overlay Scroll Speed Bottom", Float) = 0.2
+        _OverlayIntensity ("Overlay Intensity", Range(0,5)) = 2.0
     }
 
     SubShader
@@ -37,8 +38,9 @@
             float _TransparentCenter;
             float _TransparentRange;
             float _FadeEdge;
-            float _OverlaySpeedTop;
-            float _OverlaySpeedBottom;
+            float _OverlayScrollSpeedTop;
+            float _OverlayScrollSpeedBottom;
+            float _OverlayIntensity;
 
             struct appdata
             {
@@ -67,28 +69,33 @@
                 // 背景
                 fixed4 baseCol = tex2D(_MainTex, uv);
 
-                // 上半分用スクロール
-                float2 uvTop = uv;
-                uvTop.y += _Time.y * _OverlaySpeedTop;
-                fixed4 topCol = tex2D(_OverlayTex, uvTop);
-
-                // 下半分用スクロール
-                float2 uvBottom = uv;
-                uvBottom.y += _Time.y * _OverlaySpeedBottom;
-                fixed4 bottomCol = tex2D(_OverlayTex, uvBottom);
-
-                // 透明度計算（中央透明、上下不透明）
+                // フェード計算（中央透明・上下不透明）
                 float dist = abs(uv.y - _TransparentCenter);
                 float inner = _TransparentRange / 2.0;
                 float fadeAlpha = saturate((dist - inner) / _FadeEdge);
 
-                // 上半分 or 下半分を切り替えて適用
-                fixed4 overlayCol = (uv.y > _TransparentCenter) ? topCol : bottomCol;
+                // 装飾UV（上下別スクロール）
+                float2 uvTop = uv + float2(0, _Time.y * _OverlayScrollSpeedTop);
+                float2 uvBottom = uv + float2(0, _Time.y * _OverlayScrollSpeedBottom);
 
-                // 合成
-                fixed4 finalCol = baseCol + overlayCol;
+                fixed4 overlayTop = tex2D(_OverlayTex, uvTop);
+                fixed4 overlayBottom = tex2D(_OverlayTex, uvBottom);
+
+                // 上下どちらかに応じて選択
+                fixed4 overlayCol = (uv.y > _TransparentCenter) ? overlayTop : overlayBottom;
+
+                // 濃さ強調（RGBもαも強め）
+                float overlayAlpha = saturate(overlayCol.a * _OverlayIntensity);
+                fixed3 overlayRGB = overlayCol.rgb * _OverlayIntensity;
+
+                // 背景と lerp（ステッカー感）
+                fixed3 finalRGB = lerp(baseCol.rgb, overlayRGB, overlayAlpha);
+
+                // フェード適用
+                fixed4 finalCol = fixed4(finalRGB, baseCol.a * fadeAlpha);
+
+                // Tint 反映
                 finalCol *= _Color;
-                finalCol.a *= fadeAlpha;
 
                 return finalCol;
             }
