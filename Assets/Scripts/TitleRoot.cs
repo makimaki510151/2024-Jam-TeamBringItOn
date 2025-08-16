@@ -43,6 +43,11 @@ public class TitleRoot : RootParent
     [SerializeField]
     private AudioClip seDecisionClip = null;
 
+    [SerializeField]
+    private float seCursorVol = 1.0f;
+    [SerializeField]
+    private AudioClip seCursorClip = null;
+
 
     private GameObject selectEndButtonObject = null;
 
@@ -52,6 +57,7 @@ public class TitleRoot : RootParent
     private const string InitialLoadingConfirmationId = "InitialLoadingConfirmation";
     private bool isTitleAnimation = true;
     private bool isWait = true;
+    private GameObject oldSelectButtonObject;
 
     public override void Awake() 
     {  
@@ -95,6 +101,13 @@ public class TitleRoot : RootParent
                 EventSystem.current.SetSelectedGameObject(null);
             }
         }
+
+        if (eventSystem.currentSelectedGameObject != oldSelectButtonObject)
+        {
+            AudioControl.Instance.SetSEVol(seCursorVol * dataScriptableObject.seVolSetting);
+            AudioControl.Instance.PlaySE(seCursorClip);
+        }
+        oldSelectButtonObject = eventSystem.currentSelectedGameObject;
     }
 
     IEnumerator OnEndTitleAnimation()
