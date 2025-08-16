@@ -96,6 +96,7 @@ public class OtherMenu : MonoBehaviour
     private bool isFinish = false;
     private bool isFade = false;
     private int playerNum = 0;
+    private Vector2 oldInput = Vector2.zero;
 
     #region PlayerInput
     public void OnNext(InputAction.CallbackContext context)
@@ -162,6 +163,39 @@ public class OtherMenu : MonoBehaviour
         }
     }
     #endregion
+
+    public void OnStick(InputAction.CallbackContext context)
+    {
+        var input = context.ReadValue<Vector2>();
+        if(oldInput == Vector2.zero)
+        {
+            if (input.x > 0)
+            {
+                if (playerNum == 0)
+                {
+                    buttonAnimator[0].SetTrigger(isSelectId);
+                }
+                else
+                {
+                    buttonAnimator[4].SetTrigger(isSelectId);
+                }
+                NextSelectObject();
+            }
+            else
+            {
+                if (playerNum == 0)
+                {
+                    buttonAnimator[1].SetTrigger(isSelectId);
+                }
+                else
+                {
+                    buttonAnimator[5].SetTrigger(isSelectId);
+                }
+                BackSelectObject();
+            }
+        }
+        oldInput = input;
+    }
 
     void Update()
     {
