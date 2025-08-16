@@ -585,15 +585,6 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        // ゴールにヒット
-        else if (collision.CompareTag("Goal"))
-        {
-            if (!isGoal)
-            {
-                
-                MainGameRoot.Instance.GoalPlayer(character);
-            }
-        }
         // ボスにヒット
         else if (collision.CompareTag("Boss"))
         {

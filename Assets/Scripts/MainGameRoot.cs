@@ -714,6 +714,9 @@ public class MainGameRoot : RootParent
 
     public void GoalPlayer(Player.PlayCharacter character)
     {
+        // どっちかゴールしてたら処理しない
+        if (isGoals[0] || isGoals[1]) return;
+
         // デュアルランナーモード
         if (!isBreadEatingCompetitionMode)
         {
