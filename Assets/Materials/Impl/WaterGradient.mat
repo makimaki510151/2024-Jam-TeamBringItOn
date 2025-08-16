@@ -105,7 +105,7 @@ Material:
     - _TopAlpha: 0
     - _TopSpeed: 0.2
     - _TransparentCenter: 0.5
-    - _TransparentRange: 0.6
+    - _TransparentRange: 0.45
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
