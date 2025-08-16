@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class CompetitionMenu : MonoBehaviour
 {
@@ -11,6 +12,14 @@ public class CompetitionMenu : MonoBehaviour
     private List<GameObject> SpeechBubbleObjects = new List<GameObject>();
 
     private EventSystem eventSystem = null;
+
+    public void OnReturn(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            ReturnMenu();
+        }
+    }
 
     void Start()
     {

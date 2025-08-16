@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class WholeMenu : MonoBehaviour
@@ -18,6 +19,14 @@ public class WholeMenu : MonoBehaviour
 
     [SerializeField, Tooltip("操作ガイド表示時に選択するボタン")]
     private Button firstSelectGideButton = null;
+
+    public void OnReturn(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            RetrunTitle();
+        }
+    }
 
     void Start()
     {
