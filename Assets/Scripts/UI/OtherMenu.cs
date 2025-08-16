@@ -13,7 +13,10 @@ public class OtherMenu : MonoBehaviour
     private List<GameObject> changeButtons = new List<GameObject>();
 
     [SerializeField, Tooltip("待機UI")]
-    private GameObject waitUI = null;
+    private GameObject waitOneUI = null;
+
+    [SerializeField, Tooltip("待機UI")]
+    private GameObject waitTwoUI = null;
 
     [SerializeField, Tooltip("エラーUI")]
     private GameObject errorUI = null;
@@ -415,6 +418,7 @@ public class OtherMenu : MonoBehaviour
                     ModeSelectRoot.Instance.dataScriptableObject.operationNumber = 2;
                 }
                 selectCounter++;
+                waitTwoUI.SetActive(true);
                 SetSelectObject();
                 break;
             //// 操作
@@ -439,12 +443,14 @@ public class OtherMenu : MonoBehaviour
                 if(playerNum == 0)
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber = selectIndexOne;
-                    waitUI.SetActive(true);
+                    waitOneUI.SetActive(true);
+                    waitTwoUI.SetActive(false);
                 }
                 else
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.characterTwoNumber = selectIndexTwo;
-                    waitUI.SetActive(false);
+                    waitOneUI.SetActive(false);
+                    waitTwoUI.SetActive(true);
                 }
 
                 waitCounter++;
@@ -469,12 +475,14 @@ public class OtherMenu : MonoBehaviour
                 if (playerNum == 0)
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.stageOneNumber = selectIndexOne;
-                    waitUI.SetActive(true);
+                    waitOneUI.SetActive(true);
+                    waitTwoUI.SetActive(false);
                 }
                 else
                 {
                     ModeSelectRoot.Instance.dataScriptableObject.stageTwoNumber = selectIndexTwo;
-                    waitUI.SetActive(false);
+                    waitOneUI.SetActive(false);
+                    waitTwoUI.SetActive(true);
                 }
 
                 waitCounter++;
@@ -509,7 +517,8 @@ public class OtherMenu : MonoBehaviour
         else if(waitCounter == 1)
         {
             waitCounter = 0;
-            waitUI.SetActive(false);
+            waitOneUI.SetActive(false);
+            waitTwoUI.SetActive(true);
             //confirmButtons[0].Select();
         }
         else
@@ -537,6 +546,8 @@ public class OtherMenu : MonoBehaviour
     /// </summary>
     private void FinishSetting()
     {
+        waitOneUI.SetActive(false);
+        waitTwoUI.SetActive(false);
         characterOneObjects[ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber].GetComponent<Animator>().enabled = true;
         characterTwoObjects[ModeSelectRoot.Instance.dataScriptableObject.characterTwoNumber].GetComponent<Animator>().enabled = true;
         characterRectTransforms.Add(characterOneObjects[ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber].GetComponent<RectTransform>());
