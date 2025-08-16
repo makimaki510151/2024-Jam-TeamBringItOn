@@ -656,17 +656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6baffaac18c5ecd45905a4bfcae90d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &198683420 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5627991506287731668, guid: fa0a27d6966c15f4297962123e60ef61, type: 3}
-  m_PrefabInstance: {fileID: 4834270572853966513}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &272656320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -778,17 +767,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 481e70ae756f9404b92df0d3c7b594ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &293014188 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5627991506287731668, guid: fa0a27d6966c15f4297962123e60ef61, type: 3}
-  m_PrefabInstance: {fileID: 341153040}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &296181712
@@ -1263,6 +1241,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 4297583923435291227, guid: 1917b616e9c877f49924ac486ebe9c62, type: 3}
   m_PrefabInstance: {fileID: 2257879919691102153}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &535501849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5001344325586756882, guid: fa0a27d6966c15f4297962123e60ef61, type: 3}
+  m_PrefabInstance: {fileID: 4834270572853966513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983089658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c884617b1dfdd4f88dbee9a0e0518c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &543018092
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3937,6 +3926,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6f686c06e9d834f93789d44196f2fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1718484451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5001344325586756882, guid: fa0a27d6966c15f4297962123e60ef61, type: 3}
+  m_PrefabInstance: {fileID: 341153040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c884617b1dfdd4f88dbee9a0e0518c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1741221331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4321,6 +4321,8 @@ MonoBehaviour:
   settingUIObject: {fileID: 38567187}
   settingSelectButton: {fileID: 38567189}
   parryStock: {fileID: 1983089658}
+  oneParryStockUI: {fileID: 535501849}
+  twoParryStockUI: {fileID: 1718484451}
   oneStocks:
   - {fileID: 4834270572853966514}
   - {fileID: 4834270572853966515}
@@ -4335,8 +4337,6 @@ MonoBehaviour:
   - {fileID: 341153046}
   - {fileID: 341153047}
   twoStockOver: {fileID: 341153042}
-  oneStockNumText: {fileID: 198683420}
-  twoStockNumText: {fileID: 293014188}
   bossStockPosRect: {fileID: 4834270572853966518}
   stockShotPosWater: {fileID: 1931078440}
   stockShotPosFire: {fileID: 1445386494}

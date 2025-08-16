@@ -59,6 +59,12 @@ public class MainGameRoot : RootParent
 
     [Header("パリィストック")]
 
+    [SerializeField, Tooltip("パリィストックUI")]
+    private ParryStockUI oneParryStockUI = null;
+
+    [SerializeField, Tooltip("パリィストックUI")]
+    private ParryStockUI twoParryStockUI = null;
+
     [SerializeField]
     private List<RectTransform> oneStocks = new();
     [SerializeField]
@@ -67,12 +73,6 @@ public class MainGameRoot : RootParent
     private List<RectTransform> twoStocks = new();
     [SerializeField]
     private RectTransform twoStockOver = null;
-
-    [SerializeField, Tooltip("1Pのパリィストック数")]
-    private TextMeshProUGUI oneStockNumText = null;
-
-    [SerializeField, Tooltip("2Pのパリィストック数")]
-    private TextMeshProUGUI twoStockNumText = null;
 
     [SerializeField, Tooltip("ボスストック位置")]
     private RectTransform bossStockPosRect = null;
@@ -699,10 +699,10 @@ public class MainGameRoot : RootParent
         switch (character)
         {
             case Player.PlayCharacter.One:
-                oneStockNumText.SetText(oneStockCount.ToString());
+                oneParryStockUI.SetCount(oneStockCount);
                 break;
             case Player.PlayCharacter.Two:
-                twoStockNumText.SetText(twoStockCount.ToString());
+                twoParryStockUI.SetCount(twoStockCount);
                 break;
         }
     }
