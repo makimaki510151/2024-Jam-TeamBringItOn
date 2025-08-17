@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class OtherMenu : MonoBehaviour
 {
+    [SerializeField, Tooltip("プレイヤーインプット")]
+    private PlayerInput playerInput = null;
+
     [SerializeField, Tooltip("決定ボタン")]
     private List<GameObject> confirmButtons = new List<GameObject>();
 
@@ -580,6 +582,7 @@ public class OtherMenu : MonoBehaviour
     /// </summary>
     private void FinishSetting()
     {
+        playerInput.enabled = false;
         waitOneUI.SetActive(false);
         waitTwoUI.SetActive(false);
         characterOneObjects[ModeSelectRoot.Instance.dataScriptableObject.characterOneNumber].GetComponent<Animator>().enabled = true;

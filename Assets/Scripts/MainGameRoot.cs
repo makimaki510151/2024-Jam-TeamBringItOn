@@ -1,13 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class MainGameRoot : RootParent
@@ -216,6 +213,11 @@ public class MainGameRoot : RootParent
     [SerializeField]
     private AudioClip seGoalClip = null;
 
+    [SerializeField]
+    private float seCursorVol = 1.0f;
+    [SerializeField]
+    private AudioClip seCursorClip = null;
+
     private List<StockUI> stockUIsWater = new();
     private List<StockUI> stockUIsFire = new();
 
@@ -242,6 +244,7 @@ public class MainGameRoot : RootParent
     private Transform goalUITransform = null;
     private GameObject[] breadsObjects = new GameObject[2];
     private bool[] isGoals = new bool[2];
+    private GameObject oldSelectButtonObject;
 
     public static MainGameRoot Instance;
 
@@ -267,8 +270,9 @@ public class MainGameRoot : RootParent
             }
             else
             {
-                settingUIObject.SetActive(false);
+                //settingUIObject.SetActive(false);
                 SettingClose();
+                ButtonResume();
             }
         }
     }
@@ -293,9 +297,16 @@ public class MainGameRoot : RootParent
     public void OnReturn(InputAction.CallbackContext context)
     {
         // ポーズ中にボタンが押されたら、ポーズ画面を閉じる
-        if (context.started && isPause)
+        if (context.started)
         {
-            ButtonResume();
+            if (isSetting)
+            {
+                SettingClose();
+            }
+            else if (isPause)
+            {
+                ButtonResume();
+            }
         }
     }
 
@@ -501,7 +512,13 @@ public class MainGameRoot : RootParent
             }
         }
 
-        
+        // カーソル音
+        if (eventSystem.currentSelectedGameObject != oldSelectButtonObject)
+        {
+            AudioControl.Instance.SetSEVol(seCursorVol * dataScriptableObject.seVolSetting);
+            AudioControl.Instance.PlaySE(seCursorClip);
+        }
+        oldSelectButtonObject = eventSystem.currentSelectedGameObject;
     }
 
     /// <summary>

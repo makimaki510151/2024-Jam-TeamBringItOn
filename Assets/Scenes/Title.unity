@@ -357,6 +357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 212115823}
   - component: {fileID: 212115824}
+  - component: {fileID: 212115825}
   m_Layer: 0
   m_Name: SceneRoot
   m_TagString: Untagged
@@ -412,6 +413,68 @@ MonoBehaviour:
   seDecisionClip: {fileID: 8300000, guid: 44fcf8934c03ec343b42c02c1eb2a246, type: 3}
   seCursorVol: 0.5
   seCursorClip: {fileID: 8300000, guid: 3145fb04d4ccab444916ea6ee0f2c0aa, type: 3}
+--- !u!114 &212115825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212115822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 1baaaf4bc4fe8114e99039cc67da5335, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 60da5be9-7448-44a7-bc80-be01dcdb79b4
+    m_ActionName: Menu/Next[/Keyboard/d,/Keyboard/rightArrow,/XInputControllerWindows/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 111c37bf-7b55-44d7-8e3e-cbdf2d4ecce2
+    m_ActionName: Menu/Back[/Keyboard/a,/Keyboard/leftArrow,/XInputControllerWindows/dpad/left]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e3a1d63-bef5-43bf-b354-2fee62f4d1a9
+    m_ActionName: Menu/Confirm[/Keyboard/enter,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 212115824}
+        m_TargetAssemblyTypeName: TitleRoot, Assembly-CSharp
+        m_MethodName: OnReturn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 311aa919-8c08-42f0-83c6-cb83abd99cfe
+    m_ActionName: Menu/Return[/Keyboard/q,/Keyboard/escape,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b1340f34-e3e2-43e5-af9d-fd08286ec57f
+    m_ActionName: Menu/Stick[/XInputControllerWindows/leftStick]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Menu
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &277975603
 GameObject:
   m_ObjectHideFlags: 0

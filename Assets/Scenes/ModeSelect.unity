@@ -4140,6 +4140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9a9af076f5925449b7b6c04658fd31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 911646971}
   confirmButtons:
   - {fileID: 1418339549}
   - {fileID: 648298412}

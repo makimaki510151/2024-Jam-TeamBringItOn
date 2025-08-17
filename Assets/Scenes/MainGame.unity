@@ -4393,6 +4393,8 @@ MonoBehaviour:
   bgmWinnerClip: {fileID: 8300000, guid: 06a2a2ff5a4365e43965ffc131de33e5, type: 3}
   seGoalVol: 0.4
   seGoalClip: {fileID: 8300000, guid: e986263fce901fb489514490fce6e2f3, type: 3}
+  seCursorVol: 0.5
+  seCursorClip: {fileID: 8300000, guid: 3145fb04d4ccab444916ea6ee0f2c0aa, type: 3}
 --- !u!114 &1989068095
 MonoBehaviour:
   m_ObjectHideFlags: 0

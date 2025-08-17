@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -64,6 +65,15 @@ public class TitleRoot : RootParent
         base.Awake();
         Instance = this;
     }
+
+    public void OnReturn(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            SettingClose();
+        }
+    }
+
     private void Start()
     {
         AudioControl.Instance.SetBGMVol(bgmTitleVol * dataScriptableObject.bgmVolSetting);
