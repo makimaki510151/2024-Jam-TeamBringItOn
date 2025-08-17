@@ -454,6 +454,8 @@ public class MainGameRoot : RootParent
             if(breadEatingCompetitionTimeLimit <= 0)
             {
                 isWaitGoal = false;
+                playerOne.SetGoal();
+                playerTwo.SetGoal();
                 BreadGoal();
             }
         }
@@ -770,6 +772,7 @@ public class MainGameRoot : RootParent
                 breadEatingCompetitionRoot.SetTimeOver(0);
                 isGoals[0] = true;
                 goalCount++;
+                playerOne.SetGoal();
             }
             // 2P‚ªƒS[ƒ‹‚µ‚½‚çA2PƒS[ƒ‹UI‚ð•\Ž¦‚·‚é
             else if(character == Player.PlayCharacter.Two && !isGoals[1])
@@ -779,6 +782,7 @@ public class MainGameRoot : RootParent
                 breadEatingCompetitionRoot.SetTimeOver(1);
                 isGoals[1] = true;
                 goalCount++;
+                playerTwo.SetGoal();
             }
             if (goalCount == 2)
             {
