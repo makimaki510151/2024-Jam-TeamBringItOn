@@ -27,6 +27,7 @@ public class PlayerActionSetter : MonoBehaviour
         playerAction.Love.Pause.started += MainGameRoot.Instance.OnPause;
         playerAction.Love.Result.started += MainGameRoot.Instance.OnResult;
         playerAction.Love.Retry.started += MainGameRoot.Instance.OnRetry;
+        playerAction.Love.Return.started += MainGameRoot.Instance.OnReturn;
 
         playerAction.Enable();
     }

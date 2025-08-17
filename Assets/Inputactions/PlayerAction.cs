@@ -89,6 +89,15 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Return"",
+                    ""type"": ""Button"",
+                    ""id"": ""58db7af7-e37c-4765-bb45-673fa0e83135"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -267,6 +276,17 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
                     ""action"": ""Retry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f28888e-ba82-4bb0-bd2e-f442a72cfd27"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Return"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -343,6 +363,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         m_Love_Pause = m_Love.FindAction("Pause", throwIfNotFound: true);
         m_Love_Result = m_Love.FindAction("Result", throwIfNotFound: true);
         m_Love_Retry = m_Love.FindAction("Retry", throwIfNotFound: true);
+        m_Love_Return = m_Love.FindAction("Return", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -411,6 +432,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Love_Pause;
     private readonly InputAction m_Love_Result;
     private readonly InputAction m_Love_Retry;
+    private readonly InputAction m_Love_Return;
     public struct LoveActions
     {
         private @PlayerAction m_Wrapper;
@@ -422,6 +444,7 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Love_Pause;
         public InputAction @Result => m_Wrapper.m_Love_Result;
         public InputAction @Retry => m_Wrapper.m_Love_Retry;
+        public InputAction @Return => m_Wrapper.m_Love_Return;
         public InputActionMap Get() { return m_Wrapper.m_Love; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -452,6 +475,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Retry.started += instance.OnRetry;
             @Retry.performed += instance.OnRetry;
             @Retry.canceled += instance.OnRetry;
+            @Return.started += instance.OnReturn;
+            @Return.performed += instance.OnReturn;
+            @Return.canceled += instance.OnReturn;
         }
 
         private void UnregisterCallbacks(ILoveActions instance)
@@ -477,6 +503,9 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
             @Retry.started -= instance.OnRetry;
             @Retry.performed -= instance.OnRetry;
             @Retry.canceled -= instance.OnRetry;
+            @Return.started -= instance.OnReturn;
+            @Return.performed -= instance.OnReturn;
+            @Return.canceled -= instance.OnReturn;
         }
 
         public void RemoveCallbacks(ILoveActions instance)
@@ -548,5 +577,6 @@ public partial class @PlayerAction: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnResult(InputAction.CallbackContext context);
         void OnRetry(InputAction.CallbackContext context);
+        void OnReturn(InputAction.CallbackContext context);
     }
 }

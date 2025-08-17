@@ -290,6 +290,15 @@ public class MainGameRoot : RootParent
         }
     }
 
+    public void OnReturn(InputAction.CallbackContext context)
+    {
+        // ポーズ中にボタンが押されたら、ポーズ画面を閉じる
+        if (context.started && isPause)
+        {
+            ButtonResume();
+        }
+    }
+
     public override void Awake()
     {
         base.Awake();

@@ -329,12 +329,15 @@ public class Player : MonoBehaviour
         {
             if(myRigidbody2D.velocity.x < 0)
             {
-                myRigidbody2D.velocity = vector2zero;
-                this.enabled = false;
+                var vel = myRigidbody2D.velocity;
+                vel.x = 0;
+                myRigidbody2D.velocity = vel;
             }
             else
             {
-                myRigidbody2D.velocity -= tempVector2 / 2;
+                var vel = myRigidbody2D.velocity;
+                vel.x -= tempVector2.x / 2;
+                myRigidbody2D.velocity = vel;
             }
         }
 
