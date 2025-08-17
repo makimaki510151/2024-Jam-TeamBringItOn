@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class OneModeMenu : MonoBehaviour
 {
@@ -14,6 +15,14 @@ public class OneModeMenu : MonoBehaviour
     private Transform headTransform = null;
 
     private Vector3 headAngle = Vector3.zero;
+
+    public void OnReturn(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            ReturnMenu();
+        }
+    }
 
     public void ShowTimeAttackMenu()
     {

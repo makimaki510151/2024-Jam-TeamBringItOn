@@ -4307,6 +4307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 920553397}
   - component: {fileID: 920553398}
+  - component: {fileID: 920553399}
   m_Layer: 0
   m_Name: OneModeMenu
   m_TagString: Untagged
@@ -4359,6 +4360,68 @@ MonoBehaviour:
   - 20
   - 0
   headTransform: {fileID: 2069629636}
+--- !u!114 &920553399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920553396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 1baaaf4bc4fe8114e99039cc67da5335, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 60da5be9-7448-44a7-bc80-be01dcdb79b4
+    m_ActionName: Menu/Next[/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 111c37bf-7b55-44d7-8e3e-cbdf2d4ecce2
+    m_ActionName: Menu/Back[/Keyboard/a,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e3a1d63-bef5-43bf-b354-2fee62f4d1a9
+    m_ActionName: Menu/Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 920553398}
+        m_TargetAssemblyTypeName: OneModeMenu, Assembly-CSharp
+        m_MethodName: OnReturn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 311aa919-8c08-42f0-83c6-cb83abd99cfe
+    m_ActionName: Menu/Return[/Keyboard/q,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b1340f34-e3e2-43e5-af9d-fd08286ec57f
+    m_ActionName: Menu/Stick
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Menu
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &949111442
 GameObject:
   m_ObjectHideFlags: 0
@@ -9227,6 +9290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1943629318}
   - component: {fileID: 1943629319}
+  - component: {fileID: 1943629320}
   m_Layer: 0
   m_Name: AreaSelectMenu
   m_TagString: Untagged
@@ -9273,6 +9337,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b0690a9dbc3a441b3ff5337d650c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1943629320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943629317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 1baaaf4bc4fe8114e99039cc67da5335, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 60da5be9-7448-44a7-bc80-be01dcdb79b4
+    m_ActionName: Menu/Next[/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 111c37bf-7b55-44d7-8e3e-cbdf2d4ecce2
+    m_ActionName: Menu/Back[/Keyboard/a,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e3a1d63-bef5-43bf-b354-2fee62f4d1a9
+    m_ActionName: Menu/Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1943629319}
+        m_TargetAssemblyTypeName: AreaSelectMenu, Assembly-CSharp
+        m_MethodName: OnReturn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 311aa919-8c08-42f0-83c6-cb83abd99cfe
+    m_ActionName: Menu/Return[/Keyboard/q,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b1340f34-e3e2-43e5-af9d-fd08286ec57f
+    m_ActionName: Menu/Stick
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Menu
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1977009060
 GameObject:
   m_ObjectHideFlags: 0

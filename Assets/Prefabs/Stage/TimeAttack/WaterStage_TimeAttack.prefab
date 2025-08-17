@@ -1884,7 +1884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 586864153755010624}
   m_Layer: 0
-  m_Name: WaterStage
+  m_Name: WaterStage_TimeAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

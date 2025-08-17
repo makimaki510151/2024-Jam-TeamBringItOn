@@ -7,8 +7,11 @@ public class StageSetter : MonoBehaviour
     [SerializeField, Tooltip("キャラクター")]
     private List<GameObject> characters = new List<GameObject>();
 
-    [SerializeField, Tooltip("ステージ")]
+    [SerializeField, Tooltip("通常ステージ")]
     private List<GameObject> stages = new List<GameObject>();
+
+    [SerializeField, Tooltip("タイムアタックステージ")]
+    private List<GameObject> timeAttackStages = new List<GameObject>();
 
     [SerializeField, Tooltip("チュートリアルステージ")]
     private GameObject tutorialStage = null;
@@ -41,6 +44,11 @@ public class StageSetter : MonoBehaviour
         }
         else
         {
+            // タイムアタックならタイムアタック用ステージを置く
+            if(dataScriptableObject.playType == DataScriptableObject.PlayType.One)
+            {
+                stages = timeAttackStages;
+            }
             stageObject = Instantiate(stages[dataScriptableObject.stageOneNumber]);
         }
         stageObject.transform.position = stagePositions[0];

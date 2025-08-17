@@ -21,8 +21,12 @@ public class Coin : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            var player = collision.GetComponent<Player>();
-            if(player.isSpecialBan) return;
+            var player = collision.gameObject.GetComponent<Player>();
+            if (player == null)
+            {
+                player = collision.gameObject.GetComponentInParent<Player>();
+            }
+            if (player.isSpecialBan) return;
             player.BuffUp(coinPower);
             effectTransform = Instantiate(AcquisitionEffectPrefab).transform;
             effectTransform.position = transform.position;
