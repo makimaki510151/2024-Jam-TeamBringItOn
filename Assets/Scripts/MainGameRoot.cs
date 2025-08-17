@@ -714,12 +714,12 @@ public class MainGameRoot : RootParent
 
     public void GoalPlayer(Player.PlayCharacter character)
     {
-        // どっちかゴールしてたら処理しない
-        if (isGoals[0] || isGoals[1]) return;
-
         // デュアルランナーモード
         if (!isBreadEatingCompetitionMode)
         {
+            // どっちかゴールしてたら処理しない
+            if (isGoals[0] || isGoals[1]) return;
+
             // 1Pがゴールしたら、1PゴールUIを表示する
             if (character == Player.PlayCharacter.One)
             {
@@ -763,27 +763,29 @@ public class MainGameRoot : RootParent
         else
         {
             // 1Pがゴールしたら、1PゴールUIを表示する
-            if (character == Player.PlayCharacter.One)
+            if (character == Player.PlayCharacter.One && !isGoals[0])
             {
                 waitUIs[0].SetActive(true);
                 waitUIAnimators[0].SetTrigger(isShowIdForWaitUI);
                 breadEatingCompetitionRoot.SetTimeOver(0);
                 isGoals[0] = true;
+                goalCount++;
             }
             // 2Pがゴールしたら、2PゴールUIを表示する
-            else
+            else if(character == Player.PlayCharacter.Two && !isGoals[1])
             {
                 waitUIs[1].SetActive(true);
                 waitUIAnimators[1].SetTrigger(isShowIdForWaitUI);
                 breadEatingCompetitionRoot.SetTimeOver(1);
                 isGoals[1] = true;
+                goalCount++;
             }
-            goalCount++;
-            if(goalCount >= 2 && isWaitGoal)
+            if (goalCount == 2)
             {
+                isWaitGoal = false;
                 BreadGoal();
             }
-            else
+            else if(goalCount == 1)
             {
                 isWaitGoal = true;
             }

@@ -6,7 +6,12 @@ public class Goal : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            MainGameRoot.Instance.GoalPlayer(collision.gameObject.GetComponent<Player>().character);
+            Player player = collision.gameObject.GetComponent<Player>();
+            if(player == null)
+            {
+                player = collision.gameObject.GetComponentInParent<Player>();
+            }
+            MainGameRoot.Instance.GoalPlayer(player.character);
         }
     }
 }
